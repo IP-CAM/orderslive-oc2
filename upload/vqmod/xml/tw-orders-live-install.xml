@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+	<id>tw-orders-live-install-script</id>
+	<version>1.0.3b</version>
+	<vqmver required="true">2.6.0</vqmver>
+	<author>tw</author>
+	<!--
+	This is a vQmod to install the necessary columns when you don't want to use OCMod
+	THIS FILE WILL BE AUTOMATICALLY REMOVED AFTER THE INSTALLATION
+	-->
+	<!-- START tw-orders-live-install-script Add the required permissions so user doesn't have to do it manually -->
+	<file name="admin/controller/common/header.php">
+		<operation info="Add the permissions for Orders Live">
+			<search position="before" >
+				<![CDATA[return $this->load->view('common/header', $data);]]>
+			</search>
+			<add>
+				<![CDATA[
+		//tw-orders-live-install-script.xml - Add the permissions for Orders Live
+		$this->load->model('user/user_group');
+		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'access', 'sale/tw_live');
+		$this->model_user_user_group->addPermission($this->user->getGroupId(), 'modify', 'sale/tw_live');
+		//Remove this file
+		if(file_exists(DIR_APPLICATION."../vqmod/xml/tw-orders-live-install.xml")){
+			unlink(DIR_APPLICATION."../vqmod/xml/tw-orders-live-install.xml");
+		}
+		//Clear VQmod cache file
+		if(file_exists(DIR_APPLICATION."../vqmod/mods.cache")){
+			unlink(DIR_APPLICATION."../vqmod/mods.cache");
+		}
+
+		if(file_exists(DIR_APPLICATION."../vqmod/checked.cache")){
+			unlink(DIR_APPLICATION."../vqmod/checked.cache");
+		}
+		//Remove the cached file
+		if(file_exists(VQMod::modCheck(__FILE__))){
+			unlink(VQMod::modCheck(__FILE__));
+		}
+		//tw-orders-live-install-script.xml - Add tw-invoice-info database columns END
+					]]>
+			</add>
+		</operation>
+	</file>
+	<!-- END Add the required permissions so user doesn't have to do it manually -->
+
+</modification>

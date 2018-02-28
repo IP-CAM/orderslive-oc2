@@ -1,0 +1,12 @@
+Changelog for Orders Live 
+
+v1.0.3b
+ - Fixed error in installation script
+ 
+v1.0.3
+ - Removed the ability to add customer history comments for uregistered users
+ - Added version text on top of page
+
+v1.0.2
+ - Added actual support for OC version 2.1.x.x
+ 
