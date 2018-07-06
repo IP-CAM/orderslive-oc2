@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+	<name>Live Orders by tw</name>
+	<version>1.0.3b</version>
+	<author>tw</author>
+	<code>tw_orders_live_menu_links</code>
+	<file path="admin/model/sale/order.php">
+		<operation error="log">
+			<search><![CDATA[
+				public function getOrderProducts($order_id) {
+			]]></search>
+			<add position="before"><![CDATA[
+//tw-orders-live.xml Get orders with order_id > $order_id
+	public function getOrdersAfter($order_id = NULL) {
+		if($order_id){
+		$sql = "SELECT o.order_id, o.date_added, o.date_modified
+			FROM `" . DB_PREFIX . "order` o
+			WHERE o.order_status_id > '0'
+			AND o.order_id >".(int)$order_id;
+		} else {
+			$sql = "SELECT o.order_id, o.date_added, o.date_modified
+					FROM `" . DB_PREFIX . "order` o
+					WHERE o.order_status_id > '0'
+					ORDER BY o.order_id DESC
+					LIMIT 1";
+		}
+		$query = $this->db->query($sql);
+		return $query->rows;
+	}
+//tw-orders-live.xml - END
+			]]></add>
+		</operation>
+	</file>
+
+	<file path="admin/controller/common/column_left.php">
+		<operation error="skip" info="Add sidebar link for 2.3">
+			<search><![CDATA[
+			// Voucher
+			]]></search>
+			<add position="before"><![CDATA[
+			if ($this->user->hasPermission('access', 'sale/tw_live')) {
+				$sale[] = array(
+					'name'	   => "Orders Live!",
+					'href'     => $this->url->link('sale/tw_live', 'token=' . $this->session->data['token'], true),
+					'children' => array()
+				);
+			}
+			]]></add>
+		</operation>
+	</file>
+
+	<file path="admin/view/template/common/menu.tpl">
+		<operation error="skip" info="Menu link for 2.2">
+			<search><![CDATA[
+		<li><a href="<?php echo $order; ?>"><?php echo $text_order; ?></a></li>
+			]]></search>
+			<add position="after"><![CDATA[
+		<li><a href="<?php echo $tw_orders_live_link; ?>">Orders Live!</a></li>
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/controller/common/menu.php">
+		<operation error="skip" info="Menu link for 2.2 and 2.1">
+			<search><![CDATA[
+	$data['openbay_link_amazonus_links']
+			]]></search>
+			<add position="after"><![CDATA[
+	$data['tw_orders_live_link'] = $this->url->link('sale/tw_live', 'token=' . $this->session->data['token'], true);
+			]]></add>
+		</operation>
+	</file>
+</modification>
