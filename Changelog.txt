@@ -1,5 +1,8 @@
 Changelog for Orders Live 
 
+v1.0.4
+ - Fixed some 'rare' bugs
+
 v1.0.3b
  - Fixed error in installation script
  

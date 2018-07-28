@@ -119,10 +119,10 @@
 			this.sound_dir = 'view/sounds/tw/tworderslive/';
 			this.live_is_enabled = true;
 			this.options = {
-				sound_file : '<?= current($sound_files)['file'] ?>',
+				sound_file : '',
 				mute_sound : false
 			};
-			this.sound = new Audio('view/sounds/tw/tworderslive/<?= current($sound_files)["file"]?>');
+			this.sound = '';
 		}
 
 		playNotification(force){
@@ -159,10 +159,13 @@
 		optionsToUi(){
 			this.$el.find('#tw-mute-sound').prop('checked',this.options.mute_sound);
 			this.$el.find('#tw-sound-select option[value="'+this.options.sound_file+'"]').prop('selected',true);
+			return this;
 		}
 	}
 	var settings = new TwLiveSettings('#settings');
-	settings.loadOptions().saveOptions().optionsToUi();
+	$(document).ready(function(){
+		settings.loadOptions().saveOptions().optionsToUi().parseSettings();
+	})
 
 	$('#tw-toggle-live').click(function(){
 		settings.toggleLive();

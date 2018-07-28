@@ -5,7 +5,7 @@ This is a simple extension for [OpenCart](https://github.com/opencart/opencart) 
 
 More information along with downloads can be found in the [marketplace page](https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=32791)
 
-## Included software
+## Included libraries
 * TiniSort.js ([github](https://github.com/Sjeiti/TinySort))
 * Moment.js ([momenjs.com](http://momentjs.com/) / [github](https://github.com/moment/moment))
 * js-cookie ([github](https://github.com/js-cookie/js-cookie))

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <modification>
 	<id>tw-orders-live-install-script</id>
-	<version>1.0.3b</version>
+	<version>1.0.4</version>
 	<vqmver required="true">2.6.0</vqmver>
 	<author>tw</author>
 	<!--
