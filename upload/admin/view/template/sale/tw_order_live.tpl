@@ -33,6 +33,9 @@
 											} ?>
 										</select>
 										<span class="input-group-btn">
+									        <button class="btn btn-default" id="sound-stop" data-toggle="tooltip" type="button"><i class="fa fa-pause fa-lg"></i></button>
+										</span>
+										<span class="input-group-btn">
 									        <button class="btn btn-default" id="sound-preview" data-toggle="tooltip" title="<?= $text_play_sound ?>" type="button"><i class="fa fa-play fa-lg"></i></button>
 										</span>
 									</div>
@@ -134,6 +137,10 @@
 			return this;
 		}
 
+		stopNotification(){
+			if(this.sound) this.sound.pause();
+		}
+
 		toggleLive(){
 			this.live_is_enabled = !this.live_is_enabled;
 			connection_status.setStatus(ServerStatuses.STOPPED);
@@ -159,6 +166,7 @@
 			this.options.continuous_sound = this.$el.find('#tw-continuous-sound').prop('checked');
 			this.options.sound_file = this.$el.find('#tw-sound-select').val();
 			this.sound = new Audio(this.sound_dir+this.options.sound_file);
+			if (this.options.continuous_sound) this.sound.loop = true;
 			return this;
 		}
 
@@ -189,6 +197,10 @@
 		settings.playNotification(true);
 	})
 
+	$('#sound-stop').click(function(e){
+		e.preventDefault();
+		settings.stopNotification();
+	})
     moment.locale("<?= $locale ?>");
 
 	var token = '<?= $token ?>';
