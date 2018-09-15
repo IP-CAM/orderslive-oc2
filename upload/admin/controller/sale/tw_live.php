@@ -1,5 +1,5 @@
 <?php
-define('TW_ORDERS_LIVE_VERSION',"1.0.4");
+define('TW_ORDERS_LIVE_VERSION',"1.1");
 
 class ControllerSaleTwLive extends Controller {
 	private $error = array();

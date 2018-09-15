@@ -1,5 +1,8 @@
 Changelog for Orders Live 
 
+v1.1
+ - Added the ability to play a sound continuously
+ 
 v1.0.4
  - Fixed some 'rare' bugs
 
