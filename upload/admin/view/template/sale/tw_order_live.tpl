@@ -21,6 +21,9 @@
 							<li>
 								<form class="form-inline">
 									<div class="checkbox">
+										<label data-toggle="tooltip" title="<?= $text_continuous_info ?>"><input id="tw-continuous-sound" type="checkbox"> <?= $text_continuous ?></label>
+									</div>
+									<div class="checkbox">
 										<label data-toggle="tooltip" title="<?= $text_mute_info ?>"><input id="tw-mute-sound" type="checkbox"> <?= $text_mute ?></label>
 									</div>
 									<div class="form-group input-group input-group-sm">
@@ -120,7 +123,8 @@
 			this.live_is_enabled = true;
 			this.options = {
 				sound_file : '',
-				mute_sound : false
+				mute_sound : false,
+				continuous_sound: false
 			};
 			this.sound = '';
 		}
@@ -150,7 +154,9 @@
 		}
 
 		parseSettings(){
+
 			this.options.mute_sound = this.$el.find('#tw-mute-sound').prop('checked');
+			this.options.continuous_sound = this.$el.find('#tw-continuous-sound').prop('checked');
 			this.options.sound_file = this.$el.find('#tw-sound-select').val();
 			this.sound = new Audio(this.sound_dir+this.options.sound_file);
 			return this;
@@ -158,6 +164,7 @@
 
 		optionsToUi(){
 			this.$el.find('#tw-mute-sound').prop('checked',this.options.mute_sound);
+			this.$el.find('#tw-continuous-sound').prop('checked',this.options.continuous_sound);
 			this.$el.find('#tw-sound-select option[value="'+this.options.sound_file+'"]').prop('selected',true);
 			return this;
 		}
