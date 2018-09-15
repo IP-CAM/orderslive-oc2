@@ -165,6 +165,9 @@
 			this.options.mute_sound = this.$el.find('#tw-mute-sound').prop('checked');
 			this.options.continuous_sound = this.$el.find('#tw-continuous-sound').prop('checked');
 			this.options.sound_file = this.$el.find('#tw-sound-select').val();
+			if(this.sound){
+				this.sound.pause();
+			}
 			this.sound = new Audio(this.sound_dir+this.options.sound_file);
 			if (this.options.continuous_sound) this.sound.loop = true;
 			return this;
@@ -201,6 +204,12 @@
 		e.preventDefault();
 		settings.stopNotification();
 	})
+
+	$(document).on('click', '.new',function(){
+		$(this).removeClass('new');
+		settings.sound.pause();
+	})
+	
     moment.locale("<?= $locale ?>");
 
 	var token = '<?= $token ?>';
@@ -327,7 +336,7 @@
 	}
 	// Login to the API
 
-	$(document).on('#button-ip-add', 'click', addIpToApi);
+	$(document).on('click','#button-ip-add',  addIpToApi);
 	//Automatic API
 	$.ajax({
 		url: '<?php echo $catalog; ?>index.php?route=api/login',
@@ -421,10 +430,6 @@
 		}
 
 	}, 5000);
-
-	$(document).on('click', 'a[data-toggle="tab"]', function () {
-		$(this).parent().removeClass('new');
-	});
 
 	$(document).on('click', '.refresh-order', function (e) {
 		let order_id = $(this).data('order-id');
