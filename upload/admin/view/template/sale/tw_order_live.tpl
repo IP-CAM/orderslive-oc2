@@ -66,8 +66,6 @@
 			</div>
 		</div>
 <script src="view/javascript/tw/moment-with-locales.min.js" type="text/javascript"></script>
-<script src="view/javascript/tw/tinysort.min.js" type="text/javascript"></script>
-<script src="view/javascript/tw/jquery.tinysort.min.js" type="text/javascript"></script>
 <script src="view/javascript/tw/js.cookie.min.js" type="text/javascript"></script>
 
 <script>
