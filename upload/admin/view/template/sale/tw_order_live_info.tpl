@@ -9,7 +9,7 @@
 				<div class="container-fluid">
 					<div class="pull-left">
 						<a href="#" data-toggle="tooltip" title="Refresh" class="btn btn-info refresh-order" data-order-id="<?= $order_id ?>" ><i class="fa fa-refresh"></i></a>
-						<a href="#" data-toggle="tooltip" title="<?= $text_remove_button_info ?>" class="btn btn-danger remove-order" data-order-id="<?= $order_id ?>" ><i class="fa fa-trash"></i></a>
+						<a href="#" data-toggle="tooltip" title="<?= $text_remove_button_info ?>" class="btn btn-warning remove-order" data-order-id="<?= $order_id ?>" ><i class="fa fa-eye-slash"></i></a>
 					</div>
 					<div class="pull-right">
 						<a href="<?php echo $order['view_link']; ?>" target="order<?= $order_id ?>" data-toggle="tooltip" title="" class="btn btn-info" data-title="View"><i class="fa fa-eye"></i></a>
