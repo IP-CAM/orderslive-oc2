@@ -442,10 +442,9 @@
         var evtobj = window.event? event : e;
         if (evtobj.keyCode == 90 && evtobj.ctrlKey){
             if(order_data_undo_array.length){
-                let data = order_data_undo_array.pop();
-                $("ul#order-links").append(data.link);
-                $("#order-details").append(data.details);
-                tinysort("ul#order-links>li",{order:'asc',selector:'a',attr:'href'})
+                let $order_tab = order_data_undo_array.pop();
+				$order_tab.removeClass('hidden');
+                
             }
         }
     }
@@ -453,12 +452,8 @@
 
     $(document).on('click', '.remove-order', function (e) {
         let order_id = $(this).data('order-id');
-        let order_info = $("#order-"+order_id).remove();
-        let order_tab = $("#order-tab-"+order_id).removeClass('active').remove();
-        order_data_undo_array.push({
-			'details'  : order_info,
-	        'link'   :order_tab
-        })
+        let order_tab = $("#order-tab-"+order_id).addClass('hidden');
+        order_data_undo_array.push($("#order-tab-"+order_id));
     });
 
 	$('.history').delegate('.pagination a', 'click', function (e) {
