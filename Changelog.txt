@@ -2,6 +2,7 @@ Changelog for Orders Live
 
 v1.1
  - Added the ability to play a sound continuously
+ - Changed the way the 'Delete' button works
  
 v1.0.4
  - Fixed some 'rare' bugs
