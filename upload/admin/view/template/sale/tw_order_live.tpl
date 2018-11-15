@@ -450,7 +450,9 @@
 
     $(document).on('click', '.remove-order', function (e) {
         let order_id = $(this).data('order-id');
-        let order_tab = $("#order-tab-"+order_id).addClass('hidden');
+		let order_tab = $("#order-tab-"+order_id).addClass('hidden');
+		// Show the first available order since the currently selected one should be hidden
+		$('#order-links a:first').tab('show')
         order_data_undo_array.push($("#order-tab-"+order_id));
     });
 
