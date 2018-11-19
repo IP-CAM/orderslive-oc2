@@ -9,7 +9,6 @@ class ControllerSaleTwLive extends Controller {
 		$this->load->model('sale/order');
 		$this->load->model('customer/customer');
 		$this->load->model('localisation/order_status');
-		$this->load->model('setting/setting');
 
 		//Language
 		$this->load->language('sale/order');
@@ -100,12 +99,8 @@ class ControllerSaleTwLive extends Controller {
 	}
 
 	protected function getOrderInfo($order_id) {
-		$this->load->model('sale/order');
-
 		$order_info = $this->model_sale_order->getOrder($order_id);
 		if ($order_info) {
-			$this->load->language('sale/order');
-
 			$data['shipping'] = $this->url->link('sale/order/shipping', 'token=' . $this->session->data['token'] . '&order_id=' . (int)$order_id, true);
 			$data['invoice'] = $this->url->link('sale/order/invoice', 'token=' . $this->session->data['token'] . '&order_id=' . (int)$order_id, true);
 			$data['edit'] = $this->url->link('sale/order/edit', 'token=' . $this->session->data['token'] . '&order_id=' . (int)$order_id, true);
@@ -301,10 +296,6 @@ class ControllerSaleTwLive extends Controller {
 			}
 
 			$data['comment'] = nl2br($order_info['comment']);
-
-			$this->load->model('customer/customer');
-
-			$this->load->model('localisation/order_status');
 
 			$order_status_info = $this->model_localisation_order_status->getOrderStatus($order_info['order_status_id']);
 
@@ -587,10 +578,6 @@ class ControllerSaleTwLive extends Controller {
 	}
 
 	public function getCustomerHistory($customer_id) {
-		$this->load->language('customer/customer');
-
-		$this->load->model('customer/customer');
-
 		$data['text_no_results'] = $this->language->get('text_no_results');
 
 		$data['column_date_added'] = $this->language->get('column_date_added');
@@ -629,8 +616,6 @@ class ControllerSaleTwLive extends Controller {
 	}
 
 	protected function getOrderHistory($order_id) {
-		$this->load->language('sale/order');
-
 		$data['text_no_results'] = $this->language->get('text_no_results');
 
 		$data['column_date_added'] = $this->language->get('column_date_added');
@@ -673,14 +658,11 @@ class ControllerSaleTwLive extends Controller {
 	}
 
 	public function check(){
-		$this->load->model('sale/order');
-		$this->load->model('customer/customer');
-		$this->load->model('localisation/order_status');
-
+		$this->load->model('tw/orderslive');
 		if(isset($this->request->get['last_order_id'])){
 			$order_id = (int)$this->request->get['last_order_id'];
 
-			$orders = $this->model_sale_order->getOrdersAfter($order_id);
+			$orders = $this->model_tw_orderslive->getOrdersAfterOrderId($order_id);
 
 			$json['output'] = array();
 			$json['order_count'] = 0;
@@ -705,10 +687,7 @@ class ControllerSaleTwLive extends Controller {
 	}
 
 	public function checkTimestamp($timestamp = 0){
-		$this->load->model('sale/order');
-		$this->load->model('customer/customer');
 		$this->load->model('tw/orderslive');
-		$this->load->model('localisation/order_status');
 		//This is the timestamp of the latest product the cliend browser has
 		//It is 0 when the window/tab opens for the first time
 		$timestamp = isset($this->request->get['timestamp']) 
@@ -746,9 +725,6 @@ class ControllerSaleTwLive extends Controller {
 	}
 
 	public function refresh(){
-		$this->load->model('sale/order');
-		$this->load->model('customer/customer');
-		$this->load->model('localisation/order_status');
 		if (!isset($this->request->get['token']) || $this->request->get['token'] != $this->session->data['token']) {
 			die();
 		}
@@ -768,10 +744,6 @@ class ControllerSaleTwLive extends Controller {
 	}
 
 	protected function getText(){
-		//Language
-		$this->load->language('sale/order');
-		$this->load->language('customer/customer');
-
 		//Language Text
 		$data['heading_title'] = $this->language->get('heading_title');
 
