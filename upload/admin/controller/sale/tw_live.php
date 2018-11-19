@@ -682,7 +682,7 @@ class ControllerSaleTwLive extends Controller {
 
 			$orders = $this->model_sale_order->getOrdersAfter($order_id);
 
-			$json['output'] = [];
+			$json['output'] = array();
 			$json['order_count'] = 0;
 			$order_data['text'] = $this->getText();
 			if($order_id > 0){
@@ -698,6 +698,40 @@ class ControllerSaleTwLive extends Controller {
 			}
 
 			$json['last_order_id'] = (int)(end($orders)['order_id']);
+
+			$this->response->addHeader('Content-Type: application/json');
+			$this->response->setOutput(json_encode($json));
+		}
+	}
+
+	public function checkTimestamp($timestamp = 0){
+		$this->load->model('sale/order');
+		$this->load->model('customer/customer');
+		$this->load->model('tw/orderslive');
+		$this->load->model('localisation/order_status');
+
+		if(isset($this->request->get['timestamp'])){
+			//This is the timestamp of the latest product the cliend browser has
+			//It is 0 when the window/tab opens for the first time
+			$timestamp = (int)$this->request->get['timestamp'];
+
+			$orders = $this->model_tw_orderslive->getOrdersNewerThan($timestamp);
+			$json['output'] = array();
+			$json['order_count'] = 0;
+			$order_data['text'] = $this->getText();
+			$newTimestamp = $timestamp;
+			foreach($orders as $o){
+				$order_data['order'] = $this->getOrder($o['order_id']);
+				$json['output'][] = [
+					'order_id'      => $o['order_id'],
+					'order_data'    => $this->load->view($this->getTemplateName('sale/tw_order_live_info'), $order_data),
+					'order_tab'     => $this->load->view($this->getTemplateName('sale/tw_order_live_tab'), $order_data)
+				];
+			}
+			$json['order_count'] = count($orders);
+
+			//Send the timestamp of the most recently added/changed order
+			$json['newTimestamp'] = $newTimestamp;
 
 			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($json));
@@ -866,5 +900,11 @@ class ControllerSaleTwLive extends Controller {
 
 
 		return $data;
+	}
+
+	public function debug(){
+		$this->load->model('tw/orderslive');
+		$order = $this->model_tw_orderslive->getLatestOrder();
+		d($order,strtotime($order['date_added']),strtotime($order['date_modified']));
 	}
 }

@@ -18,9 +18,9 @@ class ModelTwOrderslive extends Model{
 		return $query->rows;
 	}
 
-	public function getOrdersAfter($timestamp = 0){
+	public function getOrdersNewerThan($timestamp = 0){
 		if(!$timestamp){
-			return $this->getLatestOrder();
+			return array($this->getLatestOrder());
 		}
 
 		$query = "SELECT o.order_id, o.date_added, o.date_modified
