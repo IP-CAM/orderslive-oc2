@@ -212,6 +212,7 @@
 
 	var token = '<?= $token ?>';
 	var last_order_id = window.last_order_id ? window.last_order_id : 0;
+	var tw_live_timestamp = window.tw_live_timestamp ? window.tw_live_timestamp : 0;
     var ip_token = '';
 
 
@@ -373,17 +374,13 @@
 	var tw_live_request_count = 0;
 	//Main script - Check for new orders ever 5 seconds
 	setInterval(function () {
-		let current_response_time = 0;
-		let requestStart;
 		if(settings.live_is_enabled){
 			$.ajax({
-				url: 'index.php?route=sale/tw_live/check&token=' + token,
+				url: 'index.php?route=sale/tw_live/checkTimestamp',
 				method: "GET",
 				data: {
-					"last_order_id": last_order_id
-				},
-				beforeSend : function(){
-					requestStart = Date.now();
+					"token": token,
+					"timestamp": tw_live_timestamp
 				},
 				success: function (r) {
 					tw_live_response_total += Date.now() - requestStart;

@@ -695,7 +695,7 @@ class ControllerSaleTwLive extends Controller {
 			: 0;
 
 		// If this is the first request, just send a new timestamp
-		if($timestamp ==0 ){
+		if($timestamp == 0 ){
 			$order = $this->model_tw_orderslive->getLatestOrder();
 			$json = array('newTimestamp'=> strtotime($order['date_changed']));
 		} else {
@@ -717,6 +717,7 @@ class ControllerSaleTwLive extends Controller {
 			$json['order_count'] = count($orders);
 	
 			//Send the timestamp of the most recently added/changed order
+			$json['previousTimestamp'] = $timestamp;
 			$json['newTimestamp'] = $newTimestamp;
 		}
 
@@ -884,7 +885,7 @@ class ControllerSaleTwLive extends Controller {
 
 	public function debug(){
 		$this->load->model('tw/orderslive');
-		$order = $this->model_tw_orderslive->getLatestOrder();
+		$order = $this->model_tw_orderslive->getOrdersNewerThan(1542382825);
 		d($order,strtotime($order['date_added']),strtotime($order['date_modified']));
 	}
 }
