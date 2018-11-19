@@ -676,9 +676,6 @@ class ControllerSaleTwLive extends Controller {
 		$this->load->model('sale/order');
 		$this->load->model('customer/customer');
 		$this->load->model('localisation/order_status');
-		if (!isset($this->request->get['token']) || $this->request->get['token'] != $this->session->data['token']) {
-			die();
-		}
 
 		if(isset($this->request->get['last_order_id'])){
 			$order_id = (int)$this->request->get['last_order_id'];
