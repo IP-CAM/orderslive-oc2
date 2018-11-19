@@ -721,6 +721,8 @@ class ControllerSaleTwLive extends Controller {
 			$order_data['text'] = $this->getText();
 			$newTimestamp = $timestamp;
 			foreach($orders as $o){
+				//Set new timestamp to date of most recently changed order;
+				if(strtotime($o['date_changed']) > $timestamp) $newTimestamp = strtotime($o['date_changed']);
 				$order_data['order'] = $this->getOrder($o['order_id']);
 				$json['output'][] = [
 					'order_id'      => $o['order_id'],
