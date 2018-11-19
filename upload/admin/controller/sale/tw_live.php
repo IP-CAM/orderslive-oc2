@@ -726,10 +726,6 @@ class ControllerSaleTwLive extends Controller {
 	}
 
 	public function refresh(){
-		if (!isset($this->request->get['token']) || $this->request->get['token'] != $this->session->data['token']) {
-			die();
-		}
-
 		if(isset($this->request->get['order_id'])){
 			$order_id = (int)$this->request->get['order_id'];
 			$order_data['text'] = $this->getText();
