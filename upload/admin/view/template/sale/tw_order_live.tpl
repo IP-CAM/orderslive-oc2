@@ -372,22 +372,27 @@
 	var tw_live_response_total = 0;
 	var tw_live_response_average = 0;
 	var tw_live_request_count = 0;
+
 	//Main script - Check for new orders ever 5 seconds
 	setInterval(function () {
+		let current_response_time = 0;
+		let requestStart;
 		if(settings.live_is_enabled){
 			$.ajax({
-				url: 'index.php?route=sale/tw_live/checkTimestamp',
+				url: 'index.php?route=sale/tw_live/check&token=' + token,
 				method: "GET",
 				data: {
-					"token": token,
-					"timestamp": tw_live_timestamp
+					"last_order_id": last_order_id
+				},
+				beforeSend : function(){
+					requestStart = Date.now();
 				},
 				success: function (r) {
 					tw_live_response_total += Date.now() - requestStart;
 					tw_live_response_average = tw_live_response_total/++tw_live_request_count;
 					$('#tw-average-response-time').html(Math.floor(tw_live_response_average) + "ms")
 
-					for (let order of r.output) {
+					for (let order of r.orders) {
 						if ($("#order-tab-" + order.order_id).length) {
 							$("#order-tab-" + order.order_id).replaceWith(order.order_tab);
 							$("#order-" + order.order_id).replaceWith(order.order_data);
@@ -420,6 +425,47 @@
 					if(!settings.live_is_enabled){
 						connection_status.setStatus(ServerStatuses.STOPPED);
 					}
+				}
+			});
+		}
+
+	}, 5000);
+
+	setInterval(function () {
+		if(settings.live_is_enabled){
+			$.ajax({
+				url: 'index.php?route=sale/tw_live/checkTimestamp',
+				method: "GET",
+				data: {
+					"token": token,
+					"timestamp": tw_live_timestamp
+				},
+				success: function (r) {
+					if(r.orders){
+						for (let order of r.orders) {
+							if ($("#order-tab-" + order.order_id).length) {
+								$("#order-tab-" + order.order_id).replaceWith(order.order_tab);
+								$("#order-" + order.order_id).replaceWith(order.order_data);
+							} else {
+								$("#order-details").append(order.order_data);
+								$("#order-links").prepend(order.order_tab);
+							}
+						}
+					}
+					tw_live_timestamp = r.newTimestamp;
+
+					if (r.order_count > 0) {
+						settings.playNotification();
+						updateElapsed();
+					}
+					if (connection_status != ServerStatuses.OK) {
+						connection_status.setStatus(ServerStatuses.OK);
+					}
+
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					$('#tw-average-response-time').html("No response")
+					connection_status.setStatus(ServerStatuses.ERROR);
 				}
 			});
 		}

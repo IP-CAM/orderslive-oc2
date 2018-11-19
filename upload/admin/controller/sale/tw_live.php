@@ -664,13 +664,13 @@ class ControllerSaleTwLive extends Controller {
 
 			$orders = $this->model_tw_orderslive->getOrdersAfterOrderId($order_id);
 
-			$json['output'] = array();
+			$json['orders'] = array();
 			$json['order_count'] = 0;
 			$order_data['text'] = $this->getText();
 			if($order_id > 0){
 				foreach($orders as $o){
 					$order_data['order'] = $this->getOrder($o['order_id']);
-					$json['output'][] = [
+					$json['orders'][] = [
 						'order_id'      => $o['order_id'],
 						'order_data'    => $this->load->view($this->getTemplateName('sale/tw_order_live_info'), $order_data),
 						'order_tab'     => $this->load->view($this->getTemplateName('sale/tw_order_live_tab'), $order_data)
@@ -700,7 +700,7 @@ class ControllerSaleTwLive extends Controller {
 			$json = array('newTimestamp'=> strtotime($order['date_changed']));
 		} else {
 			$orders = $this->model_tw_orderslive->getOrdersNewerThan($timestamp);
-			$json['output'] = array();
+			$json['orders'] = array();
 			$json['order_count'] = 0;
 			$order_data['text'] = $this->getText();
 			$newTimestamp = $timestamp;
@@ -708,7 +708,7 @@ class ControllerSaleTwLive extends Controller {
 				//Set new timestamp to date of most recently changed order;
 				if(strtotime($o['date_changed']) > $timestamp) $newTimestamp = strtotime($o['date_changed']);
 				$order_data['order'] = $this->getOrder($o['order_id']);
-				$json['output'][] = [
+				$json['orders'][] = [
 					'order_id'      => $o['order_id'],
 					'order_data'    => $this->load->view($this->getTemplateName('sale/tw_order_live_info'), $order_data),
 					'order_tab'     => $this->load->view($this->getTemplateName('sale/tw_order_live_tab'), $order_data)
