@@ -13,7 +13,7 @@
 						<div class="navbar-brand">
 							<span id="tw-toggle-live"></span>LIVE! <span id="tw-live-version"> <?= "v".TW_ORDERS_LIVE_VERSION ?></span>|
 							<span id="server-info"><?= $text_connection ?> <span id="server-status" class="label label-default"><?= $status_unknown ?></span> </span>
-							<small id="tw-average-response-time" data-toggle="tooltip" title="<?= $text_average_response_time?>"></small>
+							<small id="tw-response-time" data-toggle="tooltip" title="<?= $text_average_response_time?>"></small>
 						</div>
 					</div>
 					<div class="collapse navbar-collapse" id="tw-orders-live-nav">
@@ -369,14 +369,8 @@
 	$(document).on('click', 'a[href="#"]', function (e) {
 		e.preventDefault();
 	})
-	var tw_live_response_total = 0;
-	var tw_live_response_average = 0;
-	var tw_live_request_count = 0;
-
 
 	function getOrdersById () {
-		let current_response_time = 0;
-		let requestStart;
 		if(settings.live_is_enabled){
 			$.ajax({
 				url: 'index.php?route=sale/tw_live/check',
@@ -385,14 +379,7 @@
 					"token": token,
 					"last_order_id": last_order_id
 				},
-				beforeSend : function(){
-					requestStart = Date.now();
-				},
 				success: function (r) {
-					tw_live_response_total += Date.now() - requestStart;
-					tw_live_response_average = tw_live_response_total/++tw_live_request_count;
-					$('#tw-average-response-time').html(Math.floor(tw_live_response_average) + "ms")
-
 					for (let order of r.orders) {
 						if ($("#order-tab-" + order.order_id).length) {
 							$("#order-tab-" + order.order_id).replaceWith(order.order_tab);
@@ -415,17 +402,8 @@
 
 				},
 				error: function (xhr, ajaxOptions, thrownError) {
-					$('#tw-average-response-time').html("No response")
+					$('#tw-response-time').html("No response")
 					connection_status.setStatus(ServerStatuses.ERROR);
-				},
-				complete: function(){
-					if(tw_live_request_count > 1500){ //Recalculate every 1500 requests
-						tw_live_response_total = 0;
-						tw_live_request_count = 0;
-					}
-					if(!settings.live_is_enabled){
-						connection_status.setStatus(ServerStatuses.STOPPED);
-					}
 				}
 			});
 		}
@@ -464,7 +442,7 @@
 
 				},
 				error: function (xhr, ajaxOptions, thrownError) {
-					$('#tw-average-response-time').html("No response")
+					$('#tw-response-time').html("No response")
 					connection_status.setStatus(ServerStatuses.ERROR);
 				}
 			});
@@ -546,7 +524,7 @@
 		}
 	}
 
-	#tw-average-response-time{
+	#tw-response-time{
 		opacity: .8;
 		font-weight: bold;
 		font-size: 75%;
