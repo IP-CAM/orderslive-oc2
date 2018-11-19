@@ -709,12 +709,17 @@ class ControllerSaleTwLive extends Controller {
 		$this->load->model('customer/customer');
 		$this->load->model('tw/orderslive');
 		$this->load->model('localisation/order_status');
+		//This is the timestamp of the latest product the cliend browser has
+		//It is 0 when the window/tab opens for the first time
+		$timestamp = isset($this->request->get['timestamp']) 
+			? (int) $this->request->get['timestamp']
+			: 0;
 
-		if(isset($this->request->get['timestamp'])){
-			//This is the timestamp of the latest product the cliend browser has
-			//It is 0 when the window/tab opens for the first time
-			$timestamp = (int)$this->request->get['timestamp'];
-
+		// If this is the first request, just send a new timestamp
+		if($timestamp ==0 ){
+			$order = $this->model_tw_orderslive->getLatestOrder();
+			$json = array('newTimestamp'=> strtotime($order['date_changed']));
+		} else {
 			$orders = $this->model_tw_orderslive->getOrdersNewerThan($timestamp);
 			$json['output'] = array();
 			$json['order_count'] = 0;
@@ -731,14 +736,15 @@ class ControllerSaleTwLive extends Controller {
 				];
 			}
 			$json['order_count'] = count($orders);
-
+	
 			//Send the timestamp of the most recently added/changed order
 			$json['newTimestamp'] = $newTimestamp;
-
-			$this->response->addHeader('Content-Type: application/json');
-			$this->response->setOutput(json_encode($json));
 		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
 	}
+
 	public function refresh(){
 		$this->load->model('sale/order');
 		$this->load->model('customer/customer');
