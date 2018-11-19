@@ -373,15 +373,16 @@
 	var tw_live_response_average = 0;
 	var tw_live_request_count = 0;
 
-	//Main script - Check for new orders ever 5 seconds
-	setInterval(function () {
+
+	function getOrdersById () {
 		let current_response_time = 0;
 		let requestStart;
 		if(settings.live_is_enabled){
 			$.ajax({
-				url: 'index.php?route=sale/tw_live/check&token=' + token,
+				url: 'index.php?route=sale/tw_live/check',
 				method: "GET",
 				data: {
+					"token": token,
 					"last_order_id": last_order_id
 				},
 				beforeSend : function(){
@@ -429,9 +430,8 @@
 			});
 		}
 
-	}, 5000);
-
-	setInterval(function () {
+	}
+	function getOrdersByTimestamp() {
 		if(settings.live_is_enabled){
 			$.ajax({
 				url: 'index.php?route=sale/tw_live/checkTimestamp',
@@ -470,7 +470,10 @@
 			});
 		}
 
-	}, 5000);
+	}
+
+	//Main script - Check for new orders ever 5 seconds
+	setInterval(getOrdersByTimestamp, 5000);
 
 	$(document).on('click', '.refresh-order', function (e) {
 		let order_id = $(this).data('order-id');
