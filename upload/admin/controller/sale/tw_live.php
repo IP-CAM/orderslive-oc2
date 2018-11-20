@@ -59,7 +59,6 @@ class ControllerSaleTwLive extends Controller {
 		$order_data['text'] = $this->getText();
 		foreach ($last_ten as $o) {
 			$order_data['order'] = $this->getOrder($o['order_id']);
-			$order_data['old'] = true;
 			$order_details[] = $this->load->view($this->getTemplateName('sale/tw_order_live_info'), $order_data);
 			$order_tabs[]  = $this->load->view($this->getTemplateName('sale/tw_order_live_tab'), $order_data);
 		}

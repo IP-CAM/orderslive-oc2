@@ -8,7 +8,7 @@
 	else $label = "label-default";
 ?>
 
-<li role="presentation" id="order-tab-<?= $order_id ?>" <?php if(!isset($old)) echo 'class="new"'; ?>>
+<li role="presentation" id="order-tab-<?= $order_id ?>">
     <a id="order-link-<?= $order_id ?>" href="#order-<?= $order_id ?>" aria-controls="order-<?= $order_id ?>" role="tab"
                                           data-toggle="tab" aria-expanded="true">
         <div class="pull-left" style="margin-right:5px;">
