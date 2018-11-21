@@ -310,10 +310,8 @@ function checkForNewOrders(){
 		}
 	)
 }
-
-
-
-var tw_main_loop = setInterval(checkForNewOrders, 5000);
+checkForNewOrders();
+var tw_main_loop = setInterval(function(){ if(settings.live_is_enabled) checkForNewOrders() }, 5000);
 
 //Events and function
 $(document).ready(function(){
