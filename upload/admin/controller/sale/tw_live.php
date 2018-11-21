@@ -701,7 +701,7 @@ class ControllerSaleTwLive extends Controller {
 		// If this is the first request, just send a new timestamp
 		if ($timestamp == 0 ){
 			$order = $this->model_tw_orderslive->getLatestOrder();
-			$json['previous_timestamp'] = strtotime($order['date_changed']);
+			$json['new_timestamp'] = strtotime($order['date_changed']);
 		} else {
 			$orders = $this->model_tw_orderslive->getOrdersNewerThan($timestamp);
 
