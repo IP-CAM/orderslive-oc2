@@ -3,12 +3,23 @@
 	extract($order['customer']);
 	extract($text);
 
-	if($order_processing) $label = "label-warning";
-	else if($order_complete) $label = "label-success";
-	else $label = "label-default";
+	if ($order_processing) {
+        $label = "label-warning";
+        $order_group = 1;
+    } else if ($order_complete) {
+        $label = "label-success";
+        $order_group = 2;
+    } else {
+        $label = "label-default";
+        $order_group = 3;
+    }
 ?>
 
-<li role="presentation" id="order-tab-<?= $order_id ?>">
+<li role="presentation" id="order-tab-<?= $order_id ?>" 
+data-time="<?= $order_datetime_modified ?>" 
+data-order-id="<?= $order_id ?>" 
+data-status-id="<?= $order_status_id ?>"
+data-order-group="<?= $order_group ?>">
     <a id="order-link-<?= $order_id ?>" href="#order-<?= $order_id ?>" aria-controls="order-<?= $order_id ?>" role="tab"
                                           data-toggle="tab" aria-expanded="true">
         <div class="pull-left" style="margin-right:5px;">
