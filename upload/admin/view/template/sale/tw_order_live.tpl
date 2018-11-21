@@ -44,7 +44,20 @@
 						</ul>
 					</div>
 				</div>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="btn-group" id="">
+								<button type="button" data-filter="all" class="btn btn-default">All</button>
+								<button type="button" data-filter="1" class="btn btn-default">Green</button>
+								<button type="button" data-filter="2" class="btn btn-default">Orange</button>
+								<button type="button" data-filter="3" class="btn btn-default">Grey</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</nav>
+
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-sm-3 col-md-2">
