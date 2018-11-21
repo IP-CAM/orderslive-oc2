@@ -370,88 +370,72 @@
 		e.preventDefault();
 	})
 
-	function getOrdersById () {
-		if(settings.live_is_enabled){
-			$.ajax({
-				url: 'index.php?route=sale/tw_live/check',
-				method: "GET",
-				data: {
-					"token": token,
-					"last_order_id": last_order_id
-				},
-				success: function (r) {
-					for (let order of r.orders) {
-						if ($("#order-tab-" + order.order_id).length) {
-							$("#order-tab-" + order.order_id).replaceWith(order.order_tab);
-							$("#order-" + order.order_id).replaceWith(order.order_data);
-						} else {
-							$("#order-details").append(order.order_data);
-							$("#order-links").prepend(order.order_tab);
-						}
-					}
-
-					last_order_id = r.last_order_id > 0 ? r.last_order_id : last_order_id;
-
-					if (r.order_count > 0) {
-						settings.playNotification();
-						updateElapsed();
-					}
-					if (connection_status != ServerStatuses.OK) {
-						connection_status.setStatus(ServerStatuses.OK);
-					}
-
-				},
-				error: function (xhr, ajaxOptions, thrownError) {
-					$('#tw-response-time').html("No response")
-					connection_status.setStatus(ServerStatuses.ERROR);
-				}
-			});
+	function updateOrderList(orders) {
+		for (let order of orders) {
+			if ($('#order-tab-' + order.order_id).length) {
+				// If we are here, it means we already have the order in our list 
+				// we just need to update it's info. Might add some sort of animation here
+				$('#order-tab-' + order.order_id).replaceWith(order.order_tab);
+				$('#order-' + order.order_id).replaceWith(order.order_data);
+			} else { // we have a new order. Play sound and mark it as new
+				$('#order-details').append(order.order_data);
+				$('#order-links').prepend(order.order_tab);
+				settings.playNotification();
+				updateElapsed();
+			}
 		}
-
 	}
 	function getOrdersByTimestamp() {
-		if(settings.live_is_enabled){
-			$.ajax({
-				url: 'index.php?route=sale/tw_live/checkTimestamp',
-				method: "GET",
-				data: {
-					"token": token,
-					"timestamp": tw_live_timestamp
-				},
-				success: function (r) {
-					if(r.orders){
-						for (let order of r.orders) {
-							if ($("#order-tab-" + order.order_id).length) {
-								$("#order-tab-" + order.order_id).replaceWith(order.order_tab);
-								$("#order-" + order.order_id).replaceWith(order.order_data);
-							} else {
-								$("#order-details").append(order.order_data);
-								$("#order-links").prepend(order.order_tab);
-							}
-						}
-					}
-					tw_live_timestamp = r.newTimestamp;
-
-					if (r.order_count > 0) {
-						settings.playNotification();
-						updateElapsed();
-					}
-					if (connection_status != ServerStatuses.OK) {
-						connection_status.setStatus(ServerStatuses.OK);
-					}
-
-				},
-				error: function (xhr, ajaxOptions, thrownError) {
-					$('#tw-response-time').html("No response")
-					connection_status.setStatus(ServerStatuses.ERROR);
-				}
-			});
-		}
-
+		return $.ajax({
+			url: 'index.php?route=sale/tw_live/checkTimestamp',
+			method: 'GET',
+			data: {
+				'token': token,
+				'timestamp': tw_live_timestamp
+			}
+		})
 	}
+	function getOrdersById() {
+		return $.ajax({
+			url: 'index.php?route=sale/tw_live/check',
+			method: 'GET',
+			data: {
+				'token': token,
+				'last_order_id': last_order_id
+			}
+		})
+	}
+	getOrdersByTimestamp()
+		.then(function(r){
+			updateOrderList(r.orders);
+			if(r.newTimestamp > tw_live_timestamp) tw_live_timestamp = r.newTimestamp;
+			if (connection_status != ServerStatuses.OK) {
+				connection_status.setStatus(ServerStatuses.OK);
+			} 
+		},
+		function(){					
+			$('#tw-response-time').html("No response")
+			connection_status.setStatus(ServerStatuses.ERROR);
+	})
 
 	//Main script - Check for new orders ever 5 seconds
-	setInterval(getOrdersByTimestamp, 5000);
+	function checkForNewOrders(){
+		getOrdersByTimestamp().then(
+			function(r){
+				updateOrderList(r.orders);
+				if(r.newTimestamp > tw_live_timestamp) tw_live_timestamp = r.newTimestamp;
+				if (connection_status != ServerStatuses.OK) {
+					connection_status.setStatus(ServerStatuses.OK);
+				} 
+			},
+			function(){					
+				$('#tw-response-time').html("No response")
+				connection_status.setStatus(ServerStatuses.ERROR);
+			}
+		)
+	}
+
+	var tw_main_loop = setInterval(checkForNewOrders, 5000);
 
 	$(document).on('click', '.refresh-order', function (e) {
 		let order_id = $(this).data('order-id');
