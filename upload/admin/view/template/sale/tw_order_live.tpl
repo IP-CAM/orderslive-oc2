@@ -67,6 +67,7 @@
 		</div>
 <script src="view/javascript/tw/moment-with-locales.min.js" type="text/javascript"></script>
 <script src="view/javascript/tw/js.cookie.min.js" type="text/javascript"></script>
+<script src="view/javascript/tw/shuffle.js" type="text/javascript"></script>
 
 <script>
 	function flashMessage(message){
