@@ -408,7 +408,7 @@
 	getOrdersByTimestamp()
 		.then(function(r){
 			updateOrderList(r.orders);
-			if(r.newTimestamp > tw_live_timestamp) tw_live_timestamp = r.newTimestamp;
+			if(r.new_timestamp > tw_live_timestamp) tw_live_timestamp = r.new_timestamp;
 			if (connection_status != ServerStatuses.OK) {
 				connection_status.setStatus(ServerStatuses.OK);
 			} 
@@ -423,7 +423,7 @@
 		getOrdersByTimestamp().then(
 			function(r){
 				updateOrderList(r.orders);
-				if(r.newTimestamp > tw_live_timestamp) tw_live_timestamp = r.newTimestamp;
+				if(r.new_timestamp > tw_live_timestamp) tw_live_timestamp = r.new_timestamp;
 				if (connection_status != ServerStatuses.OK) {
 					connection_status.setStatus(ServerStatuses.OK);
 				} 

@@ -692,20 +692,24 @@ class ControllerSaleTwLive extends Controller {
 		$timestamp = isset($this->request->get['timestamp']) 
 			? (int) $this->request->get['timestamp']
 			: 0;
-
+		$json = array(
+			'orders' => array(),
+			'order_count' => 0,
+			'new_timestamp' => 0,
+			'previous_timestamp' => $timestamp
+		);
 		// If this is the first request, just send a new timestamp
-		if($timestamp == 0 ){
+		if ($timestamp == 0 ){
 			$order = $this->model_tw_orderslive->getLatestOrder();
-			$json = array('newTimestamp'=> strtotime($order['date_changed']));
+			$json['previous_timestamp'] = strtotime($order['date_changed']);
 		} else {
 			$orders = $this->model_tw_orderslive->getOrdersNewerThan($timestamp);
-			$json['orders'] = array();
-			$json['order_count'] = 0;
+
 			$order_data['text'] = $this->getText();
-			$newTimestamp = $timestamp;
+			$new_timestamp = $timestamp;
 			foreach($orders as $o){
 				//Set new timestamp to date of most recently changed order;
-				if(strtotime($o['date_changed']) > $timestamp) $newTimestamp = strtotime($o['date_changed']);
+				if(strtotime($o['date_changed']) > $timestamp) $new_timestamp = strtotime($o['date_changed']);
 				$order_data['order'] = $this->getOrder($o['order_id']);
 				$json['orders'][] = [
 					'order_id'      => $o['order_id'],
@@ -716,8 +720,8 @@ class ControllerSaleTwLive extends Controller {
 			$json['order_count'] = count($orders);
 	
 			//Send the timestamp of the most recently added/changed order
-			$json['previousTimestamp'] = $timestamp;
-			$json['newTimestamp'] = $newTimestamp;
+			$json['previous_timestamp'] = $timestamp;
+			$json['new_timestamp'] = $new_timestamp;
 		}
 
 		$this->response->addHeader('Content-Type: application/json');
