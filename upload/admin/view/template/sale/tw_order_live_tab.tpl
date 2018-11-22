@@ -14,7 +14,7 @@
         $order_group = 3;
     }
 ?>
-<li id="order-tab-<?= $order_id ?>"  class="order-tab filtr-item"
+<li id="order-tab-<?= $order_id ?>"  class="order-tab"
 data-time="<?= $order_datetime_modified ?>" 
 data-order-id="<?= $order_id ?>"
 data-status-id="<?= $order_status_id ?>"
