@@ -258,12 +258,14 @@ $.ajax({
 	}
 });
 
-
-
-function createElement(element){
-	let tempElem = document.createElement('div');
-	tempElem.innerHTML = element;
-    return tempElem.firstChild;
+// Take a new order object returned from the server and marks it as 'new'
+// adds it to the list and plays notification sound
+function addNewOrder(order){
+	order_tabs.add($(order.order_tab).addClass("new").get(0),{index: 0});
+	$('#order-details').append(order.order_data);
+	//$('#order-tabs').prepend(order.order_tab);
+	settings.playNotification();
+	updateElapsed();
 }
 
 function updateOrderList(orders) {
@@ -274,11 +276,7 @@ function updateOrderList(orders) {
 			$('#order-tab-' + order.order_id).replaceWith(order.order_tab);
 			$('#order-' + order.order_id).replaceWith(order.order_data);
 		} else { // we have a new order. Play sound and mark it as new
-			order_tabs.add(createElement(order.order_tab),{index: 0});
-			$('#order-details').append(order.order_data);
-			//$('#order-tabs').prepend(order.order_tab);
-			settings.playNotification();
-			updateElapsed();
+			addNewOrder(order);
 		}
 	}
 }
