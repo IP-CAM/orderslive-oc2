@@ -258,6 +258,14 @@ $.ajax({
 	}
 });
 
+
+
+function createElement(element){
+	let tempElem = document.createElement('div');
+	tempElem.innerHTML = element;
+    return tempElem.firstChild;
+}
+
 function updateOrderList(orders) {
 	for (let order of orders) {
 		if ($('#order-tab-' + order.order_id).length) {
@@ -266,8 +274,9 @@ function updateOrderList(orders) {
 			$('#order-tab-' + order.order_id).replaceWith(order.order_tab);
 			$('#order-' + order.order_id).replaceWith(order.order_data);
 		} else { // we have a new order. Play sound and mark it as new
+			order_tabs.add(createElement(order.order_tab),{index: 0});
 			$('#order-details').append(order.order_data);
-			$('#order-tabs').prepend(order.order_tab);
+			//$('#order-tabs').prepend(order.order_tab);
 			settings.playNotification();
 			updateElapsed();
 		}
