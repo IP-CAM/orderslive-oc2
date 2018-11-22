@@ -18,12 +18,10 @@
 <li id="order-tab-<?= $order_id ?>"  class="order-tab filtr-item"
 data-time="<?= $order_datetime_modified ?>" 
 data-order-id="<?= $order_id ?>"
-data-category="<?= $order_group ?>"
 data-status-id="<?= $order_status_id ?>"
 data-order-group="<?= $order_group ?>">
     <a id="order-link-<?= $order_id ?>" 
         href="#order-<?= $order_id ?>"  
-        role="tab"
         data-toggle="tab" aria-expanded="true">
         <div class="pull-left" style="margin-right:5px;">
             <h1><span class="badge"><?= $order_id ?></span></h1>
