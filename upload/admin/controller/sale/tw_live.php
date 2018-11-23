@@ -735,8 +735,9 @@ class ControllerSaleTwLive extends Controller {
 
 			if($order_id) {
 				$order_data['order'] = $this->getOrder($order_id);
-				$json['order']  =$this->load->view($this->getTemplateName('sale/tw_order_live_info'), $order_data);
-				$json['tab']  =$this->load->view($this->getTemplateName('sale/tw_order_live_tab'), $order_data);
+				$json['order_id'] = $order_id;
+				$json['order_data']  = $this->load->view($this->getTemplateName('sale/tw_order_live_info'), $order_data);
+				$json['order_tab']  = $this->load->view($this->getTemplateName('sale/tw_order_live_tab'), $order_data);
 			}
 			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($json));

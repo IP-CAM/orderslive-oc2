@@ -177,16 +177,16 @@ function undo(e) {
 }
 function refreshOrder(order_id) {
 	$.ajax({
-		url: 'index.php?route=sale/tw_live/refresh&token=' + token,
+		url: 'index.php?route=sale/tw_live/refresh',
 		method: "GET",
 		data: {
+			"token" : token,
 			"order_id": order_id
 		},
 		success: function (r) {
-			$("#order-" + order_id).replaceWith(r.order);
+			updateOrder(r);
 			$("#order-" + order_id).addClass("active");
-			$("#order-tab-" + order_id).replaceWith(r.tab);
-			$("#order-tab-" + order_id).attr("class", "active");
+			$("#order-tab-" + order_id).addClass("active");
 		},
 		complete : updateElapsed
 	})
