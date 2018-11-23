@@ -265,14 +265,17 @@ var addNewOrder = function(order){
 }
 
 // Update an already existing order with the data from the response
-// If set_active is true, sets the order as active(selected)
-var updateOrder = function(order, set_active = true){
+var updateOrder = function(order){
+	//First chack if we actually have the order
+	//Then update only if the order has changed. We do this to avoid updating an up-to-date order
+	//which solves so many issues with muuri and updating the DOM and other stuff...
+	let $old_tab = $("#order-tab-"+order.order_id);
+	if(!$old_tab.length || ! (order.timestamp > $old_tab.data('timestamp')) ) return;
 	//We just replace the order data part
-	$('#order-' + order.order_id).replaceWith(order.order_data);
+	$('#order-' + order.order_id).html(order.order_data);
+	
 	//but this doesn't work very well with replacing elements
 	let $new_tab = $(order.order_tab);
-	let $old_tab = $('#order-tab-' + order.order_id);
-
 	// update the data attributes that need to change
 	// TODO: Might need to change this to use $.attr() instead
 	$old_tab.data('timestamp',$new_tab.data('timestamp'));
@@ -280,10 +283,6 @@ var updateOrder = function(order, set_active = true){
 	$old_tab.data('status-id',$new_tab.data('status-id'));
 	
 	$old_tab.html($new_tab.html());
-	if(set_active){
-		$("#order-" + order.order_id).addClass("active");
-		$("#order-tab-" + order.order_id).addClass("active");
-	}
 }
 
 var hideOrder = function(order_id){
