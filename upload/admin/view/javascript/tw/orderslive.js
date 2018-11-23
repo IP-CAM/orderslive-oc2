@@ -125,13 +125,11 @@ var addCustomerHistory = function (e) {
 	let comment = $(btn).parent('.panel-body').find('[name="comment"]');
 	if (comment.val() != '') {
 		$.ajax({
-			url: 'index.php?route=customer/customer/addhistory',
+			url: 'index.php?route=customer/customer/addhistory&token=' + token +'&customer_id='+customer_id,
 			type: 'post',
 			dataType: 'json',
 			data: {
-				'comment' : encodeURIComponent(comment.val()),
-				'token' : token,
-				'customer_id' : customer_id
+				'comment' : encodeURIComponent(comment.val())
 			},
 			beforeSend: function () {
 				$(btn).button('loading');
