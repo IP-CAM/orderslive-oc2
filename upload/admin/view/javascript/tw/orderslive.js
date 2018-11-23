@@ -260,7 +260,7 @@ $.ajax({
 
 // Take a new order object returned from the server and marks it as 'new'
 // adds it to the list and plays notification sound
-function addNewOrder(order){
+var addNewOrder = function(order){
 	order_tabs.add($(order.order_tab).addClass("new").get(0),{index: 0});
 	$('#order-details').append(order.order_data);
 	//$('#order-tabs').prepend(order.order_tab);
@@ -268,13 +268,24 @@ function addNewOrder(order){
 	updateElapsed();
 }
 
+//Update an already existing order with the data from the response
+var updateOrder = function(order){
+	//We just replace the order data part
+	$('#order-' + order.order_id).replaceWith(order.order_data);
+	//but this doesn't work very well with
+}
 function updateOrderList(orders) {
 	for (let order of orders) {
 		if ($('#order-tab-' + order.order_id).length) {
+			console.log('replacing',order);
+			
+			// let container = order_tabs.getElement();
+			// container.replaceChild($(order.order_tab).get(0),$('#order-tab-' + order.order_id).get(0));
 			// If we are here, it means we already have the order in our list 
 			// we just need to update it's info. Might add some sort of animation here
+			$
 			$('#order-tab-' + order.order_id).replaceWith(order.order_tab);
-			$('#order-' + order.order_id).replaceWith(order.order_data);
+			
 		} else { // we have a new order. Play sound and mark it as new
 			addNewOrder(order);
 		}

@@ -4,7 +4,7 @@
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
 					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#tw-orders-live-nav" aria-expanded="false">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#tw-orders-live-nav">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -80,6 +80,7 @@
 <script src="view/javascript/tw/moment-with-locales.min.js" type="text/javascript"></script>
 <script src="view/javascript/tw/js.cookie.min.js" type="text/javascript"></script>
 <script src="view/javascript/tw/muuri.min.js" type="text/javascript"></script>
+<script src="view/javascript/tw/debug.js" type="text/javascript"></script>
 
 <script>
 var order_tabs;

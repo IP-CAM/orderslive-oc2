@@ -21,7 +21,7 @@ data-status-id="<?= $order_status_id ?>"
 data-order-group="<?= $order_group ?>">
     <a id="order-link-<?= $order_id ?>" 
         href="#order-<?= $order_id ?>"  
-        data-toggle="tab" aria-expanded="true">
+        data-toggle="tab">
         <div class="pull-left" style="margin-right:5px;">
             <h1><span class="badge"><?= $order_id ?></span></h1>
         </div>
