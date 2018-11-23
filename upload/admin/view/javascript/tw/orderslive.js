@@ -276,10 +276,12 @@ var updateOrder = function(order){
 	let $new_tab = $(order.order_tab);
 	let $old_tab = $('#order-tab-' + order.order_id);
 
-	// loop through new attributes and apply them on existing order tab
-	$.each($new_tab.prop('attributes'), function() {
-		$old_tab.attr(this.name, this.value);
-	});
+	// update the data attributes that need to change
+	// TODO: Might need to change this to use $.attr() instead
+	$old_tab.data('timestamp',$new_tab.data('timestamp'));
+	$old_tab.data('order-group',$new_tab.data('order-group'));
+	$old_tab.data('status-id',$new_tab.data('status-id'));
+	
 	$old_tab.html($new_tab.html());
 }
 

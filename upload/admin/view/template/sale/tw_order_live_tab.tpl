@@ -15,7 +15,7 @@
     }
 ?>
 <li id="order-tab-<?= $order_id ?>"  class="order-tab"
-data-time="<?= $order_datetime_modified ?>" 
+data-timestamp="<?= strtotime($order_datetime_modified) ?>" 
 data-order-id="<?= $order_id ?>"
 data-status-id="<?= $order_status_id ?>"
 data-order-group="<?= $order_group ?>">
