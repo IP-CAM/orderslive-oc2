@@ -80,7 +80,6 @@
 <script src="view/javascript/tw/moment-with-locales.min.js" type="text/javascript"></script>
 <script src="view/javascript/tw/js.cookie.min.js" type="text/javascript"></script>
 <script src="view/javascript/tw/muuri.min.js" type="text/javascript"></script>
-<script src="view/javascript/tw/debug.js" type="text/javascript"></script>
 
 <script>
 var order_tabs;

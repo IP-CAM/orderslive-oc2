@@ -272,20 +272,20 @@ var addNewOrder = function(order){
 var updateOrder = function(order){
 	//We just replace the order data part
 	$('#order-' + order.order_id).replaceWith(order.order_data);
-	//but this doesn't work very well with
+	//but this doesn't work very well with replacing elements
+	let $new_tab = $(order.order_tab);
+	let $old_tab = $('#order-tab-' + order.order_id);
+
+	// loop through new attributes and apply them on existing order tab
+	$.each($new_tab.prop('attributes'), function() {
+		$old_tab.attr(this.name, this.value);
+	});
+	$old_tab.html($new_tab.html());
 }
 function updateOrderList(orders) {
 	for (let order of orders) {
 		if ($('#order-tab-' + order.order_id).length) {
-			console.log('replacing',order);
-			
-			// let container = order_tabs.getElement();
-			// container.replaceChild($(order.order_tab).get(0),$('#order-tab-' + order.order_id).get(0));
-			// If we are here, it means we already have the order in our list 
-			// we just need to update it's info. Might add some sort of animation here
-			$
-			$('#order-tab-' + order.order_id).replaceWith(order.order_tab);
-			
+			updateOrder(order);
 		} else { // we have a new order. Play sound and mark it as new
 			addNewOrder(order);
 		}
