@@ -185,8 +185,6 @@ function refreshOrder(order_id) {
 		},
 		success: function (r) {
 			updateOrder(r);
-			$("#order-" + order_id).addClass("active");
-			$("#order-tab-" + order_id).addClass("active");
 		},
 		complete : updateElapsed
 	})
@@ -268,8 +266,9 @@ var addNewOrder = function(order){
 	updateElapsed();
 }
 
-//Update an already existing order with the data from the response
-var updateOrder = function(order){
+// Update an already existing order with the data from the response
+// If set_active is true, sets the order as active(selected)
+var updateOrder = function(order, set_active = true){
 	//We just replace the order data part
 	$('#order-' + order.order_id).replaceWith(order.order_data);
 	//but this doesn't work very well with replacing elements
@@ -283,6 +282,8 @@ var updateOrder = function(order){
 	$old_tab.data('status-id',$new_tab.data('status-id'));
 	
 	$old_tab.html($new_tab.html());
+	$("#order-" + order_id).addClass("active");
+	$("#order-tab-" + order_id).addClass("active");
 }
 
 var hideOrder = function(order_id){
@@ -293,7 +294,7 @@ var hideOrder = function(order_id){
 function updateOrderList(orders) {
 	for (let order of orders) {
 		if ($('#order-tab-' + order.order_id).length) {
-			updateOrder(order);
+			updateOrder(order,false);
 		} else { // we have a new order. Play sound and mark it as new
 			addNewOrder(order);
 		}
