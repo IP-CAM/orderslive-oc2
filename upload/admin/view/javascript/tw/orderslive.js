@@ -171,7 +171,7 @@ function undo(e) {
 	if (evtobj.keyCode == 90 && evtobj.ctrlKey){
 		if(order_data_undo_array.length){
 			let $order_tab = order_data_undo_array.pop();
-			$order_tab.removeClass('hidden');
+			order_tabs.show($order_tab[0]);
 		}
 	}
 }
@@ -282,6 +282,12 @@ var updateOrder = function(order){
 	});
 	$old_tab.html($new_tab.html());
 }
+
+var hideOrder = function(order_id){
+	let el = $('#order-tab-' + order_id)[0];
+	order_tabs.hide(el);
+}
+
 function updateOrderList(orders) {
 	for (let order of orders) {
 		if ($('#order-tab-' + order.order_id).length) {
@@ -373,7 +379,7 @@ document.onkeydown = undo;
 
 $(document).on('click', '.remove-order', function (e) {
 	let order_id = $(this).data('order-id');
-	let order_tab = $("#order-tab-"+order_id).addClass('hidden');
+	hideOrder(order_id);
 	// Show the first available order since the currently selected one should be hidden
 	$('#order-tabs a:first').tab('show')
 	order_data_undo_array.push($("#order-tab-"+order_id));
