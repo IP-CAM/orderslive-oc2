@@ -280,8 +280,10 @@ var updateOrder = function(order, set_active = true){
 	$old_tab.data('status-id',$new_tab.data('status-id'));
 	
 	$old_tab.html($new_tab.html());
-	$("#order-" + order_id).addClass("active");
-	$("#order-tab-" + order_id).addClass("active");
+	if(set_active){
+		$("#order-" + order.order_id).addClass("active");
+		$("#order-tab-" + order.order_id).addClass("active");
+	}
 }
 
 var hideOrder = function(order_id){
