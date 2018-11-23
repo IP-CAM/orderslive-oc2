@@ -286,8 +286,10 @@ var updateOrder = function(order){
 }
 
 var hideOrder = function(order_id){
+	//Hide the tab
 	let el = $('#order-tab-' + order_id)[0];
 	order_tabs.hide(el);
+	//Also hide the info
 }
 
 function updateOrderList(orders) {
@@ -382,8 +384,10 @@ document.onkeydown = undo;
 $(document).on('click', '.remove-order', function (e) {
 	let order_id = $(this).data('order-id');
 	hideOrder(order_id);
-	// Show the first available order since the currently selected one should be hidden
-	$('#order-tabs a:first').tab('show')
+	// Show the first available visible order since the currently selected one should be hidden
+	$('.order-tab').not('.hidden')[0]
+	if($('.order-tab').not('.hidden')[0]) $($('.order-tab').not('.hidden')[0]).find('a').tab('show');
+	else $('.tab-pane.active').removeClass('active');//Hide the last remaining order
 	order_data_undo_array.push($("#order-tab-"+order_id));
 });
 
