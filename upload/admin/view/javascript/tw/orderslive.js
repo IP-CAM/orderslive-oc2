@@ -174,9 +174,8 @@ function sortOrders(key){
 }
 
 function filterOrders(key){
-	let activeFilter = this.activeFilter || '';
 	order_tabs.filter(function(item){
-		return key ? $(item.getElement()).data('order-group') == key : true ;
+		return !$(item.getElement()).data('removed') && ( key ? $(item.getElement()).data('order-group') == key : true );
 	})
 }
 
@@ -185,6 +184,7 @@ function undo(e) {
 	if (evtobj.keyCode == 90 && evtobj.ctrlKey){
 		if(order_data_undo_array.length){
 			let $order_tab = order_data_undo_array.pop();
+			$order_tab.data('removed',false);
 			order_tabs.show($order_tab[0]);
 		}
 	}
@@ -301,8 +301,9 @@ var updateOrder = function(order){
 
 var hideOrder = function(order_id){
 	//Hide the tab
-	let el = $('#order-tab-' + order_id)[0];
-	order_tabs.hide(el);
+	let $el = $('#order-tab-' + order_id);
+	$el.data('removed',true);
+	order_tabs.hide($el[0]);
 	//Also hide the info
 }
 
@@ -389,6 +390,10 @@ $('#sound-preview').click(function(e){
 $('#sound-stop').click(function(e){
 	e.preventDefault();
 	settings.stopNotification();
+})
+
+$('[name="order_filter"]').change(function(e){
+	filterOrders(e.target.value);
 })
 
 $(document).on('click', '.new',function(){

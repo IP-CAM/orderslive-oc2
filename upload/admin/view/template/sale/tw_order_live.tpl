@@ -49,27 +49,20 @@
 						<div class="col-sm-12">
 						
 							<div class="btn-group btn-group-xs" data-toggle="buttons">
-								<label class="btn btn-default active"  onclick="sortOrders('timestamp')">
-									<input type="radio" name="order_filter" value="timestamp" autocomplete="off"><?= $text_filter_all ?>
+								<label class="btn btn-default active">
+									<input type="radio" name="order_filter" value="" autocomplete="off"><?= $text_filter_all ?>
 								</label>
-								<label class="btn btn-default" onclick="sortOrders('status-id')">
-									<input type="radio" name="order_filter" value="status-id" autocomplete="off"><?= $text_filter_complete ?>
+								<label class="btn btn-success">
+									<input type="radio" name="order_filter" value="complete" autocomplete="off"><?= $text_filter_complete ?>
 								</label>
-								<label class="btn btn-default" onclick="sortOrders('order-id')">
-									<input type="radio" name="order_filter" value="order-id" autocomplete="off" checked><?= $text_filter_pending ?>
+								<label class="btn btn-warning">
+									<input type="radio" name="order_filter" value="pending" autocomplete="off" checked><?= $text_filter_pending ?>
 								</label>
-								<label class="btn btn-default" onclick="sortOrders('order-group')">
-									<input type="radio" name="order_filter" value="order-group" autocomplete="off"><?= $text_filter_misc ?>
+								<label class="btn btn-misc">
+									<input type="radio" name="order_filter" value="misc" autocomplete="off"><?= $text_filter_misc ?>
 								</label>
 							</div>
-						
-							<div class="btn-group" id="">
-								<button onclick="filterOrders()" type="button" data-filter="all" class="btn btn-default">All</button>
-								<button onclick="filterOrders(1)" type="button" data-filter="2" class="btn btn-warning">Orange</button>
-								<button onclick="filterOrders(2)" type="button" data-filter="1" class="btn btn-success">Green</button>
-								<button onclick="filterOrders(3)" type="button" data-filter="3" class="btn btn-misc">Grey</button>
-							</div>
-							<div class="btn-group" data-toggle="buttons">
+							<div class="btn-group btn-group-xs" data-toggle="buttons">
 								<label class="btn btn-default active"  onclick="sortOrders('timestamp')">
 									<input type="radio" name="order_sort_key" value="timestamp" autocomplete="off">Date Modified
 								</label>
