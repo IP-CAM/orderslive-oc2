@@ -103,6 +103,9 @@ $(document).ready(function(){
 			order_group: function (item, element) {
 				return $(element).data('order-group');
 			},
+			order_id: function (item, element) {
+				return $(element).data('order-id');
+			},
 		}
 	});
 })
