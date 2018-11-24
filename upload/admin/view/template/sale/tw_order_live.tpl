@@ -47,6 +47,22 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div class="col-sm-12">
+						
+							<div class="btn-group btn-group-xs" data-toggle="buttons">
+								<label class="btn btn-default active"  onclick="sortOrders('timestamp')">
+									<input type="radio" name="order_filter" value="timestamp" autocomplete="off"><?= $text_filter_all ?>
+								</label>
+								<label class="btn btn-default" onclick="sortOrders('status-id')">
+									<input type="radio" name="order_filter" value="status-id" autocomplete="off"><?= $text_filter_complete ?>
+								</label>
+								<label class="btn btn-default" onclick="sortOrders('order-id')">
+									<input type="radio" name="order_filter" value="order-id" autocomplete="off" checked><?= $text_filter_pending ?>
+								</label>
+								<label class="btn btn-default" onclick="sortOrders('order-group')">
+									<input type="radio" name="order_filter" value="order-group" autocomplete="off"><?= $text_filter_misc ?>
+								</label>
+							</div>
+						
 							<div class="btn-group" id="">
 								<button onclick="filterOrders()" type="button" data-filter="all" class="btn btn-default">All</button>
 								<button onclick="filterOrders(1)" type="button" data-filter="2" class="btn btn-warning">Orange</button>
