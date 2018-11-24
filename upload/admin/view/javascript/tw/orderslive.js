@@ -164,6 +164,14 @@ function updateElapsed() {
 	})
 }
 
+function sortOrders(key){
+	order_tabs.sort(function (itemA, itemB) {
+		let one = $(itemA.getElement()).data(key);
+		let another = $(itemB.getElement()).data(key);
+		return one > another;
+	  });
+}
+
 function undo(e) {
 	var evtobj = window.event? event : e;
 	if (evtobj.keyCode == 90 && evtobj.ctrlKey){
