@@ -169,11 +169,12 @@ function sortOrders(key){
 	order_tabs.sort(function (itemA, itemB) {
 		let one = $(itemA.getElement()).data(key);
 		let another = $(itemB.getElement()).data(key);
-		return one > another;
-	  });
+		return one - another;
+	  },{descending: true});
 }
 
 function filterOrders(key){
+	let activeFilter = this.activeFilter || '';
 	order_tabs.filter(function(item){
 		return key ? $(item.getElement()).data('order-group') == key : true ;
 	})

@@ -49,9 +49,9 @@
 						<div class="col-sm-12">
 							<div class="btn-group" id="">
 								<button onclick="filterOrders()" type="button" data-filter="all" class="btn btn-default">All</button>
-								<button onclick="filterOrders('completed')" type="button" data-filter="1" class="btn btn-success">Green</button>
-								<button onclick="filterOrders('pending')" type="button" data-filter="2" class="btn btn-warning">Orange</button>
-								<button onclick="filterOrders('misc')" type="button" data-filter="3" class="btn btn-misc">Grey</button>
+								<button onclick="filterOrders(1)" type="button" data-filter="2" class="btn btn-warning">Orange</button>
+								<button onclick="filterOrders(2)" type="button" data-filter="1" class="btn btn-success">Green</button>
+								<button onclick="filterOrders(3)" type="button" data-filter="3" class="btn btn-misc">Grey</button>
 							</div>
 							<div class="btn-group" data-toggle="buttons">
 								<label class="btn btn-default active"  onclick="sortOrders('timestamp')">
