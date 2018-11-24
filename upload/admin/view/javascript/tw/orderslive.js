@@ -164,6 +164,7 @@ function updateElapsed() {
 	})
 }
 
+
 function sortOrders(key){
 	order_tabs.sort(function (itemA, itemB) {
 		let one = $(itemA.getElement()).data(key);

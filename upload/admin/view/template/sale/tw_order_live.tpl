@@ -49,15 +49,23 @@
 						<div class="col-sm-12">
 							<div class="btn-group" id="">
 								<button onclick="" type="button" data-filter="all" class="btn btn-default">All</button>
-								<button onclick="" type="button" data-filter="1" class="btn btn-default">Green</button>
-								<button onclick="" type="button" data-filter="2" class="btn btn-default">Orange</button>
-								<button onclick="" type="button" data-filter="3" class="btn btn-default">Grey</button>
+								<button onclick="" type="button" data-filter="1" class="btn btn-success">Green</button>
+								<button onclick="" type="button" data-filter="2" class="btn btn-warning">Orange</button>
+								<button onclick="" type="button" data-filter="3" class="btn btn-misc">Grey</button>
 							</div>
-							<div class="btn-group" id="">
-								<button onclick="sortOrders('order-id')" type="button" data-filter="all" class="btn btn-default">Order ID</button>
-								<button onclick="sortOrders('status-id')" type="button" data-filter="1" class="btn btn-default">Status</button>
-								<button onclick="sortOrders('timestamp')" type="button" data-filter="2" class="btn btn-default">Date Modified</button>
-								<button onclick="sortOrders('order-group')" type="button" data-filter="3" class="btn btn-default">Status Group</button>
+							<div class="btn-group" data-toggle="buttons">
+								<label class="btn btn-default active"  onclick="sortOrders('timestamp')">
+									<input type="radio" name="order_sort_key" value="timestamp" autocomplete="off">Date Modified
+								</label>
+								<label class="btn btn-default" onclick="sortOrders('status-id')">
+									<input type="radio" name="order_sort_key" value="status-id" autocomplete="off">Status
+								</label>
+								<label class="btn btn-default" onclick="sortOrders('order-id')">
+									<input type="radio" name="order_sort_key" value="order-id" autocomplete="off" checked>Order ID
+								</label>
+								<label class="btn btn-default" onclick="sortOrders('order-group')">
+									<input type="radio" name="order_sort_key" value="order-group" autocomplete="off">Status Group
+								</label>
 							</div>
 						</div>
 					</div>
@@ -210,6 +218,10 @@ var order_data_undo_array = new Array();
 		top: -10px;
 		font-size: x-small;
 		color: #80808096;
+	}
+	.btn-misc{
+		background-color: #777;
+		color: white!important;
 	}
 </style>
 <?php echo $footer; ?>
