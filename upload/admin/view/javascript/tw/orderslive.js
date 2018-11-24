@@ -191,8 +191,7 @@ function refreshOrder(order_id) {
 		},
 		success: function (r) {
 			updateOrder(r);
-		},
-		complete : updateElapsed
+		}
 	})
 
 }
@@ -267,9 +266,7 @@ $.ajax({
 var addNewOrder = function(order){
 	order_tabs.add($(order.order_tab).addClass("new").get(0),{index: 0});
 	$('#order-details').append(order.order_data);
-	//$('#order-tabs').prepend(order.order_tab);
-	settings.playNotification();
-	updateElapsed();
+	document.dispatchEvent(new CustomEvent('tw.order.added',{detail: order}));
 }
 
 // Update an already existing order with the data from the response
@@ -291,6 +288,7 @@ var updateOrder = function(order){
 	$old_tab.data('status-id',$new_tab.data('status-id'));
 	
 	$old_tab.html($new_tab.html());
+	document.dispatchEvent(new CustomEvent('tw.order.changed',{detail: order}));
 }
 
 var hideOrder = function(order_id){
@@ -299,6 +297,17 @@ var hideOrder = function(order_id){
 	order_tabs.hide(el);
 	//Also hide the info
 }
+
+$(document).on('tw.order.changed',function(e){
+	console.log("order updated",e.detail);
+	order_tabs.refreshSortData();
+})
+$(document).on('tw.order.added',function(e){
+	console.log("order added",e.detail);
+	settings.playNotification();
+	updateElapsed();
+})
+
 
 function updateOrderList(orders) {
 	for (let order of orders) {
