@@ -173,6 +173,12 @@ function sortOrders(key){
 	  });
 }
 
+function filterOrders(key){
+	order_tabs.filter(function(item){
+		return key ? $(item.getElement()).data('order-group') == key : true ;
+	})
+}
+
 function undo(e) {
 	var evtobj = window.event? event : e;
 	if (evtobj.keyCode == 90 && evtobj.ctrlKey){

@@ -5,13 +5,13 @@
 
 	if ($order_processing) {
         $label = "label-warning";
-        $order_group = 1;
+        $order_group = 'pending';
     } else if ($order_complete) {
         $label = "label-success";
-        $order_group = 2;
+        $order_group = 'completed' ;
     } else {
         $label = "label-default";
-        $order_group = 3;
+        $order_group = 'misc';
     }
 ?>
 <li id="order-tab-<?= $order_id ?>"  class="order-tab"
