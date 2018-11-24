@@ -86,7 +86,18 @@ var order_tabs;
 $(document).ready(function(){
 	order_tabs = new Muuri('#order-tabs',{
 		items : '.order-tab',
-		itemHiddenClass : 'hidden'
+		itemHiddenClass : 'hidden',
+		sortData: {
+			timestamp: function (item, element) {
+				return $(element).data('timestamp');
+			},
+			order_status_id: function (item, element) {
+				return $(element).data('status-id');
+			},
+			order_group: function (item, element) {
+				return $(element).data('order-group');
+			},
+		}
 	});
 })
 
