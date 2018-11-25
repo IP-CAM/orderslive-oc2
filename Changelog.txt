@@ -1,10 +1,12 @@
 Changelog for Orders Live 
 
 v1.1
+ - Changed the way it checks for new orders. Now looks at the date it was modified instead of the order id to determine if it is new. This was done mostly to solve an issue with the Journal 2 theme's quick checkout
  - Added the ability to play a sound continuously
  - Changed the way the 'Delete' button works
  - Removed duplicate language folders. May cause issues on OC v2.1. Check F.A.Q. for workarounds.
- 
+ - Added the ability to sort and filter Orders
+
 v1.0.4
  - Fixed some 'rare' bugs
 

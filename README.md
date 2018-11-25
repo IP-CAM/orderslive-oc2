@@ -8,3 +8,4 @@ More information along with downloads can be found in the [marketplace page](htt
 ## Included libraries
 * Moment.js ([momenjs.com](http://momentjs.com/) / [github](https://github.com/moment/moment))
 * js-cookie ([github](https://github.com/js-cookie/js-cookie))
+* Muuri ([github](https://github.com/haltu/muuri))
