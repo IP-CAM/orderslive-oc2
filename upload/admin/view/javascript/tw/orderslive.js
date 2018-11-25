@@ -34,7 +34,9 @@ class TwLiveSettings extends Object{
 		this.options = {
 			sound_file : '',
 			mute_sound : false,
-			continuous_sound: false
+			continuous_sound: false,
+			sort_key : 'order-group',
+			filter_key : '' 
 		};
 		this.sound = '';
 	}
