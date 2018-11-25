@@ -63,17 +63,17 @@
 								</label>
 							</div>
 							<div class="btn-group btn-group-xs" data-toggle="buttons">
-								<label class="btn btn-default active"  onclick="sortOrders('timestamp')">
-									<input type="radio" name="order_sort_key" value="timestamp" autocomplete="off">Date Modified
+								<label class="btn btn-default active">
+									<input type="radio" name="order_sort" value="timestamp" autocomplete="off">Date Modified
 								</label>
-								<label class="btn btn-default" onclick="sortOrders('status-id')">
-									<input type="radio" name="order_sort_key" value="status-id" autocomplete="off">Status
+								<label class="btn btn-default">
+									<input type="radio" name="order_sort" value="status-id" autocomplete="off">Status
 								</label>
-								<label class="btn btn-default" onclick="sortOrders('order-id')">
-									<input type="radio" name="order_sort_key" value="order-id" autocomplete="off" checked>Order ID
+								<label class="btn btn-default">
+									<input type="radio" name="order_sort" value="order-id" autocomplete="off" checked>Order ID
 								</label>
-								<label class="btn btn-default" onclick="sortOrders('order-group')">
-									<input type="radio" name="order_sort_key" value="order-group" autocomplete="off">Status Group
+								<label class="btn btn-default">
+									<input type="radio" name="order_sort" value="order-group" autocomplete="off">Status Group
 								</label>
 							</div>
 						</div>

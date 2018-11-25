@@ -165,19 +165,30 @@ function updateElapsed() {
 }
 
 
-function sortOrders(key){
-	order_tabs.sort(function (itemA, itemB) {
+var sortOrders = function(key){
+	// sortOrders.previousKey = sortOrders.previousKey || '';
+	sortOrders.descending = sortOrders.previousKey === key 
+		? !sortOrders.descending
+		: true;
+	sortOrders.previousKey = key;
+	order_tabs.sort( (itemA, itemB) => {
 		let one = $(itemA.getElement()).data(key);
 		let another = $(itemB.getElement()).data(key);
 		return one - another;
-	  },{descending: true});
+	  },{descending: sortOrders.descending});
 }
 
 function filterOrders(key){
-	order_tabs.filter(function(item){
-		return !$(item.getElement()).data('removed') && ( key ? $(item.getElement()).data('order-group') == key : true );
-	})
-}
+	let statuses = {
+	  'pending' : 1,
+	  'complete': 2,
+	  'misc'    : 3
+	}
+	  order_tabs.filter(function(item){
+	  $item = $(item.getElement());
+		  return !$item.data('removed') && ( key ? $item.data('order-group') == statuses[key] : true );
+	  })
+  }
 
 function undo(e) {
 	var evtobj = window.event? event : e;
@@ -308,11 +319,14 @@ var hideOrder = function(order_id){
 }
 
 $(document).on('tw.order.changed',function(e){
+	sortOrders();
+	filterOrders();
 	console.log("order updated",e.detail);
 	order_tabs.refreshSortData();
 })
 $(document).on('tw.order.added',function(e){
-	console.log("order added",e.detail);
+	sortOrders();
+	filterOrders();
 	settings.playNotification();
 	updateElapsed();
 })
@@ -394,6 +408,10 @@ $('#sound-stop').click(function(e){
 
 $('[name="order_filter"]').change(function(e){
 	filterOrders(e.target.value);
+})
+
+$('[name="order_sort"]').on('input change' ,function(e){
+	sortOrders(e.target.value);
 })
 
 $(document).on('click', '.new',function(){
