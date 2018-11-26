@@ -26,9 +26,9 @@ class TwLiveConnectionStatus extends Object{
 var connection_status = new TwLiveConnectionStatus('#server-status');
 
 class TwLiveSettings extends Object{
-	constructor(element){
+	constructor(selector){
 		super();
-		this.$el = $(element);
+		this.$el = $(selector);
 		this.sound_dir = 'view/sounds/tw/tworderslive/';
 		this.live_is_enabled = true;
 		this.options = {
@@ -39,8 +39,12 @@ class TwLiveSettings extends Object{
 			filter_key : '' 
 		};
 		this.sound = '';
-	}
 
+		this.$el.change(function(e){
+			settings.parseSettings().saveOptions();
+		})
+	}
+	
 	playNotification(force){
 		if(!this.options.mute_sound || force === true) this.sound.play();
 		return this;
@@ -394,9 +398,6 @@ $('#tw-toggle-live').click(function(){
 	else $(this).addClass('disabled');
 })
 
-$('#settings').change(function(e){
-	settings.parseSettings().saveOptions();
-})
 
 $('#sound-preview').click(function(e){
 	e.preventDefault();
