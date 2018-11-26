@@ -4,7 +4,7 @@
 			<nav class="navbar navbar-default">
 				<div class="container-fluid">
 					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#tw-orders-live-nav">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#tw-settings">
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -16,67 +16,68 @@
 							<small id="tw-response-time" data-toggle="tooltip" title="<?= $text_average_response_time?>"></small>
 						</div>
 					</div>
-					<div class="collapse navbar-collapse" id="tw-orders-live-nav">
-						<ul class="nav navbar-nav navbar-right" id="settings">
-							<li>
-								<form class="form-inline">
-									<div class="checkbox">
-										<label data-toggle="tooltip" title="<?= $text_continuous_info ?>"><input id="tw-continuous-sound" type="checkbox"> <?= $text_continuous ?></label>
-									</div>
-									<div class="checkbox">
-										<label data-toggle="tooltip" title="<?= $text_mute_info ?>"><input id="tw-mute-sound" type="checkbox"> <?= $text_mute ?></label>
-									</div>
-									<div class="form-group input-group input-group-sm">
-										<select class="form-control" id="tw-sound-select" data-toggle="tooltip" title="<?= $text_sound_info ?>">
-											<?php foreach ($sound_files as $sound_file) {
-												echo '<option value="'.$sound_file['file'].'">' . $sound_file['name'].'</option>';
-											} ?>
-										</select>
-										<span class="input-group-btn">
-									        <button class="btn btn-default" id="sound-stop" data-toggle="tooltip" type="button"><i class="fa fa-pause fa-lg"></i></button>
-										</span>
-										<span class="input-group-btn">
-									        <button class="btn btn-default" id="sound-preview" data-toggle="tooltip" title="<?= $text_play_sound ?>" type="button"><i class="fa fa-play fa-lg"></i></button>
-										</span>
-									</div>
-								</form>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-sm-12">
-						
-							<div class="btn-group btn-group-xs" data-toggle="buttons">
-								<label class="btn btn-default active">
-									<input type="radio" name="order_filter" value="" autocomplete="off"><?= $text_filter_all ?>
-								</label>
-								<label class="btn btn-success">
-									<input type="radio" name="order_filter" value="complete" autocomplete="off"><?= $text_filter_complete ?>
-								</label>
-								<label class="btn btn-warning">
-									<input type="radio" name="order_filter" value="pending" autocomplete="off" checked><?= $text_filter_pending ?>
-								</label>
-								<label class="btn btn-misc">
-									<input type="radio" name="order_filter" value="misc" autocomplete="off"><?= $text_filter_misc ?>
-								</label>
-							</div>
-							<div class="btn-group btn-group-xs" data-toggle="buttons">
-								<label class="btn btn-default active">
-									<input type="radio" name="order_sort" value="timestamp" autocomplete="off">Date Modified
-								</label>
-								<label class="btn btn-default">
-									<input type="radio" name="order_sort" value="status-id" autocomplete="off">Status
-								</label>
-								<label class="btn btn-default">
-									<input type="radio" name="order_sort" value="order-id" autocomplete="off" checked>Order ID
-								</label>
-								<label class="btn btn-default">
-									<input type="radio" name="order_sort" value="order-group" autocomplete="off">Status Group
-								</label>
+					<div class="collapse navbar-collapse" id="tw-settings">
+						<div class="row">
+							<ul class="nav navbar-nav navbar-right">
+								<li>
+									<form class="form-inline">
+										<div class="checkbox">
+											<label data-toggle="tooltip" title="<?= $text_continuous_info ?>"><input id="tw-continuous-sound" type="checkbox"> <?= $text_continuous ?></label>
+										</div>
+										<div class="checkbox">
+											<label data-toggle="tooltip" title="<?= $text_mute_info ?>"><input id="tw-mute-sound" type="checkbox"> <?= $text_mute ?></label>
+										</div>
+										<div class="form-group input-group input-group-sm">
+											<select class="form-control" id="tw-sound-select" data-toggle="tooltip" title="<?= $text_sound_info ?>">
+												<?php foreach ($sound_files as $sound_file) {
+													echo '<option value="'.$sound_file['file'].'">' . $sound_file['name'].'</option>';
+												} ?>
+											</select>
+											<span class="input-group-btn">
+												<button class="btn btn-default" id="sound-stop" data-toggle="tooltip" type="button"><i class="fa fa-pause fa-lg"></i></button>
+											</span>
+											<span class="input-group-btn">
+												<button class="btn btn-default" id="sound-preview" data-toggle="tooltip" title="<?= $text_play_sound ?>" type="button"><i class="fa fa-play fa-lg"></i></button>
+											</span>
+										</div>
+									</form>
+								</li>
+							</ul>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="btn-group btn-group-xs" data-toggle="buttons">
+									<label class="btn btn-default active">
+										<input type="radio" name="order_filter" value="" autocomplete="off"><?= $text_filter_all ?>
+									</label>
+									<label class="btn btn-success">
+										<input type="radio" name="order_filter" value="complete" autocomplete="off"><?= $text_filter_complete ?>
+									</label>
+									<label class="btn btn-warning">
+										<input type="radio" name="order_filter" value="pending" autocomplete="off" checked><?= $text_filter_pending ?>
+									</label>
+									<label class="btn btn-misc">
+										<input type="radio" name="order_filter" value="misc" autocomplete="off"><?= $text_filter_misc ?>
+									</label>
+								</div>
+								<div class="btn-group btn-group-xs" data-toggle="buttons">
+									<label class="btn btn-default active">
+										<input type="radio" name="order_sort" value="timestamp" autocomplete="off">Date Modified
+									</label>
+									<label class="btn btn-default">
+										<input type="radio" name="order_sort" value="status-id" autocomplete="off">Status
+									</label>
+									<label class="btn btn-default">
+										<input type="radio" name="order_sort" value="order-id" autocomplete="off" checked>Order ID
+									</label>
+									<label class="btn btn-default">
+										<input type="radio" name="order_sort" value="order-group" autocomplete="off">Status Group
+									</label>
+								</div>
 							</div>
 						</div>
+
+
 					</div>
 				</div>
 			</nav>

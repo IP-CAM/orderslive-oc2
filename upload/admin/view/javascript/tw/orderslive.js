@@ -88,7 +88,7 @@ class TwLiveSettings extends Object{
 		return this;
 	}
 }
-var settings = new TwLiveSettings('#settings');
+var settings = new TwLiveSettings('#tw-settings');
 
 var addOrderHistory = function (e) {
 	let btn = this;
