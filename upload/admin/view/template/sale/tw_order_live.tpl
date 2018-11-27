@@ -22,13 +22,13 @@
 								<li>
 									<form class="form-inline">
 										<div class="checkbox">
-											<label data-toggle="tooltip" title="<?= $text_continuous_info ?>"><input id="tw-continuous-sound" type="checkbox"> <?= $text_continuous ?></label>
+											<label data-toggle="tooltip" title="<?= $text_continuous_info ?>"><input v-model="continuous_sound" type="checkbox"> <?= $text_continuous ?></label>
 										</div>
 										<div class="checkbox">
-											<label data-toggle="tooltip" title="<?= $text_mute_info ?>"><input id="tw-mute-sound" type="checkbox"> <?= $text_mute ?></label>
+											<label data-toggle="tooltip" title="<?= $text_mute_info ?>"><input v-model="mute_sound" type="checkbox"> <?= $text_mute ?></label>
 										</div>
 										<div class="form-group input-group input-group-sm">
-											<select class="form-control" id="tw-sound-select" data-toggle="tooltip" title="<?= $text_sound_info ?>">
+											<select class="form-control" v-model="sound_file" data-toggle="tooltip" title="<?= $text_sound_info ?>">
 												<?php foreach ($sound_files as $sound_file) {
 													echo '<option value="'.$sound_file['file'].'">' . $sound_file['name'].'</option>';
 												} ?>
@@ -48,30 +48,30 @@
 							<div class="col-sm-12">
 								<div class="btn-group btn-group-xs" data-toggle="buttons">
 									<label class="btn btn-default active">
-										<input type="radio" name="order_filter" value="" autocomplete="off"><?= $text_filter_all ?>
+										<input type="radio" v-model="filter_key" value="" autocomplete="off"><?= $text_filter_all ?>
 									</label>
 									<label class="btn btn-success">
-										<input type="radio" name="order_filter" value="complete" autocomplete="off"><?= $text_filter_complete ?>
+										<input type="radio" v-model="filter_key" value="complete" autocomplete="off"><?= $text_filter_complete ?>
 									</label>
 									<label class="btn btn-warning">
-										<input type="radio" name="order_filter" value="pending" autocomplete="off" checked><?= $text_filter_pending ?>
+										<input type="radio" v-model="filter_key" value="pending" autocomplete="off" checked><?= $text_filter_pending ?>
 									</label>
 									<label class="btn btn-misc">
-										<input type="radio" name="order_filter" value="misc" autocomplete="off"><?= $text_filter_misc ?>
+										<input type="radio" v-model="filter_key" value="misc" autocomplete="off"><?= $text_filter_misc ?>
 									</label>
 								</div>
 								<div class="btn-group btn-group-xs" data-toggle="buttons">
 									<label class="btn btn-default active">
-										<input type="radio" name="order_sort" value="timestamp" autocomplete="off">Date Modified
+										<input type="radio" v-model="sort_key" value="timestamp" v-model="sort_key" autocomplete="off">Date Modified
 									</label>
 									<label class="btn btn-default">
-										<input type="radio" name="order_sort" value="status-id" autocomplete="off">Status
+										<input type="radio" v-model="sort_key" value="status-id" autocomplete="off">Status
 									</label>
 									<label class="btn btn-default">
-										<input type="radio" name="order_sort" value="order-id" autocomplete="off" checked>Order ID
+										<input type="radio" v-model="sort_key" value="order-id" autocomplete="off" checked>Order ID
 									</label>
 									<label class="btn btn-default">
-										<input type="radio" name="order_sort" value="order-group" autocomplete="off">Status Group
+										<input type="radio" v-model="sort_key" value="order-group" autocomplete="off">Status Group
 									</label>
 								</div>
 							</div>

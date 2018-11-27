@@ -8,9 +8,9 @@ function flashMessage(message){
 	},3000)
 }
 class TwLiveConnectionStatus extends Object{
-	constructor(element) {
+	constructor(selector) {
 		super();
-		this.$el = $(element);
+		this.$el = $(selector);
 		this.status_id = ServerStatuses.UNKNOWN;
 	}
 
@@ -26,6 +26,7 @@ class TwLiveConnectionStatus extends Object{
 var connection_status = new TwLiveConnectionStatus('#server-status');
 
 class TwLiveSettings extends Object{
+
 	constructor(selector){
 		super();
 		this.$el = $(selector);
@@ -43,6 +44,44 @@ class TwLiveSettings extends Object{
 		this.$el.change(function(e){
 			settings.parseSettings().saveOptions();
 		})
+	}
+	
+	_getInputValue(option){
+		//get All inputs assiciated with this model
+		let $inputs = this.$el.find(`[v-model="${option}"]`);
+		let ret_value = null;
+		$inputs.each(function(index,element){
+			let type = element.nodeName;
+			switch(type){
+				case "SELECT":
+					ret_value = element.selectedOptions.length ?	element.selectedOptions.length > 1 
+						? Array.from(element.selectedOptions).map(x => x.value)
+					: element.selectedOptions[0].value
+					: null; //Wow i'm so clever...
+					break;
+				case "INPUT":
+					type = element.type;
+				case "checkbox":
+					ret_value = element.checked;
+					break;
+				case "radio" :
+					// Only set value if radio is checked. 
+					// Else keep it's previous value (which should be null if never checked)
+					ret_value = element.checked ? element.value : ret_value;
+					break;
+				default: 
+					ret_value = element.value;
+					break;
+			}
+		})
+		return ret_value;
+	}
+	
+	// Set the options bases on what's selected on the UI
+	parseUI(){
+		for(let option in this.options){
+			this.options[option] = this._getInputValue(option);
+		}
 	}
 	
 	playNotification(force){
