@@ -40,9 +40,8 @@ class TwLiveSettings extends Object{
 			filter_key : '' 
 		};
 		this.sound = '';
-
 		this.$el.change(function(e){
-			settings.init().saveOptions();
+			settings.parseUI().update().save();
 		})
 	}
 	
@@ -82,14 +81,14 @@ class TwLiveSettings extends Object{
 			let type = element.nodeName;
 			switch(type){
 				case "SELECT":
-					for(option in element.options){
+					for(option of element.options){
 						option.selected = (option.value == value) || value.includes(option.value);
 					}
 					break;
 				case "INPUT":
 					type = element.type;
 				case "checkbox":
-					element.checked == value;
+					element.checked = value;
 					break;
 				case "radio" :
 					element.checked = element.value == value;
@@ -99,7 +98,6 @@ class TwLiveSettings extends Object{
 					break;
 			}
 		})
-		return ret_value;
 	}
 
 	// Set the options bases on what's selected on the UI
@@ -141,8 +139,7 @@ class TwLiveSettings extends Object{
 		return this;
 	}
 
-	init(){
-		this.parseUI();
+	update(){
 		if(this.sound){
 			this.sound.pause();
 		}
@@ -456,7 +453,7 @@ var tw_main_loop = setInterval(function(){ if(settings.live_is_enabled) checkFor
 
 //Events and function
 $(document).ready(function(){
-	settings.load().synchronizeUI().save();
+	settings.load().update().synchronizeUI().save();
 })
 
 $('#tw-toggle-live').click(function(){
