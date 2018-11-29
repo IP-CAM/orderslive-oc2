@@ -42,7 +42,7 @@ class TwLiveSettings extends Object{
 		this.sound = '';
 
 		this.$el.change(function(e){
-			settings.parseSettings().saveOptions();
+			settings.init().saveOptions();
 		})
 	}
 	
@@ -82,6 +82,8 @@ class TwLiveSettings extends Object{
 		for(let option in this.options){
 			this.options[option] = this._getInputValue(option);
 		}
+
+		return this;
 	}
 	
 	playNotification(force){
@@ -97,34 +99,34 @@ class TwLiveSettings extends Object{
 		this.live_is_enabled = !this.live_is_enabled;
 		connection_status.setStatus(ServerStatuses.STOPPED);
 	}
-
-	saveOptions(options){ // Save options in cookies
+ 
+	// Save options in cookies
+	save(options){
 		if(!options) options = this.options;
 		let expiration_date = new Date();
-		expiration_date.setDate(expiration_date.getDate()+30);
+		expiration_date.setDate(expiration_date.getDate() + 30);
 		Cookies.set('tw_live_options',JSON.stringify(options),{ expires: expiration_date });
 		return this;
 	}
-	loadOptions(){//Load options from cookies
+
+	load(){//Load options from cookies
 		if(Cookies.get('tw_live_options')){
 			this.options = JSON.parse(Cookies.get('tw_live_options'));
 		}
 		return this;
 	}
 
-	parseSettings(){
-		this.options.mute_sound = this.$el.find('#tw-mute-sound').prop('checked');
-		this.options.continuous_sound = this.$el.find('#tw-continuous-sound').prop('checked');
-		this.options.sound_file = this.$el.find('#tw-sound-select').val();
+	init(){
+		this.parseUI();
 		if(this.sound){
 			this.sound.pause();
 		}
 		this.sound = new Audio(this.sound_dir+this.options.sound_file);
-		if (this.options.continuous_sound) this.sound.loop = true;
+		this.sound.loop = this.options.continuous_sound;
 		return this;
 	}
 
-	optionsToUi(){
+	synchronizeUI(){
 		this.$el.find('#tw-mute-sound').prop('checked',this.options.mute_sound);
 		this.$el.find('#tw-continuous-sound').prop('checked',this.options.continuous_sound);
 		this.$el.find('#tw-sound-select option[value="'+this.options.sound_file+'"]').prop('selected',true);
