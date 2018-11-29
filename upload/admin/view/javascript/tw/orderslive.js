@@ -157,10 +157,6 @@ class TwLiveSettings extends Object{
 		}
 
 		return this;
-		this.$el.find('#tw-mute-sound').prop('checked',this.options.mute_sound);
-		this.$el.find('#tw-continuous-sound').prop('checked',this.options.continuous_sound);
-		this.$el.find('#tw-sound-select option[value="'+this.options.sound_file+'"]').prop('selected',true);
-		return this;
 	}
 }
 var settings = new TwLiveSettings('#tw-settings');
@@ -460,7 +456,7 @@ var tw_main_loop = setInterval(function(){ if(settings.live_is_enabled) checkFor
 
 //Events and function
 $(document).ready(function(){
-	settings.loadOptions().saveOptions().optionsToUi().parseSettings();
+	settings.load().synchronizeUI().save();
 })
 
 $('#tw-toggle-live').click(function(){
