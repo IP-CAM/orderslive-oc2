@@ -76,7 +76,32 @@ class TwLiveSettings extends Object{
 		})
 		return ret_value;
 	}
-	
+	_setInputValue(option, value){
+		let $inputs = this.$el.find(`[v-model="${option}"]`);
+		$inputs.each(function(index,element){
+			let type = element.nodeName;
+			switch(type){
+				case "SELECT":
+					for(option in element.options){
+						option.selected = (option.value == value) || value.includes(option.value);
+					}
+					break;
+				case "INPUT":
+					type = element.type;
+				case "checkbox":
+					element.checked == value;
+					break;
+				case "radio" :
+					element.checked = element.value == value;
+					break;
+				default: 
+					element.innerHTML = value;
+					break;
+			}
+		})
+		return ret_value;
+	}
+
 	// Set the options bases on what's selected on the UI
 	parseUI(){
 		for(let option in this.options){
@@ -127,6 +152,11 @@ class TwLiveSettings extends Object{
 	}
 
 	synchronizeUI(){
+		for(let option in this.options){
+			this._setInputValue(option,this.options[option]);
+		}
+
+		return this;
 		this.$el.find('#tw-mute-sound').prop('checked',this.options.mute_sound);
 		this.$el.find('#tw-continuous-sound').prop('checked',this.options.continuous_sound);
 		this.$el.find('#tw-sound-select option[value="'+this.options.sound_file+'"]').prop('selected',true);
