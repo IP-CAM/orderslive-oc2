@@ -48,36 +48,26 @@ class TwLiveSettings extends Object{
 		})
 	}
 	
-	_getInputValue(option){
-		//get All inputs assiciated with this model
-		let $inputs = this.$el.find(`[v-model="${option}"]`);
-		let ret_value = null;
-		$inputs.each(function(index,element){
-			let type = element.nodeName;
-			switch(type){
-				case "SELECT":
-					ret_value = element.selectedOptions.length ?	element.selectedOptions.length > 1 
-						? Array.from(element.selectedOptions).map(x => x.value)
-					: element.selectedOptions[0].value
-					: null; //Wow i'm so clever...
-					break;
-				case "INPUT":
-					type = element.type;
-				case "checkbox":
-					ret_value = element.checked;
-					break;
-				case "radio" :
-					// Only set value if radio is checked. 
-					// Else keep it's previous value (which should be null if never checked)
-					ret_value = element.checked ? element.value : ret_value;
-					break;
-				default: 
-					ret_value = element.value;
-					break;
-			}
-		})
-		return ret_value;
+	//get All inputs assiciated with this model
+	_getInputValue(option,type, default_value = null){
+		switch(type){
+			case "SELECT":
+				let options = document.querySelectorAll(`[v-model="${option}"] > option:checked`);
+				return options.length ?	options.length > 1 
+					? Array.from(options).map(x => x.value)
+					: options[0].value
+				: null; //Wow i'm so clever...
+			case "checkbox":
+				let element = document.querySelector(`[v-model="${option}"]`);
+				return element.checked;
+			case "radio" :
+				let radio = document.querySelector(`[v-model="${option}"]:checked`);
+				return radio ? radio.value : default_value;
+			default: 
+				return element.value;
+		}
 	}
+	
 	_setInputValue(option, value){
 		let $inputs = this.$el.find(`[v-model="${option}"]`);
 		$inputs.each(function(index,element){
@@ -101,6 +91,17 @@ class TwLiveSettings extends Object{
 					break;
 			}
 		})
+	}
+
+	_getInputType(option){
+		let $inputs = this.$el.find(`[v-model="${option}"]`);
+		if(!$inputs.length) throw `No input found associated with option '${option}'`;
+		let element = $inputs[0];
+		switch(element.nodeName){
+			case "INPUT":
+				return element.type;
+			default: return element.nodeName;
+		}
 	}
 
 	// Set the options bases on what's selected on the UI
