@@ -473,11 +473,11 @@ $('#sound-stop').click(function(e){
 	settings.stopNotification();
 })
 
-$('[name="order_filter"]').change(function(e){
+$('[v-model="filter_key"]').change(function(e){
 	filterOrders(e.target.value);
 })
 
-$('[name="order_sort"]').on('input change' ,function(e){
+$('[v-model="sort_key"]').on('input change' ,function(e){
 	sortOrders(e.target.value);
 })
 

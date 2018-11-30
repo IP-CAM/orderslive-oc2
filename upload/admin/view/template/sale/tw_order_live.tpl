@@ -48,30 +48,30 @@
 							<div class="col-sm-12">
 								<div class="btn-group btn-group-xs" data-toggle="buttons">
 									<label class="btn btn-default active">
-										<input type="radio" v-model="filter_key" value="" autocomplete="off"><?= $text_filter_all ?>
+										<input type="radio" v-model="filter_key" name="filter_key" value="" autocomplete="off"><?= $text_filter_all ?>
 									</label>
 									<label class="btn btn-success">
-										<input type="radio" v-model="filter_key" value="complete" autocomplete="off"><?= $text_filter_complete ?>
+										<input type="radio" v-model="filter_key" name="filter_key" value="complete" autocomplete="off"><?= $text_filter_complete ?>
 									</label>
 									<label class="btn btn-warning">
-										<input type="radio" v-model="filter_key" value="pending" autocomplete="off" checked><?= $text_filter_pending ?>
+										<input type="radio" v-model="filter_key" name="filter_key" value="pending" autocomplete="off"><?= $text_filter_pending ?>
 									</label>
 									<label class="btn btn-misc">
-										<input type="radio" v-model="filter_key" value="misc" autocomplete="off"><?= $text_filter_misc ?>
+										<input type="radio" v-model="filter_key" name="filter_key" value="misc" autocomplete="off"><?= $text_filter_misc ?>
 									</label>
 								</div>
 								<div class="btn-group btn-group-xs" data-toggle="buttons">
 									<label class="btn btn-default active">
-										<input type="radio" v-model="sort_key" value="timestamp" v-model="sort_key" autocomplete="off">Date Modified
+										<input type="radio" v-model="sort_key" name="sort_key" value="timestamp" v-model="sort_key" autocomplete="off">Date Modified
 									</label>
 									<label class="btn btn-default">
-										<input type="radio" v-model="sort_key" value="status-id" autocomplete="off">Status
+										<input type="radio" v-model="sort_key" name="sort_key" value="status-id" autocomplete="off">Status
 									</label>
 									<label class="btn btn-default">
-										<input type="radio" v-model="sort_key" value="order-id" autocomplete="off" checked>Order ID
+										<input type="radio" v-model="sort_key" name="sort_key" value="order-id" autocomplete="off" checked>Order ID
 									</label>
 									<label class="btn btn-default">
-										<input type="radio" v-model="sort_key" value="order-group" autocomplete="off">Status Group
+										<input type="radio" v-model="sort_key" name="sort_key" value="order-group" autocomplete="off">Status Group
 									</label>
 								</div>
 							</div>
