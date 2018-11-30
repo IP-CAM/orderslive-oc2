@@ -40,6 +40,9 @@ class TwLiveSettings extends Object{
 			filter_key : '' 
 		};
 		this.sound = '';
+
+		this.load().update().synchronizeUI().save();
+
 		this.$el.change(function(e){
 			settings.parseUI().update().save();
 		})
@@ -452,9 +455,6 @@ checkForNewOrders();
 var tw_main_loop = setInterval(function(){ if(settings.live_is_enabled) checkForNewOrders() }, 5000);
 
 //Events and function
-$(document).ready(function(){
-	settings.load().update().synchronizeUI().save();
-})
 
 $('#tw-toggle-live').click(function(){
 	settings.toggleLive();
