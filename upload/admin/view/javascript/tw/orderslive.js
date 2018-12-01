@@ -168,7 +168,6 @@ class TwLiveSettings extends Object{
 	load(){//Load options from cookies
 		if(Cookies.get('tw_live_options')){
 			let cookie = JSON.parse(Cookies.get('tw_live_options'));
-			console.log(cookie);
 			for(let option in this.options){
 				if(cookie.hasOwnProperty(option)) this.options[option] = cookie[option];
 			}
@@ -253,7 +252,6 @@ function updateElapsed() {
 		$(this).html(moment(time).fromNow());
 	})
 }
-
 
 var sortOrders = function(key){
 	sortOrders.descending = sortOrders.previousKey === key 
@@ -412,7 +410,6 @@ var hideOrder = function(order_id){
 $(document).on('tw.order.changed',function(e){
 	sortOrders();
 	filterOrders();
-	console.log("order updated",e.detail);
 	order_tabs.refreshSortData();
 })
 
@@ -485,12 +482,10 @@ $('#tw-toggle-live').click(function(){
 
 
 $('#sound-preview').click(function(e){
-	e.preventDefault();
 	settings.playNotification(true);
 })
 
 $('#sound-stop').click(function(e){
-	e.preventDefault();
 	settings.stopNotification();
 })
 
