@@ -30,6 +30,7 @@ class TwLiveSettings extends Object{
 	constructor(selector){
 		super();
 		this.$el = $(selector);
+		this.container = this.$el[0];
 		this.sound_dir = 'view/sounds/tw/tworderslive/';
 		this.live_is_enabled = true;
 		this.options = {
@@ -49,10 +50,11 @@ class TwLiveSettings extends Object{
 	}
 	
 	//get All inputs assiciated with this model
-	_getInputValue(option,type, default_value = null){
+	_getInputValue(option, default_value = null){
+		let type = this._getOptionType(option);
 		switch(type){
 			case "SELECT":
-				let options = document.querySelectorAll(`[v-model="${option}"] > option:checked`);
+				let options = this.container.querySelectorAll(`[v-model="${option}"] > option:checked`);
 				return options.length ?	options.length > 1 
 					? Array.from(options).map(x => x.value)
 					: options[0].value
@@ -61,39 +63,41 @@ class TwLiveSettings extends Object{
 				let element = document.querySelector(`[v-model="${option}"]`);
 				return element.checked;
 			case "radio" :
-				let radio = document.querySelector(`[v-model="${option}"]:checked`);
+				let radio = this.container.querySelector(`[v-model="${option}"]:checked`);
 				return radio ? radio.value : default_value;
 			default: 
 				return element.value;
 		}
 	}
-	
+
 	_setInputValue(option, value){
-		let $inputs = this.$el.find(`[v-model="${option}"]`);
-		$inputs.each(function(index,element){
-			let type = element.nodeName;
-			switch(type){
-				case "SELECT":
-					for(option of element.options){
-						option.selected = (option.value == value) || value.includes(option.value);
-					}
-					break;
-				case "INPUT":
-					type = element.type;
-				case "checkbox":
-					element.checked = value;
-					break;
-				case "radio" :
-					element.checked = element.value == value;
-					break;
-				default: 
+		let type = this._getOptionType(option);
+		let inputs;
+		switch(type){
+			case "SELECT":
+				inputs = this.container.querySelectorAll(`[v-model="${option}"] > option`);
+				for(let option of inputs) 
+					option.selected = (option.value == value) || value.includes(option.value);
+				break;
+			case "checkbox":
+				inputs = this.container.querySelectorAll(`[v-model="${option}"]`);
+				for(let radio of inputs) 
+					radio.selected = radio.value == value
+				break;
+			case "radio" :
+				inputs = this.container.querySelectorAll(`[v-model="${option}"]`);
+				for(let radio of inputs)
+					radio.selected = radio.value == value
+				break;
+			default:
+				inputs = this.container.querySelectorAll(`[v-model="${option}"]`)
+				for(let element of inputs) 
 					element.innerHTML = value;
-					break;
-			}
-		})
+				break;
+		}
 	}
 
-	_getInputType(option){
+	_getOptionType(option){
 		let $inputs = this.$el.find(`[v-model="${option}"]`);
 		if(!$inputs.length) throw `No input found associated with option '${option}'`;
 		let element = $inputs[0];
