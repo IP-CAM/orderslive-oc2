@@ -81,13 +81,13 @@ class TwLiveSettings extends Object{
 				break;
 			case "checkbox":
 				inputs = this.container.querySelectorAll(`[v-model="${option}"]`);
-				for(let radio of inputs) 
-					radio.selected = radio.value == value
+				for(let checkbox of inputs) 
+					checkbox.checked = value;
 				break;
 			case "radio" :
 				inputs = this.container.querySelectorAll(`[v-model="${option}"]`);
 				for(let radio of inputs)
-					radio.selected = radio.value == value
+					radio.checked = (radio.value == value);
 				break;
 			default:
 				inputs = this.container.querySelectorAll(`[v-model="${option}"]`)
