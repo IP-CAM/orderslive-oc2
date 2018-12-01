@@ -23,7 +23,7 @@ class ModelTwOrderslive extends Model{
 			return array($this->getLatestOrder());
 		}
 
-		$query = "SELECT o.order_id, o.date_added, o.date_modified,GREATEST(o.date_added, o.date_modified) as `date_changed`
+		$query = "SELECT o.order_id, o.date_added, o.date_modified
 			FROM `" . DB_PREFIX . "order` o
 			WHERE o.order_status_id > 0
 			AND `date_modified` > FROM_UNIXTIME($timestamp)";
@@ -31,10 +31,10 @@ class ModelTwOrderslive extends Model{
 	}
 
 	public function getLatestOrder(){
-		return $this->db->query("SELECT o.order_id, o.date_added, o.date_modified,GREATEST(o.date_added, o.date_modified) as `date_changed`
+		return $this->db->query("SELECT o.order_id, o.date_added, o.date_modified
 			FROM `" . DB_PREFIX . "order` o
 			WHERE o.order_status_id > 0
-			ORDER BY `date_changed` DESC
+			ORDER BY `date_modified` DESC
 			LIMIT 1")->rows[0];
 	}
 }

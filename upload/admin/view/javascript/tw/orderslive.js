@@ -407,13 +407,14 @@ var hideOrder = function(order_id){
 	//Also hide the info
 }
 
-$(document).on('tw.order.changed',function(e){
+document.addEventListener('tw.order.changed',function(e){
 	sortOrders();
 	filterOrders();
 	order_tabs.refreshSortData();
+	updateElapsed();
 })
 
-$(document).on('tw.order.added',function(e){
+document.addEventListener('tw.order.added',function(e){
 	sortOrders();
 	filterOrders();
 	settings.playNotification();

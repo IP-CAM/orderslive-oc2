@@ -701,7 +701,7 @@ class ControllerSaleTwLive extends Controller {
 		// If this is the first request, just send a new timestamp
 		if ($timestamp == 0 ){
 			$order = $this->model_tw_orderslive->getLatestOrder();
-			$json['new_timestamp'] = strtotime($order['date_changed']);
+			$json['new_timestamp'] = strtotime($order['date_modified']);
 		} else {
 			$orders = $this->model_tw_orderslive->getOrdersNewerThan($timestamp);
 
@@ -709,7 +709,7 @@ class ControllerSaleTwLive extends Controller {
 			$new_timestamp = $timestamp;
 			foreach($orders as $o){
 				//Set new timestamp to date of most recently changed order;
-				$order_modified_timestamp = strtotime($o['date_changed']);
+				$order_modified_timestamp = strtotime($o['date_modified']);
 				if($order_modified_timestamp > $timestamp) $new_timestamp = $order_modified_timestamp;
 				$order_data['order'] = $this->getOrder($o['order_id']);
 				$json['orders'][] = [
@@ -737,6 +737,7 @@ class ControllerSaleTwLive extends Controller {
 
 			if($order_id) {
 				$order_data['order'] = $this->getOrder($order_id);
+				$json['timestamp'] = strtotime($order_data['order']['details']['order_datetime_modified']);
 				$json['order_id'] = $order_id;
 				$json['order_data']  = $this->load->view($this->getTemplateName('sale/tw_order_live_info'), $order_data);
 				$json['order_tab']  = $this->load->view($this->getTemplateName('sale/tw_order_live_tab'), $order_data);
