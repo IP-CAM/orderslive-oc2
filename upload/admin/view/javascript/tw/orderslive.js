@@ -253,11 +253,7 @@ function updateElapsed() {
 	})
 }
 
-var sortOrders = function(key){
-	sortOrders.descending = sortOrders.previousKey === key 
-		? !sortOrders.descending
-		: true;
-	sortOrders.previousKey = key;
+var sortOrders = function(key,descending = false){
 	order_tabs.sort( (itemA, itemB) => {
 		let one = $(itemA.getElement()).data(key);
 		let another = $(itemB.getElement()).data(key);
