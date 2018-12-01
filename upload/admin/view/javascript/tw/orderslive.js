@@ -517,8 +517,8 @@ $(document).on('click', '.remove-order', function (e) {
 	let order_id = $(this).data('order-id');
 	hideOrder(order_id);
 	// Show the first available visible order since the currently selected one should be hidden
-	$('.order-tab').not('.hidden')[0]
-	if($('.order-tab').not('.hidden')[0]) $($('.order-tab').not('.hidden')[0]).find('a').tab('show');
+	let visible_orders = order_tabs.getItems().filter(x => x.isVisible());
+	if(visible_orders.length) $(visible_orders[0].getElement()).find('a').tab('show');
 	else $('.tab-pane.active').removeClass('active');//Hide the last remaining order
 	order_data_undo_array.push($("#order-tab-"+order_id));
 });
