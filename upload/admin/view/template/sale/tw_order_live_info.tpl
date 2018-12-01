@@ -11,10 +11,10 @@ extract($text);
 				<a href="#" data-toggle="tooltip" title="<?= $text_remove_button_info ?>" class="btn btn-warning remove-order" data-order-id="<?= $order_id ?>" ><i class="fa fa-eye-slash"></i></a>
 			</div>
 			<div class="pull-right">
-				<a href="<?php echo $order['view_link']; ?>" target="order<?= $order_id ?>" data-toggle="tooltip" title="" class="btn btn-info" data-title="View"><i class="fa fa-eye"></i></a>
-				<a href="<?php echo $invoice; ?>" target="_blank" data-toggle="tooltip" title="<?php echo $button_invoice_print; ?>" class="btn btn-info"><i class="fa fa-print"></i></a>
-				<a href="<?php echo $shipping; ?>" target="_blank" data-toggle="tooltip" title="<?php echo $button_shipping_print; ?>" class="btn btn-info"><i class="fa fa-truck"></i></a>
-				<a href="<?php echo $edit; ?>" target="e_order<?= $order_id ?>" data-toggle="tooltip" title="<?php echo $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+				<a href="<?= $order['view_link']; ?>" target="order<?= $order_id ?>" data-toggle="tooltip" title="" class="btn btn-info" data-title="View"><i class="fa fa-eye"></i></a>
+				<a href="<?= $invoice; ?>" target="_blank" data-toggle="tooltip" title="<?= $button_invoice_print; ?>" class="btn btn-info"><i class="fa fa-print"></i></a>
+				<a href="<?= $shipping; ?>" target="_blank" data-toggle="tooltip" title="<?= $button_shipping_print; ?>" class="btn btn-info"><i class="fa fa-truck"></i></a>
+				<a href="<?= $edit; ?>" target="e_order<?= $order_id ?>" data-toggle="tooltip" title="<?= $button_edit; ?>" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
 			</div>
 		</div>
 	</div>
@@ -23,63 +23,63 @@ extract($text);
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title"><i class="fa fa-shopping-cart"></i>
-						<?php echo $text_order_detail; ?>
+						<?= $text_order_detail; ?>
 					</h3>
 				</div>
 				<table class="table">
 					<tbody>
 						<tr>
-							<td><button data-toggle="tooltip" title="<?php echo $text_date_added; ?>" class="btn btn-info btn-xs"><i class="fa fa-calendar fa-fw"></i></button></td>
+							<td><button data-toggle="tooltip" title="<?= $text_date_added; ?>" class="btn btn-info btn-xs"><i class="fa fa-calendar fa-fw"></i></button></td>
 							<td>
 								<?= "$order_date_added $order_time_added"; ?>
 								<span class="time-elapsed label label-default" data-time="<?= "$order_datetime_added"; ?>"></span>
 							</td>
 						</tr>
 						<tr>
-							<td><button data-toggle="tooltip" title="<?php echo $entry_date_modified; ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil fa-fw"></i></button></td>
+							<td><button data-toggle="tooltip" title="<?= $entry_date_modified; ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil fa-fw"></i></button></td>
 							<td>
 								<?= "$order_date_modified $order_time_modified"; ?>
 								<span class="time-elapsed label label-info" data-time="<?= "$order_datetime_modified"; ?>"></span>
 							</td>
 						</tr>
 						<tr>
-							<td><button data-toggle="tooltip" title="<?php echo $text_payment_method; ?>" class="btn btn-info btn-xs"><i class="fa fa-credit-card fa-fw"></i></button></td>
+							<td><button data-toggle="tooltip" title="<?= $text_payment_method; ?>" class="btn btn-info btn-xs"><i class="fa fa-credit-card fa-fw"></i></button></td>
 							<td>
-								<?php echo $payment_method; ?>
+								<?= $payment_method; ?>
 							</td>
 						</tr>
 						<tr>
-							<td style="width: 1%;"><button data-toggle="tooltip" title="<?php echo $text_customer; ?>" class="btn btn-info btn-xs"><i class="fa fa-user fa-fw"></i></button></td>
+							<td style="width: 1%;"><button data-toggle="tooltip" title="<?= $text_customer; ?>" class="btn btn-info btn-xs"><i class="fa fa-user fa-fw"></i></button></td>
 							<td>
 								<?php if ($customer) { ?>
-								<a href="<?php echo $customer; ?>" target="_blank">
-									<?php echo $firstname; ?>
-									<?php echo $lastname; ?>
+								<a href="<?= $customer; ?>" target="_blank">
+									<?= $firstname; ?>
+									<?= $lastname; ?>
 								</a>
 								<?php } else { ?>
-								<?php echo $firstname; ?>
-								<?php echo $lastname; ?>
+								<?= $firstname; ?>
+								<?= $lastname; ?>
 								<?php } ?>
 							</td>
 						</tr>
 						<tr>
-							<td><button data-toggle="tooltip" title="<?php echo $text_customer_group; ?>" class="btn btn-info btn-xs"><i class="fa fa-group fa-fw"></i></button></td>
+							<td><button data-toggle="tooltip" title="<?= $text_customer_group; ?>" class="btn btn-info btn-xs"><i class="fa fa-group fa-fw"></i></button></td>
 							<td>
-								<?php echo $customer_group; ?>
+								<?= $customer_group; ?>
 							</td>
 						</tr>
 						<tr>
-							<td><button data-toggle="tooltip" title="<?php echo $text_email; ?>" class="btn btn-info btn-xs"><i class="fa fa-envelope-o fa-fw"></i></button></td>
+							<td><button data-toggle="tooltip" title="<?= $text_email; ?>" class="btn btn-info btn-xs"><i class="fa fa-envelope-o fa-fw"></i></button></td>
 							<td>
-								<a href="mailto:<?php echo $email; ?>">
-									<?php echo $email; ?>
+								<a href="mailto:<?= $email; ?>">
+									<?= $email; ?>
 								</a>
 							</td>
 						</tr>
 						<tr>
-							<td><button data-toggle="tooltip" title="<?php echo $text_telephone; ?>" class="btn btn-info btn-xs"><i class="fa fa-phone fa-fw"></i></button></td>
+							<td><button data-toggle="tooltip" title="<?= $text_telephone; ?>" class="btn btn-info btn-xs"><i class="fa fa-phone fa-fw"></i></button></td>
 							<td>
-								<?php echo $telephone; ?>
+								<?= $telephone; ?>
 							</td>
 						</tr>
 					</tbody>
@@ -91,11 +91,11 @@ extract($text);
 						<thead>
 							<tr>
 								<td style="width: 50%;" class="text-left">
-									<?php echo $text_payment_address; ?>
+									<?= $text_payment_address; ?>
 								</td>
 								<?php if ($shipping_method) { ?>
 								<td style="width: 50%;" class="text-left">
-									<?php echo $text_shipping_address; ?>
+									<?= $text_shipping_address; ?>
 								</td>
 								<?php } ?>
 							</tr>
@@ -103,11 +103,11 @@ extract($text);
 						<tbody>
 							<tr>
 								<td class="text-left">
-									<?php echo $payment_address; ?>
+									<?= $payment_address; ?>
 								</td>
 								<?php if ($shipping_method) { ?>
 								<td class="text-left">
-									<?php echo $shipping_address; ?>
+									<?= $shipping_address; ?>
 								</td>
 								<?php } ?>
 							</tr>
@@ -120,7 +120,7 @@ extract($text);
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title"><i class="fa fa-info-circle"></i>
-						<?php echo sprintf($text_order,$order_id); ?>
+						<?= sprintf($text_order,$order_id); ?>
 					</h3>
 				</div>
 				<div class="panel-body">
@@ -128,19 +128,19 @@ extract($text);
 						<thead>
 							<tr>
 								<td class="text-left">
-									<?php echo $column_product; ?>
+									<?= $column_product; ?>
 								</td>
 								<td class="text-left">
-									<?php echo $column_model; ?>
+									<?= $column_model; ?>
 								</td>
 								<td class="text-right">
-									<?php echo $column_quantity; ?>
+									<?= $column_quantity; ?>
 								</td>
 								<td class="text-right">
-									<?php echo $column_price; ?>
+									<?= $column_price; ?>
 								</td>
 								<td class="text-right">
-									<?php echo $column_total; ?>
+									<?= $column_total; ?>
 								</td>
 							</tr>
 						</thead>
@@ -148,56 +148,56 @@ extract($text);
 							<?php foreach ($products as $product) { ?>
 							<tr>
 								<td class="text-left">
-									<a href="<?php echo $product['href']; ?>" target="product">
-										<?php echo $product['name']; ?>
+									<a href="<?= $product['href']; ?>" target="product">
+										<?= $product['name']; ?>
 									</a>
 									<?php foreach ($product['option'] as $option) { ?>
 									<br />
 									<?php if ($option['type'] != 'file') { ?> &nbsp;
-									<small> - <?php echo $option['name']; ?>: <?php echo $option['value']; ?></small>
+									<small> - <?= $option['name']; ?>: <?= $option['value']; ?></small>
 									<?php } else { ?> &nbsp;
-									<small> - <?php echo $option['name']; ?>: <a href="<?php echo $option['href']; ?>" target="_blank"><?php echo $option['value']; ?></a></small>
+									<small> - <?= $option['name']; ?>: <a href="<?= $option['href']; ?>" target="_blank"><?= $option['value']; ?></a></small>
 									<?php } ?>
 									<?php } ?>
 								</td>
 								<td class="text-left">
-									<?php echo $product['model']; ?>
+									<?= $product['model']; ?>
 								</td>
 								<td class="text-right">
-									<?php echo $product['quantity']; ?>
+									<?= $product['quantity']; ?>
 								</td>
 								<td class="text-right">
-									<?php echo $product['price']; ?>
+									<?= $product['price']; ?>
 								</td>
 								<td class="text-right">
-									<?php echo $product['total']; ?>
+									<?= $product['total']; ?>
 								</td>
 							</tr>
 							<?php } ?>
 							<?php foreach ($vouchers as $voucher) { ?>
 							<tr>
 								<td class="text-left">
-									<a href="<?php echo $voucher['href']; ?>">
-										<?php echo $voucher['description']; ?>
+									<a href="<?= $voucher['href']; ?>">
+										<?= $voucher['description']; ?>
 									</a>
 								</td>
 								<td class="text-left"></td>
 								<td class="text-right">1</td>
 								<td class="text-right">
-									<?php echo $voucher['amount']; ?>
+									<?= $voucher['amount']; ?>
 								</td>
 								<td class="text-right">
-									<?php echo $voucher['amount']; ?>
+									<?= $voucher['amount']; ?>
 								</td>
 							</tr>
 							<?php } ?>
 							<?php foreach ($totals as $total) { ?>
 							<tr>
 								<td colspan="4" class="text-right">
-									<?php echo $total['title']; ?>
+									<?= $total['title']; ?>
 								</td>
 								<td class="text-right">
-									<?php echo $total['text']; ?>
+									<?= $total['text']; ?>
 								</td>
 							</tr>
 							<?php } ?>
@@ -208,14 +208,14 @@ extract($text);
 						<thead>
 							<tr>
 								<td>
-									<?php echo $text_comment; ?>
+									<?= $text_comment; ?>
 								</td>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td>
-									<?php echo $comment; ?>
+									<?= $comment; ?>
 								</td>
 							</tr>
 						</tbody>
@@ -230,25 +230,25 @@ extract($text);
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title"><i class="fa fa-comment-o"></i>
-						<?php echo $text_history; ?>
+						<?= $text_history; ?>
 					</h3>
 				</div>
 				<div class="panel-body">
 					<ul class="nav nav-tabs">
 						<li class="active">
 							<a href="#tab-history-<?= $order_id ?>" data-toggle="tab">
-								<?php echo $tab_history; ?>
+								<?= $tab_history; ?>
 							</a>
 						</li>
 						<li>
 							<a href="#tab-additional-<?= $order_id ?>" data-toggle="tab">
-								<?php echo $tab_additional; ?>
+								<?= $tab_additional; ?>
 							</a>
 						</li>
 						<?php foreach ($tabs as $tab) { ?>
 							<li>
-								<a href="#tab-<?php echo $tab['code']; ?>" data-toggle="tab">
-									<?php echo $tab['title']; ?>
+								<a href="#tab-<?= $tab['code']; ?>" data-toggle="tab">
+									<?= $tab['title']; ?>
 								</a>
 							</li>
 						<?php } ?>
@@ -261,37 +261,37 @@ extract($text);
 						<br />
 						<fieldset>
 							<legend>
-								<?php echo $text_history_add; ?>
+								<?= $text_history_add; ?>
 							</legend>
 							<form id="history-<?= $order_id ?>-form" class="form-horizontal">
 								<div class="form-group">
-									<label class="col-sm-2 control-label" for="input-order-status"><?php echo $entry_order_status; ?></label>
+									<label class="col-sm-2 control-label" for="input-order-status"><?= $entry_order_status; ?></label>
 									<div class="col-sm-10">
 										<select name="order_status_id" id="input-order-status" class="form-control">
 											<?php foreach ($order_statuses as $order_statuses) { ?>
 												<?php if ($order_statuses['order_status_id'] == $order_status_id) { ?>
-													<option value="<?php echo $order_statuses['order_status_id']; ?>" selected="selected"><?php echo $order_statuses['name']; ?></option>
+													<option value="<?= $order_statuses['order_status_id']; ?>" selected="selected"><?= $order_statuses['name']; ?></option>
 												<?php } else { ?>
-													<option value="<?php echo $order_statuses['order_status_id']; ?>"><?php echo $order_statuses['name']; ?></option>
+													<option value="<?= $order_statuses['order_status_id']; ?>"><?= $order_statuses['name']; ?></option>
 												<?php } ?>
 											<?php } ?>
 										</select>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-2 control-label" for="input-override"><span data-toggle="tooltip" title="<?php echo $help_override; ?>"><?php echo $entry_override; ?></span></label>
+									<label class="col-sm-2 control-label" for="input-override"><span data-toggle="tooltip" title="<?= $help_override; ?>"><?= $entry_override; ?></span></label>
 									<div class="col-sm-10">
 										<input type="checkbox" name="override" value="1" id="input-override" />
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-2 control-label" for="input-notify"><?php echo $entry_notify; ?></label>
+									<label class="col-sm-2 control-label" for="input-notify"><?= $entry_notify; ?></label>
 									<div class="col-sm-10">
 										<input type="checkbox" name="notify" value="1" id="input-notify" />
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-sm-2 control-label" for="input-comment"><?php echo $entry_comment; ?></label>
+									<label class="col-sm-2 control-label" for="input-comment"><?= $entry_comment; ?></label>
 									<div class="col-sm-10">
 										<textarea name="comment" rows="6" id="input-comment" class="form-control"></textarea>
 									</div>
@@ -299,7 +299,7 @@ extract($text);
 							</form>
 						</fieldset>
 						<div class="text-right">
-							<button class="order-history-add btn btn-primary" data-id="<?= $order_id ?>" data-loading-text="<?php echo $text_loading; ?>"><i class="fa fa-plus-circle"></i> <?php echo $button_history_add; ?></button>
+							<button class="order-history-add btn btn-primary" data-id="<?= $order_id ?>" data-loading-text="<?= $text_loading; ?>"><i class="fa fa-plus-circle"></i> <?= $button_history_add; ?></button>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab-additional-<?= $order_id ?>">
@@ -309,7 +309,7 @@ extract($text);
 									<thead>
 									<tr>
 										<td colspan="2">
-											<?php echo $text_account_custom_field; ?>
+											<?= $text_account_custom_field; ?>
 										</td>
 									</tr>
 									</thead>
@@ -317,10 +317,10 @@ extract($text);
 									<?php foreach ($account_custom_fields as $custom_field) { ?>
 										<tr>
 											<td>
-												<?php echo $custom_field['name']; ?>
+												<?= $custom_field['name']; ?>
 											</td>
 											<td>
-												<?php echo $custom_field['value']; ?>
+												<?= $custom_field['value']; ?>
 											</td>
 										</tr>
 									<?php } ?>
@@ -334,7 +334,7 @@ extract($text);
 									<thead>
 									<tr>
 										<td colspan="2">
-											<?php echo $text_payment_custom_field; ?>
+											<?= $text_payment_custom_field; ?>
 										</td>
 									</tr>
 									</thead>
@@ -342,10 +342,10 @@ extract($text);
 									<?php foreach ($payment_custom_fields as $custom_field) { ?>
 										<tr>
 											<td>
-												<?php echo $custom_field['name']; ?>
+												<?= $custom_field['name']; ?>
 											</td>
 											<td>
-												<?php echo $custom_field['value']; ?>
+												<?= $custom_field['value']; ?>
 											</td>
 										</tr>
 									<?php } ?>
@@ -359,7 +359,7 @@ extract($text);
 									<thead>
 									<tr>
 										<td colspan="2">
-											<?php echo $text_shipping_custom_field; ?>
+											<?= $text_shipping_custom_field; ?>
 										</td>
 									</tr>
 									</thead>
@@ -367,10 +367,10 @@ extract($text);
 									<?php foreach ($shipping_custom_fields as $custom_field) { ?>
 										<tr>
 											<td>
-												<?php echo $custom_field['name']; ?>
+												<?= $custom_field['name']; ?>
 											</td>
 											<td>
-												<?php echo $custom_field['value']; ?>
+												<?= $custom_field['value']; ?>
 											</td>
 										</tr>
 									<?php } ?>
@@ -383,43 +383,43 @@ extract($text);
 								<thead>
 								<tr>
 									<td colspan="2">
-										<?php echo $text_browser; ?>
+										<?= $text_browser; ?>
 									</td>
 								</tr>
 								</thead>
 								<tbody>
 								<tr>
 									<td>
-										<?php echo $text_ip; ?>
+										<?= $text_ip; ?>
 									</td>
 									<td>
-										<?php echo $ip; ?>
+										<?= $ip; ?>
 									</td>
 								</tr>
 								<?php if ($forwarded_ip) { ?>
 									<tr>
 										<td>
-											<?php echo $text_forwarded_ip; ?>
+											<?= $text_forwarded_ip; ?>
 										</td>
 										<td>
-											<?php echo $forwarded_ip; ?>
+											<?= $forwarded_ip; ?>
 										</td>
 									</tr>
 								<?php } ?>
 								<tr>
 									<td>
-										<?php echo $text_user_agent; ?>
+										<?= $text_user_agent; ?>
 									</td>
 									<td>
-										<?php echo $user_agent; ?>
+										<?= $user_agent; ?>
 									</td>
 								</tr>
 								<tr>
 									<td>
-										<?php echo $text_accept_language; ?>
+										<?= $text_accept_language; ?>
 									</td>
 									<td>
-										<?php echo $accept_language; ?>
+										<?= $accept_language; ?>
 									</td>
 								</tr>
 								</tbody>
@@ -427,8 +427,8 @@ extract($text);
 						</div>
 					</div>
 					<?php foreach ($tabs as $tab) { ?>
-						<div class="tab-pane" id="tab-<?php echo $tab['code']; ?>">
-							<?php echo $tab['content']; ?>
+						<div class="tab-pane" id="tab-<?= $tab['code']; ?>">
+							<?= $tab['content']; ?>
 						</div>
 					<?php } ?>
 				</div>
@@ -440,7 +440,7 @@ extract($text);
 				<div class="panel panel-default custommer-history" data-customer="<?= $customer_id ?>">
 					<div class="panel-heading">
 						<h3 class="panel-title"><i class="fa fa-comment-o"></i>
-							<?php echo "Customer History"; ?>
+							<?= "Customer History"; ?>
 						</h3>
 					</div>
 					<div class="panel-body">
@@ -448,9 +448,9 @@ extract($text);
 							<?= $customer_histories ?>
 						</div>
 						<div class="form-group">
-							<textarea name="comment" rows="6" placeholder="<?php echo $entry_comment; ?>" class="form-control"></textarea>
+							<textarea name="comment" rows="6" placeholder="<?= $entry_comment; ?>" class="form-control"></textarea>
 						</div>
-						<button  data-loading-text="<?php echo $text_loading; ?>" class="customer-history-add btn btn-primary" data-id="<?= $customer_id ?>" data-store-id="<?= $store_id ?>"><i class="fa fa-plus-circle"></i> <?= $button_history_add; ?></button>
+						<button  data-loading-text="<?= $text_loading; ?>" class="customer-history-add btn btn-primary" data-id="<?= $customer_id ?>" data-store-id="<?= $store_id ?>"><i class="fa fa-plus-circle"></i> <?= $button_history_add; ?></button>
 					</div>
 				</div>
 			</div>

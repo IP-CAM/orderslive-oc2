@@ -161,4 +161,4 @@ var api_key = '<?= $api_key ?>';
 var order_data_undo_array = new Array();
 </script>
 <script src="view/javascript/tw/orderslive.js" type="text/javascript"></script>
-<?php echo $footer; ?>
+<?=  $footer; ?>
