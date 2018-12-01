@@ -111,12 +111,37 @@ class TwLiveSettings extends Object{
 	// Set the options bases on what's selected on the UI
 	parseUI(){
 		for(let option in this.options){
-			this.options[option] = this._getInputValue(option);
+			try{
+				this.options[option] = this._getInputValue(option);
+			} catch(error){
+				console.log(error);
+			}
 		}
 
 		return this;
 	}
 	
+	synchronizeUI(){
+		for(let option in this.options){
+			try{
+				this._setInputValue(option,this.options[option]);
+			} catch(error){
+				console.log(error);
+			}
+		}
+
+		return this;
+	}
+	
+	update(){
+		if(this.sound){
+			this.sound.pause();
+		}
+		this.sound = new Audio(this.sound_dir+this.options.sound_file);
+		this.sound.loop = this.options.continuous_sound;
+		return this;
+	}
+
 	playNotification(force){
 		if(!this.options.mute_sound || force === true) this.sound.play();
 		return this;
@@ -144,23 +169,6 @@ class TwLiveSettings extends Object{
 		if(Cookies.get('tw_live_options')){
 			this.options = JSON.parse(Cookies.get('tw_live_options'));
 		}
-		return this;
-	}
-
-	update(){
-		if(this.sound){
-			this.sound.pause();
-		}
-		this.sound = new Audio(this.sound_dir+this.options.sound_file);
-		this.sound.loop = this.options.continuous_sound;
-		return this;
-	}
-
-	synchronizeUI(){
-		for(let option in this.options){
-			this._setInputValue(option,this.options[option]);
-		}
-
 		return this;
 	}
 }
