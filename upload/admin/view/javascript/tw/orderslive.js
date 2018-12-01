@@ -167,7 +167,11 @@ class TwLiveSettings extends Object{
 
 	load(){//Load options from cookies
 		if(Cookies.get('tw_live_options')){
-			this.options = JSON.parse(Cookies.get('tw_live_options'));
+			let cookie = JSON.parse(Cookies.get('tw_live_options'));
+			console.log(cookie);
+			for(let option in this.options){
+				if(cookie.hasOwnProperty(option)) this.options[option] = cookie[option];
+			}
 		}
 		return this;
 	}
