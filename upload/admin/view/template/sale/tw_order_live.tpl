@@ -47,7 +47,7 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<div class="btn-group btn-group-xs" data-toggle="buttons">
-									<label class="btn btn-default active">
+									<label class="btn btn-default">
 										<input type="radio" v-model="filter_key" name="filter_key" value="" autocomplete="off"><?= $text_filter_all ?>
 									</label>
 									<label class="btn btn-success">
@@ -61,7 +61,7 @@
 									</label>
 								</div>
 								<div class="btn-group btn-group-xs" data-toggle="buttons">
-									<label class="btn btn-default active">
+									<label class="btn btn-default">
 										<input type="radio" v-model="sort_key" name="sort_key" value="timestamp" v-model="sort_key" autocomplete="off">Date Modified
 									</label>
 									<label class="btn btn-default">
