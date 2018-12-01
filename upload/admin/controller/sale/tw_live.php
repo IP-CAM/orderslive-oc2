@@ -323,52 +323,6 @@ class ControllerSaleTwLive extends Controller {
 
 			$custom_fields = $this->model_customer_custom_field->getCustomFields($filter_data);
 
-			foreach ($custom_fields as $custom_field) {
-				if ($custom_field['location'] == 'account' && isset($order_info['custom_field'][$custom_field['custom_field_id']])) {
-					if ($custom_field['type'] == 'select' || $custom_field['type'] == 'radio') {
-						$custom_field_value_info = $this->model_customer_custom_field->getCustomFieldValue($order_info['custom_field'][$custom_field['custom_field_id']]);
-
-						if ($custom_field_value_info) {
-							$data['account_custom_fields'][] = array(
-								'name'  => $custom_field['name'],
-								'value' => $custom_field_value_info['name']
-							);
-						}
-					}
-
-					if ($custom_field['type'] == 'checkbox' && is_array($order_info['custom_field'][$custom_field['custom_field_id']])) {
-						foreach ($order_info['custom_field'][$custom_field['custom_field_id']] as $custom_field_value_id) {
-							$custom_field_value_info = $this->model_customer_custom_field->getCustomFieldValue($custom_field_value_id);
-
-							if ($custom_field_value_info) {
-								$data['account_custom_fields'][] = array(
-									'name'  => $custom_field['name'],
-									'value' => $custom_field_value_info['name']
-								);
-							}
-						}
-					}
-
-					if ($custom_field['type'] == 'text' || $custom_field['type'] == 'textarea' || $custom_field['type'] == 'file' || $custom_field['type'] == 'date' || $custom_field['type'] == 'datetime' || $custom_field['type'] == 'time') {
-						$data['account_custom_fields'][] = array(
-							'name'  => $custom_field['name'],
-							'value' => $order_info['custom_field'][$custom_field['custom_field_id']]
-						);
-					}
-
-					if ($custom_field['type'] == 'file') {
-						$upload_info = $this->model_tool_upload->getUploadByCode($order_info['custom_field'][$custom_field['custom_field_id']]);
-
-						if ($upload_info) {
-							$data['account_custom_fields'][] = array(
-								'name'  => $custom_field['name'],
-								'value' => $upload_info['name']
-							);
-						}
-					}
-				}
-			}
-
 			// Custom fields
 			$data['payment_custom_fields'] = array();
 
