@@ -244,7 +244,6 @@ function updateElapsed() {
 
 
 var sortOrders = function(key){
-	// sortOrders.previousKey = sortOrders.previousKey || '';
 	sortOrders.descending = sortOrders.previousKey === key 
 		? !sortOrders.descending
 		: true;
@@ -278,6 +277,7 @@ function undo(e) {
 		}
 	}
 }
+
 function refreshOrder(order_id) {
 	$.ajax({
 		url: 'index.php?route=sale/tw_live/refresh',
@@ -292,6 +292,7 @@ function refreshOrder(order_id) {
 	})
 
 }
+
 var addIpToApi = function () {
 	$.ajax({
 		url: 'index.php?route=user/api/addip',
@@ -402,6 +403,7 @@ $(document).on('tw.order.changed',function(e){
 	console.log("order updated",e.detail);
 	order_tabs.refreshSortData();
 })
+
 $(document).on('tw.order.added',function(e){
 	sortOrders();
 	filterOrders();
@@ -419,6 +421,7 @@ function updateOrderList(orders) {
 		}
 	}
 }
+
 function getOrdersByTimestamp() {
 	return $.ajax({
 		url: 'index.php?route=sale/tw_live/checkTimestamp',
@@ -429,6 +432,7 @@ function getOrdersByTimestamp() {
 		}
 	})
 }
+
 function getOrdersById() {
 	return $.ajax({
 		url: 'index.php?route=sale/tw_live/check',

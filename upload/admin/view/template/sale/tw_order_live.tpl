@@ -76,8 +76,6 @@
 								</div>
 							</div>
 						</div>
-
-
 					</div>
 				</div>
 			</nav>
@@ -104,6 +102,7 @@
 <script src="view/javascript/tw/moment-with-locales.min.js" type="text/javascript"></script>
 <script src="view/javascript/tw/js.cookie.min.js" type="text/javascript"></script>
 <script src="view/javascript/tw/muuri.min.js" type="text/javascript"></script>
+<link rel="stylesheet" href="view/stylesheet/tw/tw_order_live.css">
 
 <script>
 var order_tabs;
@@ -161,77 +160,5 @@ var api_key = '<?= $api_key ?>';
 //Array that hold the ids of the hiden/deleted orders. Used when undoing
 var order_data_undo_array = new Array();
 </script>
-
-
 <script src="view/javascript/tw/orderslive.js" type="text/javascript"></script>
-
-<style>
-	.new {
-		background: #b9fdb9;
-	}
-
-	#order-tabs{
-		position: relative;
-	}
-
-	.order-tab{
-		width: 100%;
-		height: 55px;
-		position: absolute!important; /* For muuri... */
-	}
-	#tw-toggle-live{
-		width: 15px;
-		height: 15px;
-		border: 1px solid red;
-		border-radius: 100%;
-		animation: 2s live infinite;
-		margin-right: 5px;
-		display: inline-block;
-		cursor: pointer;
-	}
-	#tw-toggle-live.disabled{
-		animation:none;
-		border-color: grey;
-	}
-
-	@keyframes live {
-		0% {
-			background : red;
-			box-shadow: 0 0 4px 0px red;
-		}
-		25% {
-			background: white;
-			box-shadow: 0 0 0px 0px red;
-		}
-		100% {
-			background: red;
-			box-shadow: 0 0 4px 0px red;
-		}
-	}
-
-	#tw-response-time{
-		opacity: .8;
-		font-weight: bold;
-		font-size: 75%;
-	}
-
-	.alert.alert-flash {
-		position: fixed;
-		top: 3%;
-		z-index: 1000;
-		left: 5%;
-		right: 5%;
-	}
-	span#tw-live-version {
-		display: inline-block;
-		position: relative;
-		top: -10px;
-		font-size: x-small;
-		color: #80808096;
-	}
-	.btn-misc{
-		background-color: #777;
-		color: white!important;
-	}
-</style>
 <?php echo $footer; ?>
