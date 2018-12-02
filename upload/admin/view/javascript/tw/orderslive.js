@@ -461,7 +461,6 @@ function checkForNewOrders(){
 			} 
 		},
 		function(){					
-			$('#tw-response-time').html("No response")
 			connection_status.setStatus(ServerStatuses.ERROR);
 		}
 	)
