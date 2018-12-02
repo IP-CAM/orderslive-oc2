@@ -299,7 +299,7 @@ extract($text);
 							</form>
 						</fieldset>
 						<div class="text-right">
-							<button class="order-history-add btn btn-primary" data-id="<?= $order_id ?>" data-loading-text="<?= $text_loading; ?>"><i class="fa fa-plus-circle"></i> <?= $button_history_add; ?></button>
+							<button class="order-history-add btn btn-primary" data-id="<?= $order_id ?>" data-store-id="<?= $store_id ?>" data-loading-text="<?= $text_loading; ?>"><i class="fa fa-plus-circle"></i> <?= $button_history_add; ?></button>
 						</div>
 					</div>
 					<div class="tab-pane" id="tab-additional-<?= $order_id ?>">
