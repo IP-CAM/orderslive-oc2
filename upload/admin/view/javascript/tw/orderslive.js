@@ -300,19 +300,13 @@ function refreshOrder(order_id) {
 }
 
 var addIpToApi = function () {
-	$.ajax({
+	return $.ajax({
 		url: `index.php?route=user/api/addip&api_id=${api_id}&token=${token}`,
 		type: 'post',
 		data: {
 			'ip' : api_ip
 		},
 		dataType: 'json',
-		beforeSend: function () {
-			$('#button-ip-add').button('loading');
-		},
-		complete: function () {
-			$('#button-ip-add').button('reset');
-		},
 		success: function (json) {
 			$('.alert').remove();
 
@@ -321,7 +315,7 @@ var addIpToApi = function () {
 			}
 
 			if (json['success']) {
-				flashMessage('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				flashMessage('<div class="alert alert-success alert-flash"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 			}
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
@@ -329,9 +323,7 @@ var addIpToApi = function () {
 		}
 	});
 }
-// Login to the API
-
-//Automatic API
+//Automatic login to API
 $.ajax({
 	url: catalog + 'index.php?route=api/login',
 	type: 'post',
@@ -348,9 +340,7 @@ $.ajax({
 			}
 
 			if (json['error']['ip']) {
-				addIpToApi();
-				window.location.reload;
-					// $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['ip'] + ' <button type="button" id="button-ip-add" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-danger btn-xs pull-right"><i class="fa fa-plus"></i> <?php echo $button_ip_add; ?></button></div>');
+				addIpToApi().then(window.location.reload());
 			}
 		}
 
