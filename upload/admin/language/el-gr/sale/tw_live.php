@@ -25,3 +25,7 @@ $_['text_filter_all']             = "Όλες";
 $_['text_filter_pending']         = "Εκκρεμούν";
 $_['text_filter_complete']        = "Ολοκληρωμένες";
 $_['text_filter_misc']            = "Λοιπές";
+
+$_['sort_date_modified'] 		  = "Ημερομηνία";
+$_['sort_order_id'] 	 		  = "Αριθμό παραγγελίας";
+$_['sort_status_group']  		  = "Είδος κατάστασης";

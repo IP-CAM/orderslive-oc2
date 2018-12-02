@@ -25,3 +25,7 @@ $_['text_filter_all']             = "All";
 $_['text_filter_pending']         = "Pending";
 $_['text_filter_complete']        = "Completed";
 $_['text_filter_misc']            = "Misc";
+
+$_['sort_date_modified'] 		  = "Date";
+$_['sort_order_id'] 	 		  = "Order ID";
+$_['sort_status_group']  		  = "Status group";

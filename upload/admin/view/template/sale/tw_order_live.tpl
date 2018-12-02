@@ -62,16 +62,16 @@
 								</div>
 								<div class="btn-group btn-group-xs" data-toggle="buttons">
 									<label class="btn btn-default">
-										<input type="radio" v-model="sort_key" name="sort_key" value="timestamp" v-model="sort_key" autocomplete="off">Date Modified
+										<input type="radio" v-model="sort_key" name="sort_key" value="timestamp" v-model="sort_key" autocomplete="off"><?= $sort_date_modified ?>
 									</label>
 									<label class="btn btn-default">
-										<input type="radio" v-model="sort_key" name="sort_key" value="status-id" autocomplete="off">Status
+										<input type="radio" v-model="sort_key" name="sort_key" value="status-id" autocomplete="off"><?= $text_status ?> <?= $text_order_status ?>
 									</label>
 									<label class="btn btn-default">
-										<input type="radio" v-model="sort_key" name="sort_key" value="order-id" autocomplete="off" checked>Order ID
+										<input type="radio" v-model="sort_key" name="sort_key" value="order-id" autocomplete="off" checked><?= $sort_order_id ?>
 									</label>
 									<label class="btn btn-default">
-										<input type="radio" v-model="sort_key" name="sort_key" value="order-group" autocomplete="off">Status Group
+										<input type="radio" v-model="sort_key" name="sort_key" value="order-group" autocomplete="off"><?= $sort_status_group ?>
 									</label>
 								</div>
 							</div>
