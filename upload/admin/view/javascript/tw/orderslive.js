@@ -274,7 +274,7 @@ function filterOrders(key){
   }
 
 function undo(e) {
-	var evtobj = window.event? event : e;
+	let evtobj = window.event? event : e;
 	if (evtobj.keyCode == 90 && evtobj.ctrlKey){
 		if(order_data_undo_array.length){
 			let $order_tab = order_data_undo_array.pop();
@@ -301,12 +301,10 @@ function refreshOrder(order_id) {
 
 var addIpToApi = function () {
 	$.ajax({
-		url: 'index.php?route=user/api/addip',
+		url: `index.php?route=user/api/addip&api_id=${api_id}&token=${token}`,
 		type: 'post',
 		data: {
-			'token' : token,
-			'ip' : api_ip,
-			'api_id' : api_id
+			'ip' : api_ip
 		},
 		dataType: 'json',
 		beforeSend: function () {

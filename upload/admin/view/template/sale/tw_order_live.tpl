@@ -155,6 +155,7 @@ var tw_live_timestamp = window.tw_live_timestamp ? window.tw_live_timestamp : 0;
 var api_token = '';
 var catalog = '<?= $catalog ?>';
 var api_ip = '<?= $api_ip ?>';
+var api_id = '<?= $api_id?>';
 var api_key = '<?= $api_key ?>';
 
 //Array that hold the ids of the hiden/deleted orders. Used when undoing
