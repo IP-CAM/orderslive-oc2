@@ -17,15 +17,12 @@ class ControllerSaleTwLive extends Controller {
 
 		$this->processing_statuses = $this->config->get('config_processing_status');
 		$this->complete_statuses = $this->config->get('config_complete_status');
-		
-		$this->old_tpl_style = version_compare(VERSION,'2.2',"<");
 	}
 	
-	private function getTemplateName($template){
-		if($this->old_tpl_style){
-			return $template.".tpl";
-		}
-		return $template;
+	private function loadTemplate($template,$data){
+		return version_compare(VERSION,'2.2',"<") 
+			?  $this->load->view($template.'.tpl',$data)
+			:  $this->load->view($template,$data);
 	}
 
 	public function index() {
@@ -59,8 +56,8 @@ class ControllerSaleTwLive extends Controller {
 		$order_data['text'] = $this->getText();
 		foreach ($last_ten as $o) {
 			$order_data['order'] = $this->getOrder($o['order_id']);
-			$order_details[] = $this->load->view($this->getTemplateName('sale/tw_order_live_info'), $order_data);
-			$order_tabs[]  = $this->load->view($this->getTemplateName('sale/tw_order_live_tab'), $order_data);
+			$order_details[] = $this->loadTemplate('sale/tw_order_live_info', $order_data);
+			$order_tabs[]  = $this->loadTemplate('sale/tw_order_live_tab', $order_data);
 		}
 		//Setting Output
 		$data['header'] = $this->load->controller('common/header');
@@ -78,7 +75,7 @@ class ControllerSaleTwLive extends Controller {
 				);
 			}
 		}
-		$this->response->setOutput($this->load->view($this->getTemplateName('sale/tw_order_live'), $data));
+		$this->response->setOutput($this->loadTemplate('sale/tw_order_live', $data));
 
 		$data['sound_files'] = array_values(array_filter(scandir(DIR_APPLICATION.'view/sounds/tw/tworderslive'), function($file) {
 			return !is_dir($file);
@@ -565,7 +562,7 @@ class ControllerSaleTwLive extends Controller {
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
 
-		return $this->load->view($this->getTemplateName('customer/customer_history'), $data);
+		return $this->loadTemplate('customer/customer_history', $data);
 	}
 
 	protected function getOrderHistory($order_id) {
@@ -607,7 +604,7 @@ class ControllerSaleTwLive extends Controller {
 
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($history_total) ? (($page - 1) * 10) + 1 : 0, ((($page - 1) * 10) > ($history_total - 10)) ? $history_total : ((($page - 1) * 10) + 10), $history_total, ceil($history_total / 10));
 
-		return $this->load->view($this->getTemplateName('sale/order_history'), $data);
+		return $this->loadTemplate('sale/order_history', $data);
 	}
 
 	public function check(){
@@ -693,8 +690,8 @@ class ControllerSaleTwLive extends Controller {
 				$order_data['order'] = $this->getOrder($order_id);
 				$json['timestamp'] = strtotime($order_data['order']['details']['order_datetime_modified']);
 				$json['order_id'] = $order_id;
-				$json['order_data']  = $this->load->view($this->getTemplateName('sale/tw_order_live_info'), $order_data);
-				$json['order_tab']  = $this->load->view($this->getTemplateName('sale/tw_order_live_tab'), $order_data);
+				$json['order_data']  = $this->loadTemplate('sale/tw_order_live_info', $order_data);
+				$json['order_tab']  = $this->loadTemplate('sale/tw_order_live_tab', $order_data);
 			}
 			$this->response->addHeader('Content-Type: application/json');
 			$this->response->setOutput(json_encode($json));
