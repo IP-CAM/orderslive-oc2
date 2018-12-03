@@ -53,7 +53,7 @@ class ControllerSaleTwLive extends Controller {
 		$last_ten = $this->model_sale_order->getOrders(['limit' => 10,'start' => 0,'sort'=>'o.order_id','order'=>'DESC']);
 		$order_tabs = [];
 		$order_details = [];
-		$order_data['text'] = $this->getText();
+		$order_data['text'] = $this->loadText();
 		foreach ($last_ten as $o) {
 			$order_data['order'] = $this->getOrder($o['order_id']);
 			$order_details[] = $this->loadTemplate('sale/tw_order_live_info', $order_data);
@@ -616,7 +616,7 @@ class ControllerSaleTwLive extends Controller {
 
 			$json['orders'] = array();
 			$json['order_count'] = 0;
-			$order_data['text'] = $this->getText();
+			$order_data['text'] = $this->loadText();
 			if($order_id > 0){
 				foreach($orders as $o){
 					$order_data['order'] = $this->getOrder($o['order_id']);
@@ -656,7 +656,7 @@ class ControllerSaleTwLive extends Controller {
 		} else {
 			$orders = $this->model_tw_orderslive->getOrdersNewerThan($timestamp);
 
-			$order_data['text'] = $this->getText();
+			$order_data['text'] = $this->loadText();
 			$new_timestamp = $timestamp;
 			foreach($orders as $o){
 				//Set new timestamp to date of most recently changed order;
@@ -684,7 +684,7 @@ class ControllerSaleTwLive extends Controller {
 	public function refresh(){
 		if(isset($this->request->get['order_id'])){
 			$order_id = (int)$this->request->get['order_id'];
-			$order_data['text'] = $this->getText();
+			$order_data['text'] = $this->loadText();
 
 			if($order_id) {
 				$order_data['order'] = $this->getOrder($order_id);
@@ -698,7 +698,7 @@ class ControllerSaleTwLive extends Controller {
 		}
 	}
 	
-	protected function getText(){
+	protected function loadText(){
 		$data = array();
 		//Language
 		$data += $this->load->language('sale/order');
