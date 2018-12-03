@@ -259,7 +259,7 @@ var sortOrders = function(key,descending = false){
 		let one = $(itemA.getElement()).data(key);
 		let another = $(itemB.getElement()).data(key);
 		return one - another;
-	  },{descending: sortOrders.descending});
+	  },{descending: descending});
 }
 
 function filterOrders(key){
