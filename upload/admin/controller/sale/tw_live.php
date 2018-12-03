@@ -636,8 +636,8 @@ class ControllerSaleTwLive extends Controller {
 				$order_data['order'] = $this->getOrder($o['order_id']);
 				$json['orders'][] = [
 					'order_id'      => $o['order_id'],
-					'order_data'    => $this->load->view($this->getTemplateName('sale/tw_order_live_info'), $order_data),
-					'order_tab'     => $this->load->view($this->getTemplateName('sale/tw_order_live_tab'), $order_data),
+					'order_data'    => $this->loadTemplate('sale/tw_order_live_info', $order_data),
+					'order_tab'     => $this->loadTemplate('sale/tw_order_live_tab', $order_data),
 					'timestamp' 	=> $order_modified_timestamp
 				];
 			}
