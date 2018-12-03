@@ -42,13 +42,26 @@ class TwLiveSettings extends Object{
 		};
 		this.sound = '';
 
-		this.load().update().synchronizeUI().save();
-
-		this.$el.change(function(e){
-			settings.parseUI().update().save();
-		})
+		this.init();
 	}
 
+	//Add watchers and stuff
+	init(){
+		let self = this;
+		WatchJS.watch(this.options,'sound_file',function(){
+			if(self.sound){
+				self.sound.pause();
+			}
+			self.sound = new Audio(self.sound_dir + self.options.sound_file);
+			self.sound.loop = self.options.continuous_sound;
+		})
+		this.load().synchronizeUI().save();
+
+		this.$el.change(function(e){
+			settings.parseUI().save();
+		})
+		return this;
+	}
 	// Set the options bases on what's selected on the UI
 	parseUI(){
 		for(let option in this.options){
@@ -74,14 +87,14 @@ class TwLiveSettings extends Object{
 		return this;
 	}
 	
-	update(){
-		if(this.sound){
-			this.sound.pause();
-		}
-		this.sound = new Audio(this.sound_dir+this.options.sound_file);
-		this.sound.loop = this.options.continuous_sound;
-		return this;
-	}
+	// update(){
+	// 	if(this.sound){
+	// 		this.sound.pause();
+	// 	}
+	// 	this.sound = new Audio(this.sound_dir+this.options.sound_file);
+	// 	this.sound.loop = this.options.continuous_sound;
+	// 	return this;
+	// }
 
 	playNotification(force){
 		if(!this.options.mute_sound || force === true) this.sound.play();
