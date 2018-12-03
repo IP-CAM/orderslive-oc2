@@ -607,36 +607,7 @@ class ControllerSaleTwLive extends Controller {
 		return $this->loadTemplate('sale/order_history', $data);
 	}
 
-	public function check(){
-		$this->load->model('tw/orderslive');
-		if(isset($this->request->get['last_order_id'])){
-			$order_id = (int)$this->request->get['last_order_id'];
-
-			$orders = $this->model_tw_orderslive->getOrdersAfterOrderId($order_id);
-
-			$json['orders'] = array();
-			$json['order_count'] = 0;
-			$order_data['text'] = $this->loadText();
-			if($order_id > 0){
-				foreach($orders as $o){
-					$order_data['order'] = $this->getOrder($o['order_id']);
-					$json['orders'][] = [
-						'order_id'      => $o['order_id'],
-						'order_data'    => $this->load->view($this->getTemplateName('sale/tw_order_live_info'), $order_data),
-						'order_tab'     => $this->load->view($this->getTemplateName('sale/tw_order_live_tab'), $order_data)
-					];
-				}
-				$json['order_count'] = count($orders);
-			}
-
-			$json['last_order_id'] = (int)(end($orders)['order_id']);
-
-			$this->response->addHeader('Content-Type: application/json');
-			$this->response->setOutput(json_encode($json));
-		}
-	}
-
-	public function checkTimestamp($timestamp = 0){
+	public function check($timestamp = 0){
 		$this->load->model('tw/orderslive');
 		//This is the timestamp of the latest product the cliend browser has
 		//It is 0 when the window/tab opens for the first time
