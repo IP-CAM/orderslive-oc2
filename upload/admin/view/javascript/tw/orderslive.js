@@ -192,8 +192,8 @@ class TwLive {
 	}
 
 	toggleLive(){
-		this.live_is_enabled = !this.live_is_enabled;
-		app.connection_status.setStatus(ServerStatuses.STOPPED);
+		this.settings.live_is_enabled = !this.settings.live_is_enabled;
+		this.connection_status.setStatus(ServerStatuses.STOPPED);
 	}
 
 	sortOrders(key, descending) {
@@ -372,7 +372,7 @@ var addIpToApi = function () {
 		error: function (xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
 		}
-	});
+	})
 }
 
 //Automatic login to API
