@@ -26,7 +26,7 @@ class ModelTwOrderslive extends Model{
 		$query = "SELECT o.order_id, o.date_added, o.date_modified
 			FROM `" . DB_PREFIX . "order` o
 			WHERE o.order_status_id > 0
-			AND `date_modified` > FROM_UNIXTIME($timestamp)";
+			AND o.`date_modified` > '" . date($timestamp) . "'";
 		return $this->db->query($query)->rows;
 	}
 
