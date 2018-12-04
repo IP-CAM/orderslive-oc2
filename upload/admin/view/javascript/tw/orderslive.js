@@ -7,6 +7,9 @@ function flashMessage(message){
 		});
 	},3000)
 }
+
+const _debounce = (a,b=250,c)=>(...d)=>clearTimeout(c,c=setTimeout(a,b,...d))
+
 class TwLiveConnectionStatus extends Object{
 	constructor(selector) {
 		super();
@@ -20,11 +23,9 @@ class TwLiveConnectionStatus extends Object{
 	setStatus(status){
 		this.status_id = status;
 		this.$el.html(ServerStatuses.title[status]);
-		this.$el.attr('class',"label "+ServerStatuses.style[status]);
+		this.$el.attr('class',"label " + ServerStatuses.style[status]);
 	}
 }
-var connection_status = new TwLiveConnectionStatus('#server-status');
-
 class TwLiveSettings extends Object{
 
 	constructor(selector){
@@ -38,37 +39,26 @@ class TwLiveSettings extends Object{
 			mute_sound : false,
 			continuous_sound: false,
 			sort_key : 'order-group',
+			sort_direction : 'ascending',
 			filter_key : '' 
 		};
 		this.sound = '';
 
-		this.init();
-	}
-
-	//Add watchers and stuff
-	init(){
 		let self = this;
-		WatchJS.watch(this.options,'sound_file',function(){
-			if(self.sound){
-				self.sound.pause();
-			}
-			self.sound = new Audio(self.sound_dir + self.options.sound_file);
-			self.sound.loop = self.options.continuous_sound;
-		})
-		this.load().synchronizeUI().save();
 
-		this.$el.change(function(e){
-			settings.parseUI().save();
+		this.$el.change(function(){
+			self.parseUI().save();
 		})
 		return this;
 	}
+
 	// Set the options bases on what's selected on the UI
 	parseUI(){
 		for(let option in this.options){
 			try{
 				this.options[option] = this._getInputValue(option);
 			} catch(error){
-				console.log(error);
+				//console.log(error);
 			}
 		}
 
@@ -85,29 +75,6 @@ class TwLiveSettings extends Object{
 		}
 
 		return this;
-	}
-	
-	// update(){
-	// 	if(this.sound){
-	// 		this.sound.pause();
-	// 	}
-	// 	this.sound = new Audio(this.sound_dir+this.options.sound_file);
-	// 	this.sound.loop = this.options.continuous_sound;
-	// 	return this;
-	// }
-
-	playNotification(force){
-		if(!this.options.mute_sound || force === true) this.sound.play();
-		return this;
-	}
-
-	stopNotification(){
-		if(this.sound) this.sound.pause();
-	}
-
-	toggleLive(){
-		this.live_is_enabled = !this.live_is_enabled;
-		connection_status.setStatus(ServerStatuses.STOPPED);
 	}
  
 	// Save options in cookies
@@ -189,8 +156,96 @@ class TwLiveSettings extends Object{
 	}
 
 }
-var settings = new TwLiveSettings('#tw-settings');
 
+class TwLive {
+	constructor(settings,connection_status) {
+		this.settings = settings;
+		this.connection_status = connection_status;
+		this.orders = order_tabs;
+		let self = this;
+
+		WatchJS.watch(this.settings.options, 'sound_file', function () {
+			let settings = self.settings;
+			if (settings.sound) {
+				settings.sound.pause();
+			}
+			settings.sound = new Audio(settings.sound_dir + settings.options.sound_file);
+			settings.sound.loop = settings.options.continuous_sound;
+		})
+
+		WatchJS.watch(this.settings.options, ['sort_key', 'filter_key', 'sort_direction'], () => {
+			this.filterOrders();
+			this.sortOrders();
+		})
+
+		this.settings.load().synchronizeUI().save();
+	}
+	
+	playNotification(force) {
+		if (!this.settings.options.mute_sound || force === true)
+			this.settings.sound.play();
+	}
+
+	stopNotification(){
+		if (this.settings.sound)
+			this.settings.sound.pause();
+	}
+
+	toggleLive(){
+		this.live_is_enabled = !this.live_is_enabled;
+		app.connection_status.setStatus(ServerStatuses.STOPPED);
+	}
+
+	sortOrders(key, descending) {
+		let settings = this.settings;
+		if (!key)
+			key = settings.options.sort_key;
+		if (descending == null)
+			descending = (settings.options.sort_direction == 'descending');
+		this.orders.sort((itemA, itemB) => {
+			let one = $(itemA.getElement()).data(key);
+			let another = $(itemB.getElement()).data(key);
+			return one - another;
+		}, { descending: descending });
+	}
+
+	filterOrders(key) {
+		if (!key)
+			key = this.settings.options.filter_key;
+		let statuses = {
+			'pending': 1,
+			'complete': 2,
+			'misc': 3
+		};
+		this.orders.filter(function (item) {
+			let $item = $(item.getElement());
+			return !$item.data('removed') && (key ? $item.data('order-group') == statuses[key] : true);
+		});
+	}
+}
+
+var order_tabs = new Muuri('#order-tabs',{
+	items : '.order-tab',
+	itemHiddenClass : 'hidden',
+	sortData: {
+		timestamp: function (item, element) {
+			return $(element).data('timestamp');
+		},
+		order_status_id: function (item, element) {
+			return $(element).data('status-id');
+		},
+		order_group: function (item, element) {
+			return $(element).data('order-group');
+		},
+		order_id: function (item, element) {
+			return $(element).data('order-id');
+		},
+	}
+});
+
+
+
+var app = new TwLive(new TwLiveSettings('#tw-settings'),new TwLiveConnectionStatus('#server-status'));
 var addOrderHistory = function (e) {
 	let btn = this;
 	let order_id = $(this).data('id');
@@ -267,27 +322,7 @@ function updateElapsed() {
 	})
 }
 
-var sortOrders = function(key,descending = false){
-	if(!key) key = settings.options.sort_key;
-	order_tabs.sort( (itemA, itemB) => {
-		let one = $(itemA.getElement()).data(key);
-		let another = $(itemB.getElement()).data(key);
-		return one - another;
-	  },{descending: descending});
-}
 
-function filterOrders(key){
-	if(!key) key = settings.options.filter_key;
-	let statuses = {
-	  'pending' : 1,
-	  'complete': 2,
-	  'misc'    : 3
-	}
-	  order_tabs.filter(function(item){
-	  $item = $(item.getElement());
-		  return !$item.data('removed') && ( key ? $item.data('order-group') == statuses[key] : true );
-	  })
-  }
 
 function undo(e) {
 	let evtobj = window.event? event : e;
@@ -407,19 +442,19 @@ var hideOrder = function(order_id){
 	//Also hide the info
 }
 
-document.addEventListener('tw.order.changed',function(e){
-	sortOrders();
-	filterOrders();
-	order_tabs.refreshSortData();
+document.addEventListener('tw.order.changed',_debounce(() => {
+	app.sortOrders();
+	app.filterOrders();
+	app.order_tabs.refreshSortData();
 	updateElapsed();
-})
+}))
 
-document.addEventListener('tw.order.added',function(e){
-	sortOrders();
-	filterOrders();
-	settings.playNotification();
+document.addEventListener('tw.order.added',_debounce(() => {
+	app.sortOrders();
+	app.filterOrders();
+	app.playNotification();
 	updateElapsed();
-})
+}));
 
 
 function updateOrderList(orders) {
@@ -449,52 +484,44 @@ function checkForNewOrders(){
 		function(r){
 			updateOrderList(r.orders);
 			if(r.new_timestamp > tw_live_timestamp) tw_live_timestamp = r.new_timestamp;
-			if (connection_status != ServerStatuses.OK) {
-				connection_status.setStatus(ServerStatuses.OK);
+			if (app.connection_status != ServerStatuses.OK) {
+				app.connection_status.setStatus(ServerStatuses.OK);
 			} 
 		},
 		function(){					
-			connection_status.setStatus(ServerStatuses.ERROR);
+			app.connection_status.setStatus(ServerStatuses.ERROR);
 		}
 	)
 }
 checkForNewOrders();
-var tw_main_loop = setInterval(function(){ if(settings.live_is_enabled) checkForNewOrders() }, 5000);
+var tw_main_loop = setInterval(function(){ if(app.settings.live_is_enabled) checkForNewOrders() }, 5000);
 
 //Events and function
 
 $('#tw-toggle-live').click(function(){
-	settings.toggleLive();
-	if(settings.live_is_enabled) $(this).removeClass('disabled');
+	app.toggleLive();
+	if(app.settings.live_is_enabled) $(this).removeClass('disabled');
 	else $(this).addClass('disabled');
 })
 
-
 $('#sound-preview').click(function(e){
-	settings.playNotification(true);
+	app.playNotification(true);
 })
 
 $('#sound-stop').click(function(e){
-	settings.stopNotification();
-})
-
-$('[v-model="filter_key"]').change(function(e){
-	filterOrders(e.target.value);
-})
-
-$('[v-model="sort_key"]').on('input change' ,function(e){
-	sortOrders(e.target.value);
+	app.stopNotification();
 })
 
 $(document).on('click', '.new',function(){
 	$(this).removeClass('new');
-	settings.sound.pause();
+	app.stopNotification();
 })
 
 $(document).on('click', '.refresh-order', function (e) {
 	let order_id = $(this).data('order-id');
 	refreshOrder(order_id);
 });
+
 $(document).on('click', 'a[href="#"]', function (e) {
 	e.preventDefault();
 })

@@ -62,7 +62,7 @@
 								</div>
 								<div class="btn-group btn-group-xs" data-toggle="buttons">
 									<label class="btn btn-default">
-										<input type="radio" v-model="sort_key" name="sort_key" value="timestamp" v-model="sort_key" autocomplete="off"><?= $sort_date_modified ?>
+										<input type="radio" v-model="sort_key" name="sort_key" value="timestamp" autocomplete="off"><?= $sort_date_modified ?>
 									</label>
 									<label class="btn btn-default">
 										<input type="radio" v-model="sort_key" name="sort_key" value="status-id" autocomplete="off"><?= $text_status ?>
@@ -72,6 +72,14 @@
 									</label>
 									<label class="btn btn-default">
 										<input type="radio" v-model="sort_key" name="sort_key" value="order-group" autocomplete="off"><?= $sort_status_group ?>
+									</label>
+								</div>
+								<div class="btn-group btn-group-xs" data-toggle="buttons">
+									<label class="btn btn-default">
+										<input type="radio" v-model="sort_direction" name="sort_direction" value="descending" autocomplete="off"><?= $sort_desc ?>
+									</label>
+									<label class="btn btn-default">
+										<input type="radio" v-model="sort_direction" name="sort_direction" value="ascending" autocomplete="off"><?= $sort_asc ?>
 									</label>
 								</div>
 							</div>
@@ -106,28 +114,6 @@
 <link rel="stylesheet" href="view/stylesheet/tw/tw_order_live.css">
 
 <script>
-var order_tabs;
-$(document).ready(function(){
-	order_tabs = new Muuri('#order-tabs',{
-		items : '.order-tab',
-		itemHiddenClass : 'hidden',
-		sortData: {
-			timestamp: function (item, element) {
-				return $(element).data('timestamp');
-			},
-			order_status_id: function (item, element) {
-				return $(element).data('status-id');
-			},
-			order_group: function (item, element) {
-				return $(element).data('order-group');
-			},
-			order_id: function (item, element) {
-				return $(element).data('order-id');
-			},
-		}
-	});
-})
-
 //Server Status
 const ServerStatuses = Object.freeze({
 	UNKNOWN : 0,
