@@ -65,7 +65,7 @@
 										<input type="radio" v-model="sort_key" name="sort_key" value="timestamp" v-model="sort_key" autocomplete="off"><?= $sort_date_modified ?>
 									</label>
 									<label class="btn btn-default">
-										<input type="radio" v-model="sort_key" name="sort_key" value="status-id" autocomplete="off"><?= $text_status ?> <?= $text_order_status ?>
+										<input type="radio" v-model="sort_key" name="sort_key" value="status-id" autocomplete="off"><?= $text_status ?>
 									</label>
 									<label class="btn btn-default">
 										<input type="radio" v-model="sort_key" name="sort_key" value="order-id" autocomplete="off" checked><?= $sort_order_id ?>
