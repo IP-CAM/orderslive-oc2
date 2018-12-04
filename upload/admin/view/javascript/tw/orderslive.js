@@ -268,6 +268,7 @@ function updateElapsed() {
 }
 
 var sortOrders = function(key,descending = false){
+	if(!key) key = settings.options.sort_key;
 	order_tabs.sort( (itemA, itemB) => {
 		let one = $(itemA.getElement()).data(key);
 		let another = $(itemB.getElement()).data(key);
@@ -276,6 +277,7 @@ var sortOrders = function(key,descending = false){
 }
 
 function filterOrders(key){
+	if(!key) key = settings.options.filter_key;
 	let statuses = {
 	  'pending' : 1,
 	  'complete': 2,
