@@ -366,7 +366,7 @@ var addIpToApi = function () {
 			}
 
 			if (json['success']) {
-				flashMessage('<div class="alert alert-success alert-flash"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				window.location.reload();
 			}
 		},
 		error: function (xhr, ajaxOptions, thrownError) {
@@ -392,7 +392,7 @@ $.ajax({
 			}
 
 			if (json['error']['ip']) {
-				addIpToApi().then(window.location.reload());
+				addIpToApi();
 			}
 		}
 
