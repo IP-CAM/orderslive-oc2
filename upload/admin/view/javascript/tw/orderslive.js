@@ -243,9 +243,11 @@ var order_tabs = new Muuri('#order-tabs',{
 	}
 });
 
+var app = new TwLive(
+	new TwLiveSettings('#tw-settings'),
+	new TwLiveConnectionStatus('#server-status')
+);
 
-
-var app = new TwLive(new TwLiveSettings('#tw-settings'),new TwLiveConnectionStatus('#server-status'));
 var addOrderHistory = function (e) {
 	let btn = this;
 	let order_id = $(this).data('id');
@@ -322,8 +324,6 @@ function updateElapsed() {
 	})
 }
 
-
-
 function undo(e) {
 	let evtobj = window.event? event : e;
 	if (evtobj.keyCode == 90 && evtobj.ctrlKey){
@@ -374,6 +374,7 @@ var addIpToApi = function () {
 		}
 	});
 }
+
 //Automatic login to API
 $.ajax({
 	url: catalog + 'index.php?route=api/login',
@@ -456,7 +457,6 @@ document.addEventListener('tw.order.added',_debounce(() => {
 	updateElapsed();
 }));
 
-
 function updateOrderList(orders) {
 	for (let order of orders) {
 		if ($('#order-tab-' + order.order_id).length) {
@@ -526,6 +526,7 @@ $(document).on('click', 'a[href="#"]', function (e) {
 	e.preventDefault();
 })
 $(document).on('click','#button-ip-add',  addIpToApi);
+
 document.onkeydown = undo;
 
 $(document).on('click', '.remove-order', function (e) {
@@ -544,6 +545,9 @@ $('.history').delegate('.pagination a', 'click', function (e) {
 });
 
 $('#content').off('click', '.customer-history-add').on('click', '.customer-history-add', addCustomerHistory);
+
 $('#content').off('click', '.order-history-add').on('click', '.order-history-add', addOrderHistory);
+
 updateElapsed();
+
 setInterval(updateElapsed, 60000);
