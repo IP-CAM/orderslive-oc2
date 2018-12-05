@@ -8,10 +8,10 @@
         $order_group = 1;
     } else if ($order_complete) {
         $label = "label-success";
-        $order_group = 2 ;
+        $order_group = 3 ;
     } else {
         $label = "label-default";
-        $order_group = 3;
+        $order_group = 2;
     }
 ?>
 <li id="order-tab-<?= $order_id ?>"  class="order-tab"
