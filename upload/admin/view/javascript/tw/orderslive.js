@@ -69,6 +69,10 @@ class TwLiveSettings extends Object{
 		for(let option in this.options){
 			try{
 				this._setInputValue(option,this.options[option]);
+				//hack
+				if($(`[value="${this.options[option]}"]`).parent('.btn').length){
+					$(`[value="${this.options[option]}"]`).parent('.btn').addClass('active');
+				}
 			} catch(error){
 				console.log(error);
 			}
