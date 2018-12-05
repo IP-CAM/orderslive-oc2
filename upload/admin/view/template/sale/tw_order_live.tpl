@@ -82,6 +82,19 @@
 										<input type="radio" v-model="sort_direction" name="sort_direction" value="ascending" autocomplete="off"><?= $sort_asc ?>
 									</label>
 								</div>
+								
+								<div class="checkbox">
+									<label  data-toggle="tooltip" title="<?= $help_always_show_new ?>">
+										<input type="checkbox" v-model="always_show_new">
+										<?= $text_always_show_new ?>
+									</label>
+								</div>
+								<div class="checkbox">
+									<label data-toggle="tooltip" title="<?= $help_new_always_on_top ?>">
+										<input type="checkbox" v-model="new_always_on_top">
+										<?= $text_new_always_on_top ?>
+									</label>
+								</div>
 							</div>
 						</div>
 					</div>
