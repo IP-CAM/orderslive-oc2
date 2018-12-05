@@ -244,21 +244,7 @@ class TwLive {
 
 var order_tabs = new Muuri('#order-tabs',{
 	items : '.order-tab',
-	itemHiddenClass : 'hidden',
-	sortData: {
-		timestamp: function (item, element) {
-			return $(element).data('timestamp');
-		},
-		order_status_id: function (item, element) {
-			return $(element).data('status-id');
-		},
-		order_group: function (item, element) {
-			return $(element).data('order-group');
-		},
-		order_id: function (item, element) {
-			return $(element).data('order-id');
-		},
-	}
+	itemHiddenClass : 'hidden'
 });
 
 var app = new TwLive(
