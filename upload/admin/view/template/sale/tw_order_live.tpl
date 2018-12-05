@@ -45,7 +45,7 @@
 							</ul>
 						</div>
 						<div class="row">
-							<div class="col-sm-12">
+							<div class="col-sm-12 navbar-form">
 								<div class="btn-group btn-group-xs" data-toggle="buttons">
 									<label class="btn btn-default">
 										<input type="radio" v-model="filter_key" name="filter_key" value="" autocomplete="off"><?= $text_filter_all ?>
