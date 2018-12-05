@@ -179,11 +179,23 @@ class TwLive {
 			settings.sound.loop = settings.options.continuous_sound;
 		})
 
-		WatchJS.watch(this.settings.options, ['sort_key', 'filter_key', 'sort_direction'], () => {
+		WatchJS.watch(this.settings.options, 
+			['sort_key', 'filter_key', 'sort_direction','always_show_new','new_always_on_top'], 
+		() => {
 			this.filterOrders();
 			this.sortOrders();
 		})
 
+		// If the always_show_new option is true, show all new orders that were filtered
+		this.orders.on('filter',(visible,hidden) => {
+			if(this.settings.options.always_show_new)
+				hidden.forEach((x) => {if($(x.getElement()).hasClass('new')) this.orders.show(x) })
+		})
+		// If new_always_on_top is true, put all new orders on the top of the list
+		this.orders.on('sort',(newOrder,oldOrder) => {
+			if(this.settings.options.new_always_on_top)
+				newOrder.forEach((x) => { if($(x.getElement()).hasClass('new')) this.orders.move(x,0)})
+		})
 		this.settings.load().synchronizeUI().save();
 	}
 	
