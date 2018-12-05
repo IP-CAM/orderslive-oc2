@@ -40,7 +40,9 @@ class TwLiveSettings extends Object{
 			continuous_sound: false,
 			sort_key : 'order-group',
 			sort_direction : 'ascending',
-			filter_key : '' 
+			filter_key : '',
+			always_show_new: true,
+			new_always_on_top: true
 		};
 		this.sound = '';
 
