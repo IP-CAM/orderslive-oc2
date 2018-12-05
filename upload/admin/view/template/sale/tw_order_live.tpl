@@ -61,7 +61,10 @@
 									</label>
 								</div>
 								<div class="btn-group btn-group-xs" data-toggle="buttons">
-									<label class="btn btn-default">
+									<label class="btn btn-default" data-toggle="tooltip" title="<?= $help_date_arrived ?>">
+										<input type="radio" v-model="sort_key" name="sort_key" value="arrived" autocomplete="off"><?= $sort_date_arrived ?>
+									</label>
+									<label class="btn btn-default" data-toggle="tooltip" title="<?= $help_date_modified ?>">
 										<input type="radio" v-model="sort_key" name="sort_key" value="timestamp" autocomplete="off"><?= $sort_date_modified ?>
 									</label>
 									<label class="btn btn-default">
@@ -84,7 +87,7 @@
 								</div>
 								
 								<div class="checkbox">
-									<label  data-toggle="tooltip" title="<?= $help_always_show_new ?>">
+									<label data-toggle="tooltip" title="<?= $help_always_show_new ?>">
 										<input type="checkbox" v-model="always_show_new">
 										<?= $text_always_show_new ?>
 									</label>

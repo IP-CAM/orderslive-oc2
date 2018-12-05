@@ -26,13 +26,16 @@ $_['text_filter_pending']         = "Pending";
 $_['text_filter_complete']        = "Completed";
 $_['text_filter_misc']            = "Misc";
 
-$_['sort_date_modified'] 		  = "Date";
-$_['sort_order_id'] 	 		  = "Order ID";
-$_['sort_status_group']  		  = "Status group";
+$_['sort_date_modified']          = "Date modified";
+$_['sort_date_arrived']           = "Order of arrival";
+$_['sort_order_id']               = "Order ID";
+$_['sort_status_group']           = "Status group";
 $_['sort_asc']                    = "Ascending";
 $_['sort_desc']                   = "Descending";
+$_['help_date_modified']          = "Sort based on the date of latest modification";
+$_['help_date_arrived']           = "Sort based on the order of arrival";
 
-$_['text_new_always_on_top'] 	  = "New on top";
-$_['text_always_show_new']	 	  = "New always visible";
-$_['help_new_always_on_top'] 	  = "If checked, new orders will always appear on top of the list, regardless of selected sort order";
-$_['help_always_show_new']	 	  = "If checked, new orders will always be visible, regardless of selected filters";
+$_['text_new_always_on_top']      = "New on top";
+$_['text_always_show_new']        = "New always visible";
+$_['help_new_always_on_top']      = "If checked, new orders will always appear on top of the list, regardless of selected sort order";
+$_['help_always_show_new']        = "If checked, new orders will always be visible, regardless of selected filters";

@@ -38,8 +38,8 @@ class TwLiveSettings extends Object{
 			sound_file : '',
 			mute_sound : false,
 			continuous_sound: false,
-			sort_key : 'order-group',
-			sort_direction : 'ascending',
+			sort_key : 'arrived',
+			sort_direction : 'descending',
 			filter_key : '',
 			always_show_new: true,
 			new_always_on_top: true
@@ -232,8 +232,8 @@ class TwLive {
 			key = this.settings.options.filter_key;
 		let statuses = {
 			'pending': 1,
-			'complete': 2,
-			'misc': 3
+			'complete': 3,
+			'misc': 2
 		};
 		this.orders.filter(function (item) {
 			let $item = $(item.getElement());
