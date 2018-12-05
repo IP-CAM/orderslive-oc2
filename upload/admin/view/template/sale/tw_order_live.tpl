@@ -116,6 +116,9 @@
 								foreach($order_tabs as $tab) echo $tab;
 							?>
 						</ul>
+						
+						<p class="text-center" ><a href="#" id="tw-load-more"><?= $text_load_more_orders ?></a></p>
+						
 					</div>
 					<div class="col-sm-9 col-md-10">
 						<div id="order-details" class="tab-content">

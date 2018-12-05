@@ -40,3 +40,5 @@ $_['text_new_always_on_top']      = "New on top";
 $_['text_always_show_new']        = "New always visible";
 $_['help_new_always_on_top']      = "If checked, new orders will always appear on top of the list, regardless of selected sort order";
 $_['help_always_show_new']        = "If checked, new orders will always be visible, regardless of selected filters";
+
+$_['text_load_more_orders']       = "Load more orders";
