@@ -21,6 +21,7 @@ $_['text_mute']                   = "Αθόρυβο";
 $_['text_continuous']             = "Συνεχής ήχος";
 $_['text_play_sound']             = "Play";
 
+$_['text_filters']                = "Φίλτρα";
 $_['text_filter_all']             = "Όλες";
 $_['text_filter_pending']         = "Εκκρεμούν";
 $_['text_filter_complete']        = "Ολοκληρωμένες";

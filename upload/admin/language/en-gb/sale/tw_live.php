@@ -21,6 +21,7 @@ $_['text_mute']                   = "Mute";
 $_['text_continuous']             = "Continuous";
 $_['text_play_sound']             = "Play sound preview";
 
+$_['text_filters']                = "Filters";
 $_['text_filter_all']             = "All";
 $_['text_filter_pending']         = "Pending";
 $_['text_filter_complete']        = "Completed";

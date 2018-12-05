@@ -44,7 +44,7 @@
 								</li>
 							</ul>
 						</div>
-						<div class="row">
+						<div class="row collapse" id="order-filters">
 							<div class="col-sm-12 navbar-form">
 								<div class="btn-group btn-group-xs" data-toggle="buttons">
 									<label class="btn btn-default">
@@ -103,6 +103,10 @@
 					</div>
 				</div>
 			</nav>
+			<button class="btn btn-primary button-sm" data-toggle="collapse" data-target="#order-filters" id="filter-toggle">
+				<?= $text_filters ?>
+			</button>
+
 
 			<div class="container-fluid">
 				<div class="row">
