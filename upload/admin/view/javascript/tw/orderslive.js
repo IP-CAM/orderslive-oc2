@@ -102,7 +102,7 @@ class TwLiveSettings extends Object{
 		return this;
 	}
 		
-	//get All inputs assiciated with this model
+	//get All inputs associated with this model
 	_getInputValue(option, default_value = null){
 		let type = this._getOptionType(option);
 		switch(type){
@@ -433,7 +433,7 @@ var addNewOrder = function(order){
 
 // Update an already existing order with the data from the response
 var updateOrder = function(order){
-	//First chack if we actually have the order
+	//First check if we actually have the order
 	//Then update only if the order has changed. We do this to avoid updating an up-to-date order
 	//which solves so many issues with muuri and updating the DOM and other stuff...
 	let $old_tab = $("#order-tab-"+order.order_id);
