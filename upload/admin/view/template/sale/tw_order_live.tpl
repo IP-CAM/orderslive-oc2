@@ -173,5 +173,5 @@ var api_key = '<?= $api_key ?>';
 //Array that hold the ids of the hiden/deleted orders. Used when undoing
 var order_data_undo_array = new Array();
 </script>
-<script src="view/javascript/tw/orderslive.min.js" type="text/javascript"></script>
+<script src="view/javascript/tw/orderslive.js" type="text/javascript"></script>
 <?=  $footer; ?>

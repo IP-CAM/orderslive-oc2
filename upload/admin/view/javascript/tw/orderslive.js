@@ -186,10 +186,10 @@ class TwLive {
 
 		WatchJS.watch(this.settings.options, 
 			['sort_key', 'filter_key', 'sort_direction','always_show_new','new_always_on_top'], 
-		_debounce(() => {
+		() => {
 			this.filterOrders();
 			this.sortOrders();
-		}),25)
+		})
 
 		// If the always_show_new option is true, show all new orders that were filtered
 		this.orders.on('filter',(visible,hidden) => {
