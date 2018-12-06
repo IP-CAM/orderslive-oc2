@@ -414,14 +414,13 @@ $.ajax({
 var addNewOrder = function(order){
 	// If this is actually a new order (based on our timestamp) and we are not just loading more orders
 	if($(order.order_tab).data('timestamp') >= tw_live_timestamp) {
-		order_tabs.add($(order.order_tab).get(0),{index: 0});
-		$(order.order_tab).addClass('new');
-		document.dispatchEvent(new CustomEvent('tw.order.added',{detail: order}));
+		order_tabs.add($(order.order_tab).addClass('new').get(0),{index: 0});
+		document.dispatchEvent(new CustomEvent('tw.orders.new',{detail: order}));
 	} else {
 		order_tabs.add($(order.order_tab).get(0));
-		document.dispatchEvent(new CustomEvent('tw.order.changed',{detail: order}));
 	}
 	$('#order-details').append(order.order_data);
+	document.dispatchEvent(new CustomEvent('tw.orders.modified',{detail: order}));
 }
 
 // Update an already existing order with the data from the response
@@ -443,7 +442,7 @@ var updateOrder = function(order){
 	$old_tab.data('status-id',$new_tab.data('status-id'));
 	
 	$old_tab.html($new_tab.html());
-	document.dispatchEvent(new CustomEvent('tw.order.changed',{detail: order}));
+	document.dispatchEvent(new CustomEvent('tw.orders.modified',{detail: order}));
 }
 
 var hideOrder = function(order_id){
@@ -454,18 +453,15 @@ var hideOrder = function(order_id){
 	//Also hide the info
 }
 
-document.addEventListener('tw.order.changed',_debounce(() => {
+document.addEventListener('tw.orders.modified',_debounce(() => {
 	app.sortOrders();
 	app.filterOrders();
 	//app.orders.refreshSortData();
 	updateElapsed();
 },300))
 
-document.addEventListener('tw.order.added',_debounce(() => {
-	app.sortOrders();
-	app.filterOrders();
+document.addEventListener('tw.orders.new',_debounce(() => {
 	app.playNotification();
-	updateElapsed();
 },300));
 
 function updateOrderList(orders) {
