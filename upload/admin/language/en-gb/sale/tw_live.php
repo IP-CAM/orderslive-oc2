@@ -42,3 +42,4 @@ $_['help_new_always_on_top']      = "If checked, new orders will always appear o
 $_['help_always_show_new']        = "If checked, new orders will always be visible, regardless of selected filters";
 
 $_['text_load_more_orders']       = "Load more orders";
+$_['help_reset_filters']          = "Reseet default filters";

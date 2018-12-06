@@ -79,7 +79,8 @@ class TwLiveSettings extends Object{
 				console.log(error);
 			}
 		}
-
+		//hack
+		this.$el.find('input').not(':checked').parent().removeClass('active')
 		return this;
 	}
  
@@ -170,6 +171,10 @@ class TwLive {
 		this.orders = order_tabs;
 		let self = this;
 
+		WatchJS.watch(this.settings.options,_debounce(() => {
+			self.settings.save().synchronizeUI();
+		}),25)
+
 		WatchJS.watch(this.settings.options, 'sound_file', function () {
 			let settings = self.settings;
 			if (settings.sound) {
@@ -184,7 +189,7 @@ class TwLive {
 		_debounce(() => {
 			this.filterOrders();
 			this.sortOrders();
-		}))
+		}),25)
 
 		// If the always_show_new option is true, show all new orders that were filtered
 		this.orders.on('filter',(visible,hidden) => {
@@ -196,7 +201,7 @@ class TwLive {
 			if(this.settings.options.new_always_on_top)
 				newOrder.forEach((x) => { if($(x.getElement()).hasClass('new')) this.orders.move(x,0)})
 		})
-		this.settings.load().synchronizeUI().save();
+		this.settings.load();
 	}
 	
 	playNotification(force) {
@@ -458,11 +463,11 @@ document.addEventListener('tw.orders.modified',_debounce(() => {
 	app.filterOrders();
 	//app.orders.refreshSortData();
 	updateElapsed();
-},300))
+},100))
 
 document.addEventListener('tw.orders.new',_debounce(() => {
 	app.playNotification();
-},300));
+},100));
 
 function updateOrderList(orders) {
 	for (let order of orders) {
@@ -538,7 +543,7 @@ $(document).on('click', '.new',function(){
 $(document).on('click', '.refresh-order', function (e) {
 	let order_id = $(this).data('order-id');
 	refreshOrder(order_id);
-});
+})
 
 $(document).on('click', 'a[href="#"]', function (e) {
 	e.preventDefault();
@@ -555,12 +560,20 @@ $(document).on('click', '.remove-order', function (e) {
 	if(visible_orders.length) $(visible_orders[0].getElement()).find('a').tab('show');
 	else $('.tab-pane.active').removeClass('active');//Hide the last remaining order
 	order_data_undo_array.push($("#order-tab-"+order_id));
-});
+})
+
+$('#tw-reset-filters').click(() => {
+		app.settings.options.sort_key = 'arrived';
+		app.settings.options.sort_direction = 'descending';
+		app.settings.options.filter_key = '';
+		app.settings.options.always_show_new = true;
+		app.settings.options.new_always_on_top = true;
+})
 
 $('.history').delegate('.pagination a', 'click', function (e) {
 	e.preventDefault();
 	$(this).closest('.history').load(this.href);
-});
+})
 
 $('#tw-load-more').click(function(e){
 	getMoreOrders().success(function(r){

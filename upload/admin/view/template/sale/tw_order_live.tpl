@@ -46,6 +46,7 @@
 						</div>
 						<div class="row collapse" id="order-filters">
 							<div class="col-sm-12 navbar-form">
+								<button id="tw-reset-filters" type="button" class="btn btn-xs" data-toggle="tooltip" title="<?= $help_reset_filters ?>" ><span>&times;</span></button>												
 								<div class="btn-group btn-group-xs" data-toggle="buttons">
 									<label class="btn btn-default">
 										<input type="radio" v-model="filter_key" name="filter_key" value="" autocomplete="off"><?= $text_filter_all ?>
@@ -110,7 +111,7 @@
 
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-3 col-md-2" style="overflow:auto;max-height:70rem;">
+					<div class="col-sm-3 col-md-2" style="overflow:auto;height:70rem;">
 						<ul id="order-tabs" class="nav nav-pills nav-stacked">
 							<?php
 								foreach($order_tabs as $tab) echo $tab;
@@ -172,5 +173,5 @@ var api_key = '<?= $api_key ?>';
 //Array that hold the ids of the hiden/deleted orders. Used when undoing
 var order_data_undo_array = new Array();
 </script>
-<script src="view/javascript/tw/orderslive.js" type="text/javascript"></script>
+<script src="view/javascript/tw/orderslive.min.js" type="text/javascript"></script>
 <?=  $footer; ?>
