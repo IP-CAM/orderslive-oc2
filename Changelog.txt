@@ -5,7 +5,8 @@ v1.1
  - Added the ability to play a sound continuously
  - Changed the way the 'Delete' button works
  - Removed duplicate language folders. May cause issues on OC v2.1. Check F.A.Q. for workarounds.
- - Added the ability to sort and filter Orders
+ - Added the ability to sort and filter orders
+ - Added the ability to load more orders
 
 v1.0.4
  - Fixed some 'rare' bugs
