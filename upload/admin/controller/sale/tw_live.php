@@ -9,6 +9,7 @@ class ControllerSaleTwLive extends Controller {
 		$this->load->model('sale/order');
 		$this->load->model('customer/customer');
 		$this->load->model('localisation/order_status');
+		$this->load->model('tw/orderslive');
 
 		//Language
 		$this->load->language('sale/order');
@@ -50,7 +51,7 @@ class ControllerSaleTwLive extends Controller {
 		}
 
 		//get last ten orders to display
-		$last_ten = $this->model_sale_order->getOrders(['limit' => 10,'start' => 0,'sort'=>'o.order_id','order'=>'DESC']);
+		$last_ten = $this->model_sale_order->getOrders(['limit' => 10,'start' => 0,'sort'=>'o.date_modified','order'=>'DESC']);
 		$order_tabs = [];
 		$order_details = [];
 		$order_data['text'] = $this->loadText();
@@ -608,7 +609,6 @@ class ControllerSaleTwLive extends Controller {
 	}
 
 	public function check($timestamp = 0){
-		$this->load->model('tw/orderslive');
 		//This is the timestamp of the latest product the cliend browser has
 		//It is 0 when the window/tab opens for the first time
 		$timestamp = isset($this->request->get['timestamp']) 
@@ -651,6 +651,33 @@ class ControllerSaleTwLive extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
+	public function more($page = 1){
+		if(!isset($this->request->get['page'])) return; 
+
+		$page = (int)$this->request->get['page'];
+
+		$orders = $this->model_tw_orderslive->getMoreOrders($page);
+		$order_data['text'] = $this->loadText();
+		foreach($orders as $o){
+			//Set new timestamp to date of most recently changed order;
+			$order_modified_timestamp = strtotime($o['date_modified']);
+			$order_data['order'] = $this->getOrder($o['order_id']);
+			$json['orders'][] = [
+				'order_id'      => $o['order_id'],
+				'order_data'    => $this->loadTemplate('sale/tw_order_live_info', $order_data),
+				'order_tab'     => $this->loadTemplate('sale/tw_order_live_tab', $order_data),
+				'timestamp' 	=> $order_modified_timestamp
+			];
+		}
+		$json['page'] = count($orders)  == 10 ? $page + 1 : 0;
+		
+		$json['order_count'] = count($orders);
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
 
 	public function refresh(){
 		if(isset($this->request->get['order_id'])){

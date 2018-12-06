@@ -110,7 +110,7 @@
 
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-sm-3 col-md-2">
+					<div class="col-sm-3 col-md-2" style="overflow:auto;max-height:70rem;">
 						<ul id="order-tabs" class="nav nav-pills nav-stacked">
 							<?php
 								foreach($order_tabs as $tab) echo $tab;
@@ -162,6 +162,7 @@ moment.locale("<?= $locale ?>");
 var token = '<?= $token ?>';
 var last_order_id = window.last_order_id ? window.last_order_id : 0;
 var tw_live_timestamp = window.tw_live_timestamp ? window.tw_live_timestamp : 0;
+var tw_order_page = 1;
 var api_token = '';
 var catalog = '<?= $catalog ?>';
 var api_ip = '<?= $api_ip ?>';
