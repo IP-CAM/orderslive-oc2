@@ -412,9 +412,16 @@ $.ajax({
 // Take a new order object returned from the server and marks it as 'new'
 // adds it to the list and plays notification sound
 var addNewOrder = function(order){
-	order_tabs.add($(order.order_tab).addClass("new").get(0),{index: 0});
+	// If this is actually a new order (based on our timestamp) and we are not just loading more orders
+	if($(order.order_tab).data('timestamp') >= tw_live_timestamp) {
+		order_tabs.add($(order.order_tab).get(0),{index: 0});
+		$(order.order_tab).addClass('new');
+		document.dispatchEvent(new CustomEvent('tw.order.added',{detail: order}));
+	} else {
+		order_tabs.add($(order.order_tab).get(0));
+		document.dispatchEvent(new CustomEvent('tw.order.changed',{detail: order}));
+	}
 	$('#order-details').append(order.order_data);
-	document.dispatchEvent(new CustomEvent('tw.order.added',{detail: order}));
 }
 
 // Update an already existing order with the data from the response
@@ -450,16 +457,16 @@ var hideOrder = function(order_id){
 document.addEventListener('tw.order.changed',_debounce(() => {
 	app.sortOrders();
 	app.filterOrders();
-	app.order_tabs.refreshSortData();
+	//app.orders.refreshSortData();
 	updateElapsed();
-}))
+},300))
 
 document.addEventListener('tw.order.added',_debounce(() => {
 	app.sortOrders();
 	app.filterOrders();
 	app.playNotification();
 	updateElapsed();
-}));
+},300));
 
 function updateOrderList(orders) {
 	for (let order of orders) {
