@@ -471,6 +471,17 @@ function updateOrderList(orders) {
 	}
 }
 
+var getMoreOrders = function(){
+	return $.ajax({
+		url: 'index.php?route=sale/tw_live/more',
+		method: 'GET',
+		data: {
+			'token': token,
+			'page': tw_order_page
+		}
+	})
+}
+
 function getOrdersByTimestamp() {
 	return $.ajax({
 		url: 'index.php?route=sale/tw_live/check',
@@ -547,6 +558,14 @@ $('.history').delegate('.pagination a', 'click', function (e) {
 	e.preventDefault();
 	$(this).closest('.history').load(this.href);
 });
+
+$('#tw-load-more').click(function(e){
+	getMoreOrders().success(function(r){
+		updateOrderList(r.orders);
+		if(r.page == 0) $(e.target).parent().remove();
+		else tw_order_page = r.page;
+	})
+})
 
 $('#content').off('click', '.customer-history-add').on('click', '.customer-history-add', addCustomerHistory);
 

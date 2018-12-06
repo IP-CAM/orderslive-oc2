@@ -659,6 +659,13 @@ class ControllerSaleTwLive extends Controller {
 
 		$orders = $this->model_tw_orderslive->getMoreOrders($page);
 		$order_data['text'] = $this->loadText();
+
+		$json = array(
+			'orders' => array(),
+			'order_count' => 0,
+			'page' => 0
+		);
+
 		foreach($orders as $o){
 			//Set new timestamp to date of most recently changed order;
 			$order_modified_timestamp = strtotime($o['date_modified']);

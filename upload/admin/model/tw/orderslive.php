@@ -18,6 +18,7 @@ class ModelTwOrderslive extends Model{
 		$query = "SELECT o.order_id, o.date_added, o.date_modified
 			FROM `" . DB_PREFIX . "order` o
 			WHERE o.order_status_id > 0
+			ORDER BY o.date_modified DESC
 			LIMIT $start,10";
 		return $this->db->query($query)->rows;
 	}
