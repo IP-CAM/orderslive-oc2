@@ -440,7 +440,7 @@ extract($text);
 				<div class="panel panel-default custommer-history" data-customer="<?= $customer_id ?>">
 					<div class="panel-heading">
 						<h3 class="panel-title"><i class="fa fa-comment-o"></i>
-							<?= "Customer History"; ?>
+							<?= $text_customer_history ?>
 						</h3>
 					</div>
 					<div class="panel-body">
