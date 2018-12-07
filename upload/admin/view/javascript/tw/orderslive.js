@@ -186,18 +186,18 @@ class TwLive {
 
 		WatchJS.watch(this.settings.options, 
 			['sort_key', 'filter_key', 'sort_direction','always_show_new','new_always_on_top'], 
-		() => {
+		_debounce(() => {
 			this.filterOrders();
 			this.sortOrders();
-		})
+		}),50)
 
 		// If the always_show_new option is true, show all new orders that were filtered
-		this.orders.on('filter',(visible,hidden) => {
+		this.orders.on('filter',(unused,hidden) => {
 			if(this.settings.options.always_show_new)
 				hidden.forEach((x) => {if($(x.getElement()).hasClass('new')) this.orders.show(x) })
 		})
 		// If new_always_on_top is true, put all new orders on the top of the list
-		this.orders.on('sort',(newOrder,oldOrder) => {
+		this.orders.on('sort',(newOrder) => {
 			if(this.settings.options.new_always_on_top)
 				newOrder.forEach((x) => { if($(x.getElement()).hasClass('new')) this.orders.move(x,0)})
 		})
@@ -250,12 +250,12 @@ class TwLive {
 var order_tabs = new Muuri('#order-tabs',{
 	items : '.order-tab',
 	itemHiddenClass : 'hidden'
-});
+})
 
 var app = new TwLive(
 	new TwLiveSettings('#tw-settings'),
 	new TwLiveConnectionStatus('#server-status')
-);
+)
 
 var addOrderHistory = function (e) {
 	let btn = this;
@@ -531,9 +531,7 @@ $('#sound-preview').click(function(e){
 	app.playNotification(true);
 })
 
-$('#sound-stop').click(function(e){
-	app.stopNotification();
-})
+$('#sound-stop').click( app.stopNotification())
 
 $(document).on('click', '.new',function(){
 	$(this).removeClass('new');
