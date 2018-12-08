@@ -5,10 +5,10 @@
 
 	if ($order_processing) {
         $label = "label-warning";
-        $order_group = 1;
+        $order_group = 3;
     } else if ($order_complete) {
         $label = "label-success";
-        $order_group = 3 ;
+        $order_group = 1 ;
     } else {
         $label = "label-default";
         $order_group = 2;

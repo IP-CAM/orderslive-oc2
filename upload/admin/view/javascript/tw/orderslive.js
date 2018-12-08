@@ -236,8 +236,8 @@ class TwLive {
 		if (!key)
 			key = this.settings.options.filter_key;
 		let statuses = {
-			'pending': 1,
-			'complete': 3,
+			'pending': 3,
+			'complete': 1,
 			'misc': 2
 		};
 		this.orders.filter(function (item) {
