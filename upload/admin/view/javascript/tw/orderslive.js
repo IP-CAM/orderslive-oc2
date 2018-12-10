@@ -180,6 +180,7 @@ class TwLive {
 
 		WatchJS.watch(this.settings.options,_debounce(() => {
 			self.settings.save().synchronizeUI();
+			this.countOrders();
 		}),25)
 
 		WatchJS.watch(this.settings.options, 'sound_file', function () {
@@ -364,6 +365,7 @@ function undo(e) {
 			let $order_tab = order_data_undo_array.pop();
 			$order_tab.data('removed',false);
 			order_tabs.show($order_tab[0]);
+			document.dispatchEvent(new Event('tw.orders.shown'));
 		}
 	}
 }
@@ -482,15 +484,25 @@ var hideOrder = function(order_id){
 	//Also hide the info
 }
 
+document.addEventListener('tw.orders.shown',_debounce(() => {
+	app.countOrders();
+},50))
+
+document.addEventListener('tw.orders.hidden',_debounce(() => {
+	app.countOrders();
+},50))
+
 document.addEventListener('tw.orders.modified',_debounce(() => {
 	app.sortOrders();
 	app.filterOrders();
+	app.countOrders();
 	//app.orders.refreshSortData();
 	updateElapsed();
 },100))
 
 document.addEventListener('tw.orders.new',_debounce(() => {
 	app.playNotification();
+	app.countOrders();
 },100));
 
 function updateOrderList(orders) {
@@ -582,6 +594,7 @@ $(document).on('click', '.remove-order', function (e) {
 	if(visible_orders.length) $(visible_orders[0].getElement()).find('a').tab('show');
 	else $('.tab-pane.active').removeClass('active');//Hide the last remaining order
 	order_data_undo_array.push($("#order-tab-"+order_id));
+	document.dispatchEvent(new Event('tw.orders.hidden'));
 })
 
 $('#tw-reset-filters').click(() => {
