@@ -10,3 +10,4 @@ More information along with downloads can be found in the [marketplace page](htt
 * js-cookie ([github](https://github.com/js-cookie/js-cookie))
 * Muuri ([github](https://github.com/haltu/muuri))
 * Watch.js ([github](https://github.com/melanke/Watch.JS))
+* Web Animations ([github](https://github.com/web-animations/web-animations-js))

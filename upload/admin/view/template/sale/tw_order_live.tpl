@@ -148,6 +148,7 @@
 		</div>
 <script src="view/javascript/tw/moment-with-locales.min.js" type="text/javascript"></script>
 <script src="view/javascript/tw/js.cookie.min.js" type="text/javascript"></script>
+<script src="view/javascript/tw/web-animations.min.js" type="text/javascript"></script>
 <script src="view/javascript/tw/muuri.min.js" type="text/javascript"></script>
 <script src="view/javascript/tw/watch.min.js" type="text/javascript"></script>
 <link rel="stylesheet" href="view/stylesheet/tw/tw_order_live.css">
