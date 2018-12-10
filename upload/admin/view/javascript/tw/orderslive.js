@@ -169,6 +169,13 @@ class TwLive {
 		this.settings = settings;
 		this.connection_status = connection_status;
 		this.orders = order_tabs;
+		this.order_count = {
+			new: 0,
+			pending: 0,
+			complete: 0,
+			misc: 0
+		};
+
 		let self = this;
 
 		WatchJS.watch(this.settings.options,_debounce(() => {
@@ -182,6 +189,13 @@ class TwLive {
 			}
 			settings.sound = new Audio(settings.sound_dir + settings.options.sound_file);
 			settings.sound.loop = settings.options.continuous_sound;
+		})
+
+		WatchJS.watch(this, 'order_count',() =>{
+			$('#count-new').html(this.order_count.new);
+			$('#count-pending').html(this.order_count.pending);
+			$('#count-complete').html(this.order_count.complete);
+			$('#count-misc').html(this.order_count.misc);
 		})
 
 		WatchJS.watch(this.settings.options, 
@@ -245,6 +259,15 @@ class TwLive {
 			return !$item.data('removed') && (key ? $item.data('order-group') == statuses[key] : true);
 		});
 	}
+
+	countOrders(){
+		let $orders = $(this.orders.getElement()).find('.tw-visible'); //only count visible orders for now
+		this.order_count.new = $orders.filter('.new').length;	
+		this.order_count.complete = $orders.filter('[data-order-group="1"]').length;	
+		this.order_count.misc = $orders.filter('[data-order-group="2"]').length;	
+		this.order_count.pending = $orders.filter('[data-order-group="3"]').length;	
+	}
+
 }
 
 var order_tabs = new Muuri('#order-tabs',{
