@@ -249,7 +249,8 @@ class TwLive {
 
 var order_tabs = new Muuri('#order-tabs',{
 	items : '.order-tab',
-	itemHiddenClass : 'hidden'
+	itemHiddenClass : 'tw-hidden',
+	itemVisibleClass: 'tw-visible'
 })
 
 var app = new TwLive(
