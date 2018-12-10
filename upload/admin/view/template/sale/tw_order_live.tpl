@@ -18,6 +18,21 @@
 					</div>
 					<div class="collapse navbar-collapse" id="tw-settings">
 						<div class="row">
+							<ul class="nav navbar-nav" id="order-count">
+								<li><?= $text_orders ?></li>
+								<li>
+									<span id="count-new" data-toggle="tooltip" title="<?= $filter_new ?>" class="label label-primary">0 </span>
+								</li>
+								<li>
+									<span id="count-complete" data-toggle="tooltip" title="<?= $filter_complete ?>" class="label label-success">0 </span>
+								</li>
+								<li>
+									<span id="count-pending" data-toggle="tooltip" title="<?= $filter_pending ?>" class="label label-warning">0</span>
+								</li>
+								<li>
+									<span id="count-misc" data-toggle="tooltip" title="<?= $filter_misc ?>" class="label label-default">0</span>
+								</li>
+							</ul>
 							<ul class="nav navbar-nav navbar-right">
 								<li>
 									<form class="form-inline">
@@ -49,16 +64,16 @@
 								<button id="tw-reset-filters" type="button" class="btn btn-xs" data-toggle="tooltip" title="<?= $help_reset_filters ?>" ><span>&times;</span></button>												
 								<div class="btn-group btn-group-xs" data-toggle="buttons">
 									<label class="btn btn-default">
-										<input type="radio" v-model="filter_key" name="filter_key" value="" autocomplete="off"><?= $text_filter_all ?>
+										<input type="radio" v-model="filter_key" name="filter_key" value="" autocomplete="off"><?= $filter_all ?>
 									</label>
 									<label class="btn btn-success">
-										<input type="radio" v-model="filter_key" name="filter_key" value="complete" autocomplete="off"><?= $text_filter_complete ?>
+										<input type="radio" v-model="filter_key" name="filter_key" value="complete" autocomplete="off"><?= $filter_complete ?>
 									</label>
 									<label class="btn btn-warning">
-										<input type="radio" v-model="filter_key" name="filter_key" value="pending" autocomplete="off"><?= $text_filter_pending ?>
+										<input type="radio" v-model="filter_key" name="filter_key" value="pending" autocomplete="off"><?= $filter_pending ?>
 									</label>
 									<label class="btn btn-misc">
-										<input type="radio" v-model="filter_key" name="filter_key" value="misc" autocomplete="off"><?= $text_filter_misc ?>
+										<input type="radio" v-model="filter_key" name="filter_key" value="misc" autocomplete="off"><?= $filter_misc ?>
 									</label>
 								</div>
 								<div class="btn-group btn-group-xs" data-toggle="buttons">

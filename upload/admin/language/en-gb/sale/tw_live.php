@@ -22,10 +22,11 @@ $_['text_continuous']             = "Continuous";
 $_['text_play_sound']             = "Play sound preview";
 
 $_['text_filters']                = "Filters";
-$_['text_filter_all']             = "All";
-$_['text_filter_pending']         = "Pending";
-$_['text_filter_complete']        = "Completed";
-$_['text_filter_misc']            = "Misc";
+$_['filter_all']                  = "All";
+$_['filter_pending']              = "Pending";
+$_['filter_complete']             = "Completed";
+$_['filter_misc']                 = "Misc";
+$_['filter_new']                  = "New";
 
 $_['sort_date_modified']          = "Date modified";
 $_['sort_date_arrived']           = "Order of arrival";
@@ -42,4 +43,6 @@ $_['help_new_always_on_top']      = "If checked, new orders will always appear o
 $_['help_always_show_new']        = "If checked, new orders will always be visible, regardless of selected filters";
 
 $_['text_load_more_orders']       = "Load more orders";
-$_['help_reset_filters']          = "Reseet default filters";
+$_['help_reset_filters']          = "Reset default filters";
+
+$_['text_orders']                 = "Παραγγελίες";
