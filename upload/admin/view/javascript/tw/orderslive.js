@@ -227,11 +227,13 @@ class TwLive {
 	stopNotification(){
 		if (this.settings.sound)
 			this.settings.sound.pause();
+		return this;
 	}
 
 	toggleLive(){
 		this.settings.live_is_enabled = !this.settings.live_is_enabled;
 		this.connection_status.setStatus(ServerStatuses.STOPPED);
+		return this;
 	}
 
 	sortOrders(key, descending) {
@@ -245,6 +247,8 @@ class TwLive {
 			let another = $(itemB.getElement()).data(key);
 			return one - another;
 		}, { descending: descending });
+
+		return this;
 	}
 
 	filterOrders(key) {
@@ -254,11 +258,12 @@ class TwLive {
 			'pending': 3,
 			'complete': 1,
 			'misc': 2
-		};
+		}
 		this.orders.filter(function (item) {
 			let $item = $(item.getElement());
 			return !$item.data('removed') && (key ? $item.data('order-group') == statuses[key] : true);
-		});
+		})
+		return this;
 	}
 
 	countOrders(){
@@ -267,6 +272,7 @@ class TwLive {
 		this.order_count.complete = $orders.filter('[data-order-group="1"]').length;	
 		this.order_count.misc = $orders.filter('[data-order-group="2"]').length;	
 		this.order_count.pending = $orders.filter('[data-order-group="3"]').length;	
+		return this;
 	}
 
 }
@@ -571,7 +577,7 @@ $('#sound-stop').click( app.stopNotification())
 
 $(document).on('click', '.new',function(){
 	$(this).removeClass('new');
-	app.stopNotification();
+	app.stopNotification().countOrders();
 })
 
 $(document).on('click', '.refresh-order', function (e) {
